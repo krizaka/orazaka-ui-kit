@@ -1,0 +1,53 @@
+{
+  "name": "@krizaka/orazaka-design-system",
+  "version": "1.0.0",
+  "description": "Orazaka design system: React components, Tailwind theme and icon registry for Next.js apps.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krizaka/orazaka-ui-kit.git",
+    "directory": "orazaka-design-system"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "files": [
+    "src"
+  ],
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./theme.css": "./src/theme.css"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "validate": "eslint src && tsc --noEmit && jest"
+  },
+  "dependencies": {
+    "@krizaka/orazaka-shared": "*"
+  },
+  "peerDependencies": {
+    "next": ">=15",
+    "react": ">=19",
+    "react-dom": ">=19"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.7.0",
+    "@swc/jest": "^0.2.37",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/jest": "^30.0.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
+    "next": "^16.3.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "typescript": "^5"
+  }
+}

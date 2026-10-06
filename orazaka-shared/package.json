@@ -1,0 +1,31 @@
+{
+  "name": "@krizaka/orazaka-shared",
+  "version": "1.0.0",
+  "description": "Orazaka shared contracts: TypeScript types, Zod schemas and design tokens (framework-agnostic).",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krizaka/orazaka-ui-kit.git",
+    "directory": "orazaka-shared"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "clean": "rm -rf dist",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}
