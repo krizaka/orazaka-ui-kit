@@ -32,7 +32,6 @@ part of the [Orazaka platform](https://github.com/krizaka/orazaka) by [Krizaka](
 ## Use it
 
 ```bash
-echo "@krizaka:registry=https://npm.pkg.github.com" >> .npmrc
 npm install @krizaka/orazaka-shared @krizaka/orazaka-design-system
 ```
 
@@ -62,7 +61,7 @@ node scripts/workspace.mjs clone
 cd orazaka-apps/ui && npm install
 ```
 
-**Standalone**: add `@krizaka:registry=https://npm.pkg.github.com` to `.npmrc`, then `npm install`.
+**Standalone**: `npm install` — both packages are on the public npm registry, no token needed.
 
 Requirements: Node.js 22+.
 

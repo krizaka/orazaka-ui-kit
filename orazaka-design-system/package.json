@@ -5,11 +5,11 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/krizaka/orazaka-ui-kit.git",
+    "url": "git+https://github.com/krizaka/orazaka-ui-kit.git",
     "directory": "orazaka-design-system"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "files": [
     "src"
@@ -28,7 +28,7 @@
     "validate": "eslint src && tsc --noEmit && jest"
   },
   "dependencies": {
-    "@krizaka/orazaka-shared": "*"
+    "@krizaka/orazaka-shared": "^1.0.0"
   },
   "peerDependencies": {
     "next": ">=15",
@@ -49,5 +49,16 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "typescript": "^5"
-  }
+  },
+  "keywords": [
+    "orazaka",
+    "krizaka",
+    "design-system",
+    "react",
+    "nextjs",
+    "tailwindcss"
+  ],
+  "homepage": "https://github.com/krizaka/orazaka-ui-kit/tree/main/orazaka-design-system#readme",
+  "bugs": "https://github.com/krizaka/orazaka-ui-kit/issues",
+  "author": "Krizaka (https://www.krizaka.com)"
 }
