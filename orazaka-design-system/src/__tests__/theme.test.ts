@@ -38,7 +38,7 @@ function pick(map: Map<string, Declarations>, selector: string): Declarations {
 }
 
 const NAMED = ["custom", "cyberpunk", "solarized", "krizaka"] as const;
-const named = (name: string) => pick(own, `html.theme-${name}, html.${name}`);
+const named = (name: string) => pick(own, `html.theme-${name}, .theme-${name}, html.${name}`);
 
 const dark: Declarations = {
   ...pick(kz, ":root, .theme-dark"),
@@ -124,6 +124,12 @@ describe("theme.css — mechanism", () => {
     expect(theme).not.toMatch(/@custom-variant/);
     expect([...own.keys()].some((selector) => /(^|[\s,])\.dark\b/.test(selector))).toBe(false);
     for (const name of NAMED) expect(named(name)["--kz-accent"]).toBeDefined();
+  });
+
+  it("applies each named theme as an island too (`.theme-<name>` on any element), the html selector first", () => {
+    for (const name of NAMED) {
+      expect(own.has(`html.theme-${name}, .theme-${name}, html.${name}`)).toBe(true);
+    }
   });
 
   it("writes roles only outside the compatibility block", () => {

@@ -54,12 +54,15 @@ html.light {
 
 /* ═══════════════════════════════════════════════════
    NAMED THEMES — html.theme-<name>
-   A named theme sets every colour role, so it reads the same in either mode.
+   A named theme sets every colour role, so it reads the same in either mode. The class also works as an island:
+   an element carrying `.theme-<name>` takes that theme inside any page (a theme picker's previews), as
+   `.theme-dark` does for dark. `html.theme-<name>` stays first: it must outweigh `html.light` on the root.
    The second selector of each block (html.<name>) is part of the 2.x compatibility, removed in 3.0.
    ═══════════════════════════════════════════════════ */
 
 /* Deep Violet. */
 html.theme-custom,
+.theme-custom,
 html.custom {
   color-scheme: dark;
   --kz-surface-0: hsl(270 100% 2%);
@@ -81,6 +84,7 @@ html.custom {
 
 /* Neon Matrix. */
 html.theme-cyberpunk,
+.theme-cyberpunk,
 html.cyberpunk {
   color-scheme: dark;
   --kz-surface-0: hsl(272 100% 2%);
@@ -102,6 +106,7 @@ html.cyberpunk {
 
 /* Warm Parchment — a light theme. The text is darker than the 1.x values (3.7:1 → 6.8:1) to read at AA. */
 html.theme-solarized,
+.theme-solarized,
 html.solarized {
   color-scheme: light;
   --kz-surface-0: hsl(44 87% 94%);
@@ -123,6 +128,7 @@ html.solarized {
 
 /* Deep Obsidian Razor: pitch-black surfaces, zero-radius edges, frosted ice-blue outlines, cold-steel accent. */
 html.theme-krizaka,
+.theme-krizaka,
 html.krizaka {
   color-scheme: dark;
   --kz-surface-0: hsl(240 18% 4%);

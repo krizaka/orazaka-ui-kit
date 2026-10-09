@@ -29,7 +29,9 @@ itself:
 
 One mechanism, the organisation's: **dark** is the default (`:root`), **light** is `html.light`, a **named theme** is
 `html.theme-<name>` — `custom` (Deep Violet), `cyberpunk` (Neon Matrix), `solarized` (Warm Parchment, light),
-`krizaka` (Obsidian Razor, zero radius). A theme is a set of token values, never a set of classes: components write
+`krizaka` (Obsidian Razor, zero radius). A named theme also works as an island: `.theme-<name>` on
+any element gives it that theme inside any page (as `.theme-dark` does for dark) — a theme picker draws real previews.
+A theme is a set of token values, never a set of classes: components write
 roles (`bg-surface-1`, `text-fg-secondary`, `border-border-subtle`, `bg-accent text-on-accent`, `text-danger`) and
 read right in every theme.
 

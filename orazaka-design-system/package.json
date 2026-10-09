@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/orazaka-design-system",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "The Orazaka identity on the Krizaka platform: the Electric Blue theme and its named themes as --kz-* token overrides, the product composites (ChatShowcase, SentinelMini, icon registry) and the @krizaka/ui primitives re-exported.",
   "license": "Apache-2.0",
   "repository": {
@@ -49,6 +49,7 @@
     "tailwindcss": "^4.1"
   },
   "devDependencies": {
+    "@krizaka/config": "^0.1.0",
     "@swc/core": "^1.7.0",
     "@swc/jest": "^0.2.37",
     "@testing-library/jest-dom": "^6.9.1",
@@ -56,16 +57,15 @@
     "@types/jest": "^30.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^9.39.0",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "next": "^16.3.0",
+    "publint": "^0.3.25",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "typescript": "^5",
-    "@krizaka/config": "^0.1.0",
-    "eslint": "^9.39.0",
-    "publint": "^0.3.25",
-    "tailwindcss": "^4.1.0"
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5"
   },
   "keywords": [
     "orazaka",
