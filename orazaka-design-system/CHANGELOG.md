@@ -3,6 +3,15 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [2.1.0] — 2026-10-09
+
+### Added
+
+- A named theme also works as an **island**: `.theme-custom`, `.theme-cyberpunk`, `.theme-solarized`, `.theme-krizaka` on
+  any element give it that theme inside any page — as `.theme-dark` does for dark. A theme picker draws its previews
+  with the roles (`bg-surface-1`, `bg-accent`…) inside the island and shows the real tokens. `html.theme-<name>` stays
+  the first selector, so it still outweighs `html.light` on the root.
+
 ## [2.0.0] — 2026-10-09
 
 The kit becomes a theme and a set of composites on the Krizaka platform (`@krizaka/tokens`, `@krizaka/tailwind`,
