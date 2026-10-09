@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { createPortal } from "react-dom";
+
 import { Icon } from "../icon";
 
 /**
@@ -23,11 +24,11 @@ export interface DialogProps {
 }
 
 /**
- * Accessible modal dialog — Calm Obsidian 2026 design.
+ * Accessible modal dialog — kept here, tokenized, until `@krizaka/ui/dialog` ships (then re-exported from it).
  *
  * <p>Renders through a portal into <body>, traps Escape/backdrop interactions,
- * locks body scroll while open, and references only theme CSS variables so it
- * reads correctly across every theme (dark, light, custom, cyberpunk, …).
+ * locks body scroll while open, and uses roles only, so it reads correctly in every
+ * theme (dark, light, the named themes).
  *
  * @param props - {@link DialogProps}
  * @returns A portalled dialog element, or null when closed.
@@ -71,7 +72,7 @@ export function Dialog({
     >
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[hsla(0,0%,0%,0.55)] backdrop-blur-sm animate-in fade-in duration-200"
+        className="absolute inset-0 bg-overlay backdrop-blur-sm animate-in fade-in duration-200"
       />
       <div
         ref={panelRef}
@@ -81,15 +82,15 @@ export function Dialog({
         aria-describedby={description ? descId : undefined}
         tabIndex={-1}
         onMouseDown={(event) => event.stopPropagation()}
-        className="relative w-full max-w-md overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border-default)] bg-[var(--surface-1)] shadow-[var(--shadow-lg)] outline-none animate-in fade-in zoom-in-95 duration-200"
+        className="relative w-full max-w-md overflow-hidden rounded-lg border border-border-default bg-surface-1 shadow-lg outline-none animate-in fade-in zoom-in-95 duration-200"
       >
         {(title || description) && (
-          <header className="flex items-start justify-between gap-3 border-b border-[var(--border-subtle)] px-5 py-4">
+          <header className="flex items-start justify-between gap-3 border-b border-border-subtle px-5 py-4">
             <div className="space-y-1">
               {title && (
                 <h2
                   id={titleId}
-                  className="text-base font-semibold text-[var(--text-primary)]"
+                  className="text-base font-semibold text-fg"
                 >
                   {title}
                 </h2>
@@ -97,7 +98,7 @@ export function Dialog({
               {description && (
                 <p
                   id={descId}
-                  className="text-xs text-[var(--text-secondary)]"
+                  className="text-xs text-fg-secondary"
                 >
                   {description}
                 </p>
@@ -107,7 +108,7 @@ export function Dialog({
               type="button"
               onClick={onClose}
               aria-label={closeLabel}
-              className="-mr-1 -mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-2)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+              className="-mr-1 -mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-fg-muted transition-colors hover:bg-surface-2 hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <Icon name="close" size={18} />
             </button>

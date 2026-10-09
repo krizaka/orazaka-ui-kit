@@ -1,7 +1,7 @@
 {
   "name": "@krizaka/orazaka-design-system",
-  "version": "1.0.0",
-  "description": "Orazaka design system: React components, Tailwind theme and icon registry for Next.js apps.",
+  "version": "2.0.0",
+  "description": "The Orazaka identity on the Krizaka platform: the Electric Blue theme and its named themes as --kz-* token overrides, the product composites (ChatShowcase, SentinelMini, icon registry) and the @krizaka/ui primitives re-exported.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -12,28 +12,41 @@
     "access": "public"
   },
   "files": [
-    "src"
+    "src",
+    "!src/**/__tests__",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
   ],
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./theme.css": "./src/theme.css"
+    "./theme.css": "./src/theme.css",
+    "./package.json": "./package.json"
   },
   "scripts": {
-    "lint": "eslint src",
+    "lint": "eslint src --max-warnings 0 && krizaka-ratchet",
+    "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "validate": "eslint src && tsc --noEmit && jest"
+    "publint": "publint",
+    "check": "npm run lint && npm run typecheck && npm test && npm run publint",
+    "validate": "npm run check"
   },
   "dependencies": {
-    "@krizaka/orazaka-shared": "^1.0.0"
+    "@krizaka/orazaka-shared": "^1.0.0",
+    "@krizaka/tailwind": "^2.0.0-beta.0",
+    "@krizaka/tokens": "^2.0.0-beta.0",
+    "@krizaka/ui": "^2.0.0-beta.0",
+    "tailwind-variants": "^3.3.1"
   },
   "peerDependencies": {
     "next": ">=15",
     "react": ">=19",
-    "react-dom": ">=19"
+    "react-dom": ">=19",
+    "tailwindcss": "^4.1"
   },
   "devDependencies": {
     "@swc/core": "^1.7.0",
@@ -48,17 +61,30 @@
     "next": "^16.3.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@krizaka/config": "^0.1.0",
+    "eslint": "^9.39.0",
+    "publint": "^0.3.25",
+    "tailwindcss": "^4.1.0"
   },
   "keywords": [
     "orazaka",
     "krizaka",
     "design-system",
+    "theme",
+    "design-tokens",
     "react",
     "nextjs",
-    "tailwindcss"
+    "tailwindcss",
+    "tailwind-v4"
   ],
   "homepage": "https://github.com/krizaka/orazaka-ui-kit/tree/main/orazaka-design-system#readme",
   "bugs": "https://github.com/krizaka/orazaka-ui-kit/issues",
-  "author": "Krizaka (https://www.krizaka.com)"
+  "author": "Krizaka (https://www.krizaka.com)",
+  "sideEffects": [
+    "*.css"
+  ],
+  "engines": {
+    "node": ">=20"
+  }
 }

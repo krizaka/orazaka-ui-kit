@@ -34,7 +34,7 @@ export function SentinelMini({ size = 24, className = "" }: Readonly<SentinelMin
         cx="12"
         cy="12"
         r="10"
-        stroke="var(--accent)"
+        stroke="var(--kz-accent)"
         strokeWidth="0.5"
         strokeDasharray="3 5 2 4"
         opacity="0.4"
@@ -42,7 +42,7 @@ export function SentinelMini({ size = 24, className = "" }: Readonly<SentinelMin
       {/* Hexagonal frame */}
       <polygon
         points="12,4 18.9,8 18.9,16 12,20 5.1,16 5.1,8"
-        stroke="var(--accent)"
+        stroke="var(--kz-accent)"
         strokeWidth="0.6"
         opacity="0.25"
         fill="none"
@@ -52,7 +52,7 @@ export function SentinelMini({ size = 24, className = "" }: Readonly<SentinelMin
         cx="12"
         cy="12"
         r="4"
-        stroke="var(--accent)"
+        stroke="var(--kz-accent)"
         strokeWidth="1"
         opacity="0.6"
         fill="none"
@@ -62,14 +62,14 @@ export function SentinelMini({ size = 24, className = "" }: Readonly<SentinelMin
         cx="12"
         cy="12"
         r="2"
-        fill="var(--accent)"
+        fill="var(--kz-accent)"
         opacity="0.8"
       />
       {/* Core highlight */}
       <circle cx="12" cy="11" r="0.8" fill="white" opacity="0.3" />
       {/* Energy nodes */}
-      <circle cx="22" cy="12" r="0.8" fill="var(--accent)" opacity="0.5" />
-      <circle cx="12" cy="2" r="0.8" fill="var(--accent)" opacity="0.5" />
+      <circle cx="22" cy="12" r="0.8" fill="var(--kz-accent)" opacity="0.5" />
+      <circle cx="12" cy="2" r="0.8" fill="var(--kz-accent)" opacity="0.5" />
     </svg>
   );
 }

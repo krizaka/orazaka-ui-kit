@@ -1,6 +1,7 @@
 "use client";
 
-import * as React from "react";
+import { cn } from "@krizaka/ui/cn";
+
 import { Icon, type IconName } from "../icon";
 
 /**
@@ -25,18 +26,19 @@ const ICONS: Record<ToastVariant, IconName> = {
   info: "info",
 };
 
+/** The status colour of the icon — a role, the same in both modes. */
 const ICON_COLORS: Record<ToastVariant, string> = {
-  success: "text-emerald-500 dark:text-emerald-400",
-  error: "text-rose-500 dark:text-rose-400",
-  warning: "text-amber-500 dark:text-amber-400",
-  info: "text-[var(--accent)]",
+  success: "text-success",
+  error: "text-danger",
+  warning: "text-warning",
+  info: "text-accent",
 };
 
 const BORDER_COLORS: Record<ToastVariant, string> = {
-  success: "border-emerald-500/20 dark:border-emerald-500/15 shadow-emerald-950/[0.05]",
-  error: "border-red-500/20 dark:border-red-500/15 shadow-red-950/[0.05]",
-  warning: "border-amber-500/20 dark:border-amber-500/15 shadow-amber-950/[0.05]",
-  info: "border-[var(--accent)]/20 shadow-[var(--accent)]/[0.05]",
+  success: "border-success/20",
+  error: "border-danger/20",
+  warning: "border-warning/20",
+  info: "border-accent/20",
 };
 
 /**
@@ -59,19 +61,19 @@ function ToastEntry({
   return (
     <div
       role="alert"
-      className={`flex items-start gap-3.5 rounded-xl border px-4 py-3 shadow-[0_8px_30px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 pointer-events-auto bg-[color-mix(in_srgb,var(--surface-1)_92%,transparent)] dark:bg-[color-mix(in_srgb,var(--surface-1)_88%,transparent)] text-[var(--text-primary)] ${
-        toast.exiting ? "toast-exit" : "toast-enter"
-      } ${BORDER_COLORS[toast.variant]}`}
+      className={cn(
+        "pointer-events-auto flex items-start gap-3.5 rounded-xl border bg-surface-1/90 px-4 py-3 text-fg shadow-lg backdrop-blur-md transition-all duration-300",
+        toast.exiting ? "toast-exit" : "toast-enter",
+        BORDER_COLORS[toast.variant],
+      )}
     >
-      <div className={`p-1 rounded-lg bg-black/5 dark:bg-white/5 flex-shrink-0 mt-0.5 ${ICON_COLORS[toast.variant]}`}>
+      <div className={cn("mt-0.5 shrink-0 rounded-lg bg-fg/5 p-1", ICON_COLORS[toast.variant])}>
         <Icon name={iconName} size={15} />
       </div>
-      <p className="flex-1 text-[var(--text-sm)] font-medium leading-relaxed pr-1 mt-0.5">
-        {toast.message}
-      </p>
+      <p className="mt-0.5 flex-1 pr-1 text-sm leading-relaxed font-medium">{toast.message}</p>
       <button
         onClick={() => onDismiss(toast.id)}
-        className="p-1 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-150 flex-shrink-0 mt-0.5"
+        className="mt-0.5 shrink-0 rounded-lg p-1 text-fg-muted transition-all duration-150 hover:bg-fg/5 hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         aria-label="Dismiss notification"
       >
         <Icon name="close" size={14} />

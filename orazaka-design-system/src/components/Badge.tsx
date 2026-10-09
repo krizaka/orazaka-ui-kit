@@ -1,40 +1,31 @@
-import * as React from "react";
+import { Badge as KzBadge, type BadgeProps as KzBadgeProps, badgeVariants, type BadgeVariants } from "@krizaka/ui/badge";
 
-/**
- * Props for the Badge component.
- */
-export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  /** The color variant of the badge. */
-  variant?: "default" | "success" | "warning" | "danger" | "accent";
-}
+export { badgeVariants, type BadgeVariants };
 
-const variantStyles: Record<NonNullable<BadgeProps["variant"]>, string> = {
-  default: "bg-[var(--surface-3)] text-[var(--text-secondary)]",
-  success: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  warning: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-  danger: "bg-red-500/10 text-red-600 dark:text-red-400",
-  accent: "bg-[var(--accent-soft)] text-[var(--accent)]",
+/** The 1.x badge variants. @deprecated Since 2.0 — use `tone`. */
+export type BadgeVariant = "default" | "success" | "warning" | "danger" | "accent";
+
+/** Props of {@link Badge}: the @krizaka/ui badge, plus the 1.x `variant`. */
+export type BadgeProps = KzBadgeProps & {
+  /** @deprecated Since 2.0 — use `tone` (`default` → `neutral`, the other names are the same). */
+  variant?: BadgeVariant;
 };
 
+const TONE_OF_VARIANT = {
+  default: "neutral",
+  success: "success",
+  warning: "warning",
+  danger: "danger",
+  accent: "accent",
+} as const satisfies Record<BadgeVariant, NonNullable<KzBadgeProps["tone"]>>;
+
 /**
- * A small status indicator badge — Calm Obsidian 2026 design.
+ * The @krizaka/ui badge (`tone` neutral · accent · success · warning · danger · scrim, `size`, `dot`, `pulse`), with
+ * the 1.x `variant` kept as a deprecated alias of `tone`. `tone` wins when both are given.
  *
- * <p>Pill shape with subtle background tint and no border.
- * Used for status labels, AI indicators, and metadata tags.
- *
- * @param props - Badge properties including variant.
- * @returns A span element styled as a badge.
- * @see {@link BadgeProps}
+ * @param props - {@link BadgeProps}
+ * @returns A status badge.
  */
-export function Badge({
-  className = "",
-  variant = "default",
-  ...props
-}: Readonly<BadgeProps>) {
-  return (
-    <span
-      className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${variantStyles[variant]} ${className}`}
-      {...props}
-    />
-  );
+export function Badge({ variant, tone, ...props }: BadgeProps) {
+  return <KzBadge tone={tone ?? (variant ? TONE_OF_VARIANT[variant] : undefined)} {...props} />;
 }

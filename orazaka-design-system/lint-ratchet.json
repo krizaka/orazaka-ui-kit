@@ -1,0 +1,5 @@
+{
+  "globs": ["src/**/*.{ts,tsx}"],
+  "allow": [],
+  "counters": { "palette": 0, "light": 0, "arbitraryVar": 0, "classNameTemplate": 0 }
+}
