@@ -6,7 +6,7 @@
  * SVG paths. Every path uses vector-effect="non-scaling-stroke" for visual
  * thickness consistency during layout motion sweeps.
  *
- * Usage: <Icon name="dashboard" size={20} className="text-[var(--accent)]" />
+ * Usage: <Icon name="dashboard" size={20} className="text-accent" />
  *
  * Default: 24×24 viewBox, 1.25px stroke, round caps, currentColor.
  */

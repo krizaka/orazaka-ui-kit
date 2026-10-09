@@ -17,25 +17,45 @@ describe("Badge", () => {
   it("applies success variant", () => {
     const { container } = render(<Badge variant="success">OK</Badge>);
     const span = container.querySelector("span");
-    expect(span?.className).toContain("emerald");
+    expect(span?.className).toContain("bg-success/15");
+    expect(span).toHaveAttribute("data-tone", "success");
   });
 
   it("applies warning variant", () => {
     const { container } = render(<Badge variant="warning">Warn</Badge>);
     const span = container.querySelector("span");
-    expect(span?.className).toContain("amber");
+    expect(span?.className).toContain("bg-warning/15");
   });
 
   it("applies danger variant", () => {
     const { container } = render(<Badge variant="danger">Error</Badge>);
     const span = container.querySelector("span");
-    expect(span?.className).toContain("red");
+    expect(span?.className).toContain("bg-danger/15");
   });
 
   it("applies accent variant", () => {
     const { container } = render(<Badge variant="accent">AI</Badge>);
     const span = container.querySelector("span");
     expect(span?.className).toContain("accent");
+  });
+
+  it("maps the deprecated default variant to the neutral tone", () => {
+    const { container } = render(<Badge variant="default">Default</Badge>);
+    expect(container.querySelector("span")).toHaveAttribute("data-tone", "neutral");
+  });
+
+  it("prefers tone over the deprecated variant", () => {
+    const { container } = render(
+      <Badge variant="danger" tone="success">
+        Both
+      </Badge>,
+    );
+    expect(container.querySelector("span")).toHaveAttribute("data-tone", "success");
+  });
+
+  it("uses roles only, no mode variant", () => {
+    const { container } = render(<Badge variant="success">OK</Badge>);
+    expect(container.querySelector("span")?.className).not.toMatch(/dark[:]|emerald/);
   });
 
   it("merges custom className", () => {

@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
+import { cn } from "@krizaka/ui/cn";
 import { useRouter } from "next/navigation";
+import React from "react";
+
 import { Icon, type IconName } from "../icon";
 
 /** Command entry definition */
@@ -112,20 +114,20 @@ export function CommandPalette() {
       {/* Backdrop */}
       <button
         type="button"
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm border-none cursor-default"
+        className="absolute inset-0 cursor-default border-none bg-overlay backdrop-blur-sm"
         onClick={() => setIsOpen(false)}
         aria-label="Close command palette"
       />
 
       {/* Panel */}
       <div
-        className="relative w-full max-w-lg rounded-[var(--radius-xl)] border border-[var(--border-default)] bg-[color-mix(in_srgb,var(--surface-1)_90%,transparent)] backdrop-blur-xl backdrop-saturate-[180%] shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-3 duration-200"
+        className="relative w-full max-w-lg overflow-hidden rounded-xl border border-border-default bg-surface-1/90 shadow-lg backdrop-blur-xl backdrop-saturate-[180%] animate-in fade-in slide-in-from-top-3 duration-200"
         role="dialog"
         aria-label="Command palette"
       >
         {/* Search input */}
-        <header className="flex items-center gap-3 px-4 py-3 border-b border-[var(--border-subtle)]">
-          <Icon name="search" size={18} className="text-[var(--text-muted)] flex-shrink-0" />
+        <header className="flex items-center gap-3 px-4 py-3 border-b border-border-subtle">
+          <Icon name="search" size={18} className="shrink-0 text-fg-muted" />
           <input
             ref={inputRef}
             type="text"
@@ -136,10 +138,10 @@ export function CommandPalette() {
             }}
             onKeyDown={handleKeyDown}
             placeholder="Type a command or search..."
-            className="flex-1 bg-transparent border-none outline-none text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)]"
+            className="flex-1 border-none bg-transparent text-sm text-fg outline-none placeholder:text-fg-muted"
             autoComplete="off"
           />
-          <kbd className="flex items-center px-1.5 py-0.5 rounded-md bg-[var(--surface-3)] border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-muted)]">
+          <kbd className="flex items-center rounded-md border border-border-subtle bg-surface-3 px-1.5 py-0.5 font-mono text-[10px] text-fg-muted">
             ESC
           </kbd>
         </header>
@@ -147,7 +149,7 @@ export function CommandPalette() {
         {/* Results */}
         <nav className="max-h-[320px] overflow-auto p-2 space-y-3">
           {flatFiltered.length === 0 && (
-            <p className="text-center text-sm text-[var(--text-muted)] py-8">
+            <p className="py-8 text-center text-sm text-fg-muted">
               No commands found
             </p>
           )}
@@ -164,20 +166,19 @@ export function CommandPalette() {
                       key={cmd.id}
                       onClick={() => executeCommand(cmd)}
                       onMouseEnter={() => setSelectedIndex(idx)}
-                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-[var(--radius-sm)] text-left text-sm transition-colors duration-100 ${
-                        isSelected
-                          ? "bg-[var(--accent-soft)] text-[var(--text-primary)]"
-                          : "text-[var(--text-secondary)] hover:bg-[var(--surface-2)]"
-                      }`}
+                      className={cn(
+                        "flex w-full items-center gap-3 rounded-sm px-3 py-2 text-left text-sm transition-colors duration-100",
+                        isSelected ? "bg-accent-soft text-fg" : "text-fg-secondary hover:bg-surface-2",
+                      )}
                     >
                       <Icon
                         name={cmd.icon}
                         size={16}
-                        className={isSelected ? "text-[var(--accent)]" : "text-[var(--text-muted)]"}
+                        className={isSelected ? "text-accent" : "text-fg-muted"}
                       />
                       <span className="flex-1">{cmd.label}</span>
                       {isSelected && (
-                        <kbd className="text-[9px] font-mono text-[var(--text-muted)]">↵</kbd>
+                        <kbd className="font-mono text-[9px] text-fg-muted">↵</kbd>
                       )}
                     </button>
                   );
@@ -188,22 +189,22 @@ export function CommandPalette() {
         </nav>
 
         {/* Footer */}
-        <footer className="flex items-center justify-between px-4 py-2 border-t border-[var(--border-subtle)] bg-[var(--surface-2)]">
-          <section className="flex items-center gap-3 text-[10px] text-[var(--text-muted)]">
+        <footer className="flex items-center justify-between px-4 py-2 border-t border-border-subtle bg-surface-2">
+          <section className="flex items-center gap-3 text-[10px] text-fg-muted">
             <span className="flex items-center gap-1">
-              <kbd className="px-1 py-0.5 rounded bg-[var(--surface-3)] font-mono">↑↓</kbd>
+              <kbd className="rounded bg-surface-3 px-1 py-0.5 font-mono">↑↓</kbd>
               Navigate
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="px-1 py-0.5 rounded bg-[var(--surface-3)] font-mono">↵</kbd>
+              <kbd className="rounded bg-surface-3 px-1 py-0.5 font-mono">↵</kbd>
               Open
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="px-1 py-0.5 rounded bg-[var(--surface-3)] font-mono">esc</kbd>
+              <kbd className="rounded bg-surface-3 px-1 py-0.5 font-mono">esc</kbd>
               Close
             </span>
           </section>
-          <span className="text-[10px] text-[var(--text-muted)] font-mono">
+          <span className="font-mono text-[10px] text-fg-muted">
             {flatFiltered.length} commands
           </span>
         </footer>

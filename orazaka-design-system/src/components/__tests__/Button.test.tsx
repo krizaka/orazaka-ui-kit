@@ -11,13 +11,14 @@ describe("Button", () => {
   it("applies primary variant by default", () => {
     const { container } = render(<Button>Primary</Button>);
     const btn = container.querySelector("button");
-    expect(btn?.className).toContain("bg-[var(--accent)]");
+    expect(btn?.className).toContain("bg-accent");
+    expect(btn?.className).toContain("text-on-accent");
   });
 
   it("applies secondary variant", () => {
     const { container } = render(<Button variant="secondary">Secondary</Button>);
     const btn = container.querySelector("button");
-    expect(btn?.className).toContain("bg-[var(--surface-2)]");
+    expect(btn?.className).toContain("bg-surface-2");
   });
 
   it("applies outline variant", () => {
@@ -29,7 +30,8 @@ describe("Button", () => {
   it("applies ghost variant", () => {
     const { container } = render(<Button variant="ghost">Ghost</Button>);
     const btn = container.querySelector("button");
-    expect(btn?.className).toContain("bg-transparent");
+    expect(btn?.className).toContain("text-fg-secondary");
+    expect(btn?.className).not.toContain("bg-accent");
   });
 
   it("applies sm size", () => {
@@ -47,13 +49,13 @@ describe("Button", () => {
   it("applies lg size", () => {
     const { container } = render(<Button size="lg">Large</Button>);
     const btn = container.querySelector("button");
-    expect(btn?.className).toContain("h-11");
+    expect(btn?.className).toContain("h-12");
   });
 
   it("applies icon size", () => {
     const { container } = render(<Button size="icon">🔍</Button>);
     const btn = container.querySelector("button");
-    expect(btn?.className).toContain("w-8");
+    expect(btn?.className).toContain("w-10");
   });
 
   it("handles click events", () => {
@@ -79,5 +81,27 @@ describe("Button", () => {
     const btn = container.querySelector("button");
     expect(btn?.className).toContain("extra");
     expect(btn?.className).toContain("rounded-lg"); // still has base
+  });
+
+  it("lets a className override win over the variant (tailwind-merge)", () => {
+    const { container } = render(
+      <Button variant="primary" size="sm" className="h-9 bg-surface-3">
+        Override
+      </Button>,
+    );
+    const classes = container.querySelector("button")?.className.split(" ") ?? [];
+    expect(classes).toContain("bg-surface-3");
+    expect(classes).not.toContain("bg-accent");
+    expect(classes).toContain("h-9");
+    expect(classes).not.toContain("h-8");
+  });
+
+  it("renders its child with asChild", () => {
+    render(
+      <Button asChild>
+        <a href="/chat">Chat</a>
+      </Button>,
+    );
+    expect(screen.getByRole("link", { name: "Chat" }).className).toContain("bg-accent");
   });
 });

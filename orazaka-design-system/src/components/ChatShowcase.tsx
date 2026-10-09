@@ -6,7 +6,8 @@
  *
  * A code-driven mockup of the Orazaka engine answering a query *locally*.
  * Dramatizes the product's value prop (deterministic interceptor pipeline +
- * on-prem inference + zero data egress). Token-driven (theme.css vars only),
+ * on-prem inference + zero data egress). Token-driven,
+ * roles only (--kz-* utilities),
  * reduced-motion safe, and framework-agnostic on copy (all strings via props
  * so each app localizes through its own i18n).
  *
@@ -18,7 +19,9 @@
  *     question={t("...")} answer={t("...")} pipeline={[...]} />
  */
 
+import { cn } from "@krizaka/ui/cn";
 import * as React from "react";
+
 import { Icon } from "../icon";
 
 /** Localizable, non-conversational chrome labels. */
@@ -56,7 +59,7 @@ export function ChatShowcase({
   question,
   answer,
   pipeline,
-  className = "",
+  className,
 }: Readonly<ChatShowcaseProps>) {
   const [phase, setPhase] = React.useState<Phase>(0);
   const [typed, setTyped] = React.useState("");
@@ -97,39 +100,39 @@ export function ChatShowcase({
   }, [phase, answer]);
 
   return (
-    <div className={`relative w-full max-w-[440px] ${className}`}>
+    <div className={cn("relative w-full max-w-[440px]", className)}>
       {/* Ambient accent glow */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -inset-x-8 -top-10 -bottom-14 rounded-[var(--radius-xl)]"
+        className="pointer-events-none absolute -inset-x-8 -top-10 -bottom-14 rounded-xl"
         style={{
           background:
-            "radial-gradient(60% 55% at 60% 35%, var(--accent-soft) 0%, transparent 70%)",
+            "radial-gradient(60% 55% at 60% 35%, var(--kz-accent-soft) 0%, transparent 70%)",
         }}
       />
 
       <div
         role="img"
         aria-label={`${question} — ${answer}`}
-        className="relative flex flex-col overflow-hidden rounded-[var(--radius-xl)] border border-[var(--border-default)] bg-[var(--surface-1)] shadow-[var(--shadow-lg)]"
+        className="relative flex flex-col overflow-hidden rounded-xl border border-border-default bg-surface-1 shadow-lg"
       >
         {/* ── Header ── */}
-        <div className="flex items-center justify-between gap-3 border-b border-[var(--border-subtle)] bg-[var(--surface-2)] px-4 py-3">
+        <div className="flex items-center justify-between gap-3 border-b border-border-subtle bg-surface-2 px-4 py-3">
           <div className="flex min-w-0 items-center gap-2.5">
-            <span className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">
+            <span className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full bg-accent-soft text-accent">
               <Icon name="shield" size={17} />
             </span>
             <span className="flex min-w-0 flex-col">
-              <span className="font-[family-name:var(--font-display)] text-[13px] font-bold tracking-tight text-[var(--text-primary)]">
+              <span className="font-display text-[13px] font-bold tracking-tight text-fg">
                 {labels.agent}
               </span>
-              <span className="flex items-center gap-1.5 text-[10.5px] text-[var(--text-secondary)]">
-                <span className="kzc-dot h-1.5 w-1.5 rounded-full bg-[var(--status-success)]" />
+              <span className="flex items-center gap-1.5 text-[10.5px] text-fg-secondary">
+                <span className="kzc-dot h-1.5 w-1.5 rounded-full bg-success" />
                 {labels.status}
               </span>
             </span>
           </div>
-          <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-[var(--border-subtle)] bg-[var(--surface-1)] px-2.5 py-1 font-[family-name:var(--font-mono)] text-[10px] font-semibold text-[var(--text-secondary)]">
+          <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-border-subtle bg-surface-1 px-2.5 py-1 font-mono text-[10px] font-semibold text-fg-secondary">
             <Icon name="model" size={11} />
             {labels.model}
           </span>
@@ -142,7 +145,7 @@ export function ChatShowcase({
             className="flex justify-end transition-all duration-300"
             style={{ opacity: phase >= 1 ? 1 : 0, transform: phase >= 1 ? "none" : "translateY(8px)" }}
           >
-            <div className="max-w-[84%] rounded-2xl rounded-br-[5px] bg-[var(--accent)] px-3 py-2.5 text-[13px] font-medium leading-[1.55] text-zinc-950">
+            <div className="max-w-[84%] rounded-2xl rounded-br-[5px] bg-accent px-3 py-2.5 text-[13px] font-medium leading-[1.55] text-on-accent">
               {question}
             </div>
           </div>
@@ -150,10 +153,10 @@ export function ChatShowcase({
           {/* Typing */}
           {phase === 2 && (
             <div className="flex justify-start">
-              <div className="inline-flex items-center gap-1 rounded-2xl rounded-bl-[5px] border border-[var(--border-subtle)] bg-[var(--surface-2)] px-3 py-3">
-                <span className="kzc-typing h-1.5 w-1.5 rounded-full bg-[var(--text-muted)]" />
-                <span className="kzc-typing h-1.5 w-1.5 rounded-full bg-[var(--text-muted)]" />
-                <span className="kzc-typing h-1.5 w-1.5 rounded-full bg-[var(--text-muted)]" />
+              <div className="inline-flex items-center gap-1 rounded-2xl rounded-bl-[5px] border border-border-subtle bg-surface-2 px-3 py-3">
+                <span className="kzc-typing h-1.5 w-1.5 rounded-full bg-fg-muted" />
+                <span className="kzc-typing h-1.5 w-1.5 rounded-full bg-fg-muted" />
+                <span className="kzc-typing h-1.5 w-1.5 rounded-full bg-fg-muted" />
               </div>
             </div>
           )}
@@ -161,25 +164,25 @@ export function ChatShowcase({
           {/* Assistant */}
           {phase >= 3 && (
             <div className="flex justify-start">
-              <div className="max-w-[84%] rounded-2xl rounded-bl-[5px] border border-[var(--border-subtle)] bg-[var(--surface-2)] px-3 py-2.5 text-[13px] leading-[1.55] text-[var(--text-primary)]">
-                <span className="mb-[7px] inline-flex items-center gap-1.5 font-[family-name:var(--font-mono)] text-[9.5px] font-bold uppercase tracking-[0.04em] text-[var(--status-success)]">
+              <div className="max-w-[84%] rounded-2xl rounded-bl-[5px] border border-border-subtle bg-surface-2 px-3 py-2.5 text-[13px] leading-[1.55] text-fg">
+                <span className="mb-[7px] inline-flex items-center gap-1.5 font-mono text-[9.5px] font-bold uppercase tracking-[0.04em] text-success">
                   <Icon name="checkCircle" size={11} />
                   {labels.routed}
                 </span>
                 <p className="m-0">
                   {phase === 4 ? answer : typed}
                   {phase === 3 && (
-                    <span className="kzc-caret ml-px inline-block h-[1em] w-0.5 translate-y-[2px] bg-[var(--accent)] align-text-bottom" />
+                    <span className="kzc-caret ml-px inline-block h-[1em] w-0.5 translate-y-[2px] bg-accent align-text-bottom" />
                   )}
                 </p>
                 <div
-                  className="mt-[11px] flex flex-wrap gap-1.5 border-t border-[var(--border-subtle)] pt-[11px] transition-opacity duration-300"
+                  className="mt-[11px] flex flex-wrap gap-1.5 border-t border-border-subtle pt-[11px] transition-opacity duration-300"
                   style={{ opacity: phase >= 4 ? 1 : 0 }}
                 >
                   {pipeline.map((step, i) => (
                     <span
                       key={step}
-                      className="inline-flex items-center gap-1 rounded-full bg-[var(--accent-soft)] px-2 py-0.5 font-[family-name:var(--font-mono)] text-[10px] font-semibold text-[var(--accent)]"
+                      className="inline-flex items-center gap-1 rounded-full bg-accent-soft px-2 py-0.5 font-mono text-[10px] font-semibold text-accent"
                     >
                       <Icon name="check" size={10} />
                       {step}
@@ -193,18 +196,18 @@ export function ChatShowcase({
         </div>
 
         {/* ── Footer ── */}
-        <div className="flex flex-col gap-2.5 border-t border-[var(--border-subtle)] bg-[var(--surface-2)] px-4 pb-[15px] pt-[13px]">
+        <div className="flex flex-col gap-2.5 border-t border-border-subtle bg-surface-2 px-4 pb-[15px] pt-[13px]">
           <div
             aria-hidden
-            className="flex items-center justify-between gap-2.5 rounded-full border border-[var(--border-default)] bg-[var(--surface-1)] py-2 pl-3.5 pr-2"
+            className="flex items-center justify-between gap-2.5 rounded-full border border-border-default bg-surface-1 py-2 pl-3.5 pr-2"
           >
-            <span className="text-[12.5px] text-[var(--text-muted)]">{labels.placeholder}</span>
-            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[var(--accent)] text-zinc-950">
+            <span className="text-[12.5px] text-fg-muted">{labels.placeholder}</span>
+            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent text-on-accent">
               <Icon name="send" size={13} />
             </span>
           </div>
-          <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[var(--text-secondary)]">
-            <span className="text-[var(--status-success)]">
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-fg-secondary">
+            <span className="text-success">
               <Icon name="shield" size={12} />
             </span>
             {labels.privacy}
@@ -214,9 +217,9 @@ export function ChatShowcase({
 
       <style>{`
         @keyframes kzc-pulse {
-          0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--status-success) 55%, transparent); }
-          70%  { box-shadow: 0 0 0 6px color-mix(in srgb, var(--status-success) 0%, transparent); }
-          100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--status-success) 0%, transparent); }
+          0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--kz-success) 55%, transparent); }
+          70%  { box-shadow: 0 0 0 6px color-mix(in srgb, var(--kz-success) 0%, transparent); }
+          100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--kz-success) 0%, transparent); }
         }
         @keyframes kzc-typing {
           0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }

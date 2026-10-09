@@ -1,60 +1,41 @@
 /**
  * @file index.ts
- * @description Public surface of `orazaka-design-system` — the shared web
- * component layer consumed by `orazaka-web-client` and `orazaka-web-admin`
- * (AGENTS.md §8). Components reference the theme via CSS custom properties
- * declared in `./theme.css`; import that stylesheet once at the app root.
- *
- * Design tokens are re-exported from `orazaka-shared` (the framework-agnostic
- * single source); `theme.css` is their web manifestation.
+ * @description Public surface of `@krizaka/orazaka-design-system` — the Orazaka identity on the Krizaka platform:
+ * the theme (`./theme.css`, --kz-* overrides; import it once at the app root, after `tailwindcss`), the product
+ * composites, and the @krizaka/ui primitives re-exported so the apps importing them from here keep working.
  */
 
-// ── Design tokens (re-exported from the framework-agnostic source) ──────────
-export {
-  tokens,
-  themes,
-  radius,
-  typeScale,
-  shadows,
-  status,
-} from "@krizaka/orazaka-shared";
-export type { Tokens, ThemeColors, ThemeName } from "@krizaka/orazaka-shared";
+// ── Design tokens (framework-agnostic, from orazaka-shared) ─────────────────
+// The 1.x token values, kept for React Native and the CLI. The web theme is theme.css (--kz-* roles).
+export type { ThemeColors, ThemeName, Tokens } from "@krizaka/orazaka-shared";
+export { radius, shadows, status, themes, tokens, typeScale } from "@krizaka/orazaka-shared";
+
+// ── Class helpers ───────────────────────────────────────────────────────────
+export { cn } from "@krizaka/ui/cn";
 
 // ── Icon registry ───────────────────────────────────────────────────────────
-export { Icon } from "./icon";
 export type { IconName } from "./icon";
+export { Icon } from "./icon";
 
-// ── Components ───────────────────────────────────────────────────────────────
-export { Button } from "./components/Button";
-export type { ButtonProps } from "./components/Button";
-
-export {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "./components/Card";
-
-export { Badge } from "./components/Badge";
-export type { BadgeProps } from "./components/Badge";
-
-export { Dialog } from "./components/Dialog";
-export type { DialogProps } from "./components/Dialog";
-
-export { Input } from "./components/Input";
+// ── Primitives from @krizaka/ui (re-exported) ───────────────────────────────
+export type { BadgeProps, BadgeVariant, BadgeVariants } from "./components/Badge";
+export { Badge, badgeVariants } from "./components/Badge";
+export type { ButtonProps, ButtonVariants, IconButtonProps } from "./components/Button";
+export { Button, buttonVariants, IconButton } from "./components/Button";
 export type { InputProps } from "./components/Input";
-
-export { Skeleton, SkeletonGroup } from "./components/Skeleton";
+export { Field, Input, Select, Textarea } from "./components/Input";
 export type { SkeletonProps } from "./components/Skeleton";
+export { Skeleton, SkeletonGroup, skeletonVariants } from "./components/Skeleton";
 
-export { ToastContainer } from "./components/Toast";
-export type { ToastItem, ToastVariant } from "./components/Toast";
-
+// ── Kept here, tokenized, until their @krizaka/ui primitive ships ───────────
+export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./components/Card";
 export { CommandPalette } from "./components/CommandPalette";
+export type { DialogProps } from "./components/Dialog";
+export { Dialog } from "./components/Dialog";
+export type { ToastItem, ToastVariant } from "./components/Toast";
+export { ToastContainer } from "./components/Toast";
 
-export { SentinelMini } from "./components/SentinelMini";
-
+// ── Orazaka composites ──────────────────────────────────────────────────────
+export type { ChatShowcaseLabels, ChatShowcaseProps } from "./components/ChatShowcase";
 export { ChatShowcase } from "./components/ChatShowcase";
-export type { ChatShowcaseProps, ChatShowcaseLabels } from "./components/ChatShowcase";
+export { SentinelMini } from "./components/SentinelMini";

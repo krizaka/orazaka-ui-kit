@@ -19,7 +19,7 @@
 </div>
 <!-- /krizaka-header -->
 
-**Layer:** Foundation — reusable by any Krizaka application · **Version:** `1.0.0-SNAPSHOT` · **License:** Apache-2.0 ·
+**Layer:** Foundation — reusable by any Krizaka application · **Versions:** `@krizaka/orazaka-shared` 1.0.0, `@krizaka/orazaka-design-system` 2.0.0 · **License:** Apache-2.0 ·
 part of the [Orazaka platform](https://github.com/krizaka/orazaka) by [Krizaka](https://krizaka.com)
 
 ## What it provides
@@ -27,7 +27,7 @@ part of the [Orazaka platform](https://github.com/krizaka/orazaka) by [Krizaka](
 | Package | Role |
 |:---|:---|
 | `@krizaka/orazaka-shared` | Framework-agnostic TypeScript types, Zod schemas and **design tokens** — consumed by web, mobile and CLI. |
-| `@krizaka/orazaka-design-system` | Web React components, Tailwind preset, theme (`theme.css`), centralized Lucide icon registry. |
+| `@krizaka/orazaka-design-system` | The Orazaka identity on the Krizaka platform: the Electric Blue theme and its named themes as `--kz-*` overrides (`theme.css`), the product composites (`ChatShowcase`, `SentinelMini`, icon registry), the [`@krizaka/ui`](https://github.com/krizaka/krizaka-ui) primitives re-exported. See [its README](orazaka-design-system/README.md) and [CHANGELOG](orazaka-design-system/CHANGELOG.md). |
 
 ## Use it
 
@@ -37,8 +37,16 @@ npm install @krizaka/orazaka-shared @krizaka/orazaka-design-system
 
 ```ts
 // next.config.ts
-transpilePackages: ["@krizaka/orazaka-design-system", "@krizaka/orazaka-shared"],
+transpilePackages: ["@krizaka/orazaka-design-system", "@krizaka/orazaka-shared", "@krizaka/ui"],
 ```
+
+```css
+/* the app's global stylesheet — theme.css brings @krizaka/tailwind and the @krizaka/ui sources */
+@import "tailwindcss";
+@import "@krizaka/orazaka-design-system/theme.css";
+```
+
+Themes: dark by default, `html.light`, `html.theme-<name>` (`custom`, `cyberpunk`, `solarized`, `krizaka`).
 
 Rules: no React component in `orazaka-shared`; no component duplicated between apps — it belongs
 here.
@@ -64,6 +72,28 @@ cd orazaka-apps/ui && npm install
 **Standalone**: `npm install` — both packages are on the public npm registry, no token needed.
 
 Requirements: Node.js 22+.
+
+Check the design system: `npm run check --workspace=@krizaka/orazaka-design-system` (lint + `krizaka-ratchet`,
+type-check, Jest, publint).
+
+## Release
+
+Each package carries its own version (`orazaka-shared/package.json`, `orazaka-design-system/package.json`); the
+changes of the design system are in its [CHANGELOG](orazaka-design-system/CHANGELOG.md).
+
+```bash
+git tag v<version> && git push origin v<version>   # CI publishes @krizaka/* to npm with provenance
+```
+
+The tag runs `node scripts/workspace.mjs publish orazaka-ui-kit` (in [`krizaka/orazaka`](https://github.com/krizaka/orazaka)),
+which publishes **both** packages: a package whose version is already on npm makes that step fail. When CI cannot
+publish (trusted publishing not configured, or an unchanged package), publish the changed package from an up-to-date
+`main` inside the workspace:
+
+```bash
+cd orazaka-apps/ui && npm install
+npx npm@11 publish --workspace=@krizaka/orazaka-design-system --access public
+```
 
 ## Governance
 

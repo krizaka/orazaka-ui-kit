@@ -1,105 +1,83 @@
-import * as React from "react";
+import { cn } from "@krizaka/ui/cn";
+import type * as React from "react";
+
+/*
+ * The Orazaka card, kept here — tokenized — until `@krizaka/ui/card` ships; it will then be re-exported from it.
+ * Roles only, `className` merged last (the override wins).
+ */
 
 /**
- * The root Card layout component — Calm Obsidian 2026 design.
+ * The card container: surface-1, subtle border, stronger border on hover.
  *
- * <p>Uses solid surface-1 background with subtle border.
- * No glassmorphism, no cleanClassName hack.
- * Hover shows slightly stronger border for depth feedback.
- *
- * @param props - React HTML div properties.
- * @returns A card container React element.
+ * @param props - div attributes.
+ * @returns A card element.
  */
-export function Card({
-  className = "",
-  ...props
-}: Readonly<React.HTMLAttributes<HTMLDivElement>>) {
+export function Card({ className, ...props }: Readonly<React.HTMLAttributes<HTMLDivElement>>) {
   return (
     <div
-      className={`rounded-xl bg-[var(--surface-1)] border border-[var(--border-subtle)] text-[var(--text-primary)] shadow-sm transition-[border-color,box-shadow] duration-200 hover:border-[var(--border-default)] ${className}`}
+      className={cn(
+        "rounded-xl border border-border-subtle bg-surface-1 text-fg shadow-sm transition-[border-color,box-shadow] duration-200 hover:border-border-default",
+        className,
+      )}
       {...props}
     />
   );
 }
 
 /**
- * A header container to group CardTitle and CardDescription elements.
+ * Groups CardTitle and CardDescription.
  *
- * @param props - React HTML div properties.
- * @returns A header layout element.
+ * @param props - div attributes.
+ * @returns The header block.
  */
-export function CardHeader({
-  className = "",
-  ...props
-}: Readonly<React.HTMLAttributes<HTMLDivElement>>) {
-  return (
-    <div className={`flex flex-col space-y-1.5 p-6 ${className}`} {...props} />
-  );
+export function CardHeader({ className, ...props }: Readonly<React.HTMLAttributes<HTMLDivElement>>) {
+  return <div className={cn("flex flex-col space-y-1.5 p-6", className)} {...props} />;
 }
 
 /**
- * The title heading text for the Card component.
+ * The card's heading (h3).
  *
- * @param props - React HTML heading properties.
- * @returns A level 3 heading element.
+ * @param props - heading attributes and children.
+ * @returns A level-3 heading.
  */
 export function CardTitle({
-  className = "",
+  className,
   children,
   ...props
 }: Readonly<React.HTMLAttributes<HTMLHeadingElement>> & { children: React.ReactNode }) {
   return (
-    <h3
-      className={`text-lg font-semibold leading-none tracking-tight ${className}`}
-      {...props}
-    >
+    <h3 className={cn("text-lg leading-none font-semibold tracking-tight", className)} {...props}>
       {children}
     </h3>
   );
 }
 
 /**
- * Secondary metadata or descriptions rendered in muted colors.
+ * Secondary text under the title.
  *
- * @param props - React HTML paragraph properties.
- * @returns A paragraph element.
+ * @param props - paragraph attributes.
+ * @returns A paragraph.
  */
-export function CardDescription({
-  className = "",
-  ...props
-}: Readonly<React.HTMLAttributes<HTMLParagraphElement>>) {
-  return (
-    <p
-      className={`text-sm text-[var(--text-secondary)] ${className}`}
-      {...props}
-    />
-  );
+export function CardDescription({ className, ...props }: Readonly<React.HTMLAttributes<HTMLParagraphElement>>) {
+  return <p className={cn("text-sm text-fg-secondary", className)} {...props} />;
 }
 
 /**
- * The main container block for card body content.
+ * The card body.
  *
- * @param props - React HTML div properties.
- * @returns A content block element.
+ * @param props - div attributes.
+ * @returns The content block.
  */
-export function CardContent({
-  className = "",
-  ...props
-}: Readonly<React.HTMLAttributes<HTMLDivElement>>) {
-  return <div className={`p-6 pt-0 ${className}`} {...props} />;
+export function CardContent({ className, ...props }: Readonly<React.HTMLAttributes<HTMLDivElement>>) {
+  return <div className={cn("p-6 pt-0", className)} {...props} />;
 }
 
 /**
- * The footer action or status bar container at the bottom of the card.
+ * The action or status row at the bottom of the card.
  *
- * @param props - React HTML div properties.
- * @returns A footer action layout element.
+ * @param props - div attributes.
+ * @returns The footer block.
  */
-export function CardFooter({
-  className = "",
-  ...props
-}: Readonly<React.HTMLAttributes<HTMLDivElement>>) {
-  return (
-    <div className={`flex items-center p-6 pt-0 ${className}`} {...props} />
-  );
+export function CardFooter({ className, ...props }: Readonly<React.HTMLAttributes<HTMLDivElement>>) {
+  return <div className={cn("flex items-center p-6 pt-0", className)} {...props} />;
 }
