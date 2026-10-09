@@ -8,7 +8,7 @@ import { z } from "zod";
 
 /**
  * Zod schema for SovereignWorkflowContext — mirrors the Java record
- * at com.orazaka.business.domain.model.SovereignWorkflowContext.
+ * at com.krizaka.orazaka.business.domain.model.SovereignWorkflowContext.
  */
 export const SovereignWorkflowContextSchema = z.object({
   contextId: z.string().min(1, "contextId must not be empty"),
