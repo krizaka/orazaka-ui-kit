@@ -21,11 +21,13 @@
 - **No primitive here.** Button, badge, field, skeleton… come from [`@krizaka/ui`](https://github.com/krizaka/krizaka-ui)
   and are re-exported. A missing primitive is a pull request there, never a local copy. In order: a token
   (`theme.css`), a variant (`tv({ extend })`) or a `className`, a composite that **composes** primitives.
-  `Card*`, `Dialog`, `ToastContainer`, `CommandPalette` stay here, tokenized, until their primitive ships.
+  The 1.x `Card*`, `Dialog`, `ToastContainer` are deprecated adapters drawn by `@krizaka/ui` (card, dialog, toast),
+  removed in 3.0; `CommandPalette` is a composite on `@krizaka/ui/command`.
 - **Roles only**: no raw palette colour, no `light:` / `dark:`, no `[var(--…)]`, no template string in `className`
   (`@krizaka/config` lint, `lint-ratchet.json` at zero). `className` is merged with `cn()`: the override wins.
 - **No app dependency**: components receive data **and words** through props (no i18n, no fetching). The 1.x
-  `CommandPalette` (English words, `next/navigation`) is the known exception, replaced by `@krizaka/ui/command`.
+  defaults of `CommandPalette` (English words and routes, used only when no `labels` / `commands` are passed) are the
+  known exception, removed in 3.0; it navigates with `next/navigation` unless given `onNavigate`.
 - The 1.x variables in `theme.css` (the "2.x compatibility" block) are for the apps not yet migrated: never use them
   in this package; they are removed in 3.0.
 
