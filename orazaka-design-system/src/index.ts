@@ -28,15 +28,18 @@ export { Field, Input, Select, Textarea } from "./components/Input";
 export type { SkeletonProps } from "./components/Skeleton";
 export { Skeleton, SkeletonGroup, skeletonVariants } from "./components/Skeleton";
 
-// ── Kept here, tokenized, until their @krizaka/ui primitive ships ───────────
+// ── 1.x APIs drawn by their @krizaka/ui primitive (deprecated, removed in 3.0) ──
+// Card* → `Card.*` from @krizaka/ui/card · Dialog → `Dialog.*` from @krizaka/ui/dialog · ToastContainer → `Toaster` +
+// `toast` from @krizaka/ui/toast. They keep the 1.x props and look; no markup of their own any more.
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./components/Card";
-export { CommandPalette } from "./components/CommandPalette";
 export type { DialogProps } from "./components/Dialog";
 export { Dialog } from "./components/Dialog";
-export type { ToastItem, ToastVariant } from "./components/Toast";
+export type { ToastContainerProps, ToastItem, ToastVariant } from "./components/Toast";
 export { ToastContainer } from "./components/Toast";
 
 // ── Orazaka composites ──────────────────────────────────────────────────────
 export type { ChatShowcaseLabels, ChatShowcaseProps } from "./components/ChatShowcase";
 export { ChatShowcase } from "./components/ChatShowcase";
+export type { CommandPaletteItem, CommandPaletteLabels, CommandPaletteProps } from "./components/CommandPalette";
+export { CommandPalette } from "./components/CommandPalette";
 export { SentinelMini } from "./components/SentinelMini";

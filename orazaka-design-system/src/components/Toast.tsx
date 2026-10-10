@@ -1,16 +1,19 @@
 "use client";
 
-import { cn } from "@krizaka/ui/cn";
-
-import { Icon, type IconName } from "../icon";
+import { toast, Toaster } from "@krizaka/ui/toast";
+import * as React from "react";
 
 /**
  * Supported toast notification types.
+ *
+ * @deprecated Since 2.3 — `toast.success / error / warning / info` from `@krizaka/ui/toast`.
  */
 export type ToastVariant = "success" | "error" | "warning" | "info";
 
 /**
  * A single toast notification entry.
+ *
+ * @deprecated Since 2.3 — `toast(message, { id })` from `@krizaka/ui/toast`.
  */
 export interface ToastItem {
   id: string;
@@ -19,98 +22,54 @@ export interface ToastItem {
   exiting?: boolean;
 }
 
-const ICONS: Record<ToastVariant, IconName> = {
-  success: "checkCircle",
-  error: "error",
-  warning: "warning",
-  info: "info",
-};
-
-/** The status colour of the icon — a role, the same in both modes. */
-const ICON_COLORS: Record<ToastVariant, string> = {
-  success: "text-success",
-  error: "text-danger",
-  warning: "text-warning",
-  info: "text-accent",
-};
-
-const BORDER_COLORS: Record<ToastVariant, string> = {
-  success: "border-success/20",
-  error: "border-danger/20",
-  warning: "border-warning/20",
-  info: "border-accent/20",
-};
-
-/**
- * Renders a single toast notification with auto-dismiss and exit animation.
- *
- * @param props - The toast properties.
- * @param props.toast - The toast item data.
- * @param props.onDismiss - Callback to dismiss the toast.
- * @returns A styled toast notification element.
- */
-function ToastEntry({
-  toast,
-  onDismiss,
-}: Readonly<{
-  toast: ToastItem;
+/** Props of {@link ToastContainer}. */
+export interface ToastContainerProps {
+  /** The active toasts (controlled): a new id is shown, a removed id is dismissed. */
+  toasts: ToastItem[];
+  /** Called with the id when a toast is closed or times out. */
   onDismiss: (id: string) => void;
-}>) {
-  const iconName = ICONS[toast.variant];
-
-  return (
-    <div
-      role="alert"
-      className={cn(
-        "pointer-events-auto flex items-start gap-3.5 rounded-xl border bg-surface-1/90 px-4 py-3 text-fg shadow-lg backdrop-blur-md transition-all duration-300",
-        toast.exiting ? "toast-exit" : "toast-enter",
-        BORDER_COLORS[toast.variant],
-      )}
-    >
-      <div className={cn("mt-0.5 shrink-0 rounded-lg bg-fg/5 p-1", ICON_COLORS[toast.variant])}>
-        <Icon name={iconName} size={15} />
-      </div>
-      <p className="mt-0.5 flex-1 pr-1 text-sm leading-relaxed font-medium">{toast.message}</p>
-      <button
-        onClick={() => onDismiss(toast.id)}
-        className="mt-0.5 shrink-0 rounded-lg p-1 text-fg-muted transition-all duration-150 hover:bg-fg/5 hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        aria-label="Dismiss notification"
-      >
-        <Icon name="close" size={14} />
-      </button>
-    </div>
-  );
+  /** The accessible name of the notifications region — 1.x had none; pass it translated. */
+  label?: string;
+  /** The accessible name of each close button (1.x: "Dismiss notification"); pass it translated. */
+  closeLabel?: string;
 }
 
 /**
- * Toast container that renders all active notifications.
- * Positioned at bottom-right on desktop, bottom-center on mobile.
+ * The 1.x controlled toast list, drawn by the @krizaka/ui `Toaster` (sonner, styled by roles): each item of `toasts`
+ * becomes a `toast[variant]` with its id, and each removed id is dismissed. Mount it once, like the `Toaster`.
  *
- * @param props - Container properties.
- * @param props.toasts - List of active toast items.
- * @param props.onDismiss - Callback to dismiss a toast by ID.
- * @returns A portal-style toast container element.
+ * @deprecated Since 2.3, removed in 3.0 — mount `<Toaster label closeLabel />` from `@krizaka/ui/toast` once and call
+ * `toast.success(message)`.
+ * @param props - {@link ToastContainerProps}
+ * @returns The toaster.
  */
 export function ToastContainer({
   toasts,
   onDismiss,
-}: Readonly<{
-  toasts: ToastItem[];
-  onDismiss: (id: string) => void;
-}>) {
-  if (toasts.length === 0) return null;
+  label = "Notifications",
+  closeLabel = "Dismiss notification",
+}: Readonly<ToastContainerProps>) {
+  const shown = React.useRef(new Set<string>());
+  const dismiss = React.useRef(onDismiss);
+  dismiss.current = onDismiss;
 
-  return (
-    <div
-      className="fixed bottom-4 right-4 left-4 sm:left-auto sm:w-96 z-50 flex flex-col gap-2 pointer-events-none"
-      aria-live="polite"
-      aria-atomic="false"
-    >
-      {toasts.map((toast) => (
-        <div key={toast.id} className="pointer-events-auto">
-          <ToastEntry toast={toast} onDismiss={onDismiss} />
-        </div>
-      ))}
-    </div>
-  );
+  React.useEffect(() => {
+    const ids = new Set(toasts.map((item) => item.id));
+    for (const item of toasts) {
+      if (shown.current.has(item.id) || item.exiting) continue;
+      shown.current.add(item.id);
+      const close = () => {
+        shown.current.delete(item.id);
+        dismiss.current(item.id);
+      };
+      toast[item.variant](item.message, { id: item.id, onDismiss: close, onAutoClose: close });
+    }
+    for (const id of [...shown.current]) {
+      if (ids.has(id)) continue;
+      shown.current.delete(id);
+      toast.dismiss(id);
+    }
+  }, [toasts]);
+
+  return <Toaster label={label} closeLabel={closeLabel} />;
 }

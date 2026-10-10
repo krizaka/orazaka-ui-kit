@@ -1,214 +1,114 @@
 "use client";
 
-import { cn } from "@krizaka/ui/cn";
+import { Command, CommandDialog } from "@krizaka/ui/command";
+import { Kbd } from "@krizaka/ui/kbd";
 import { useRouter } from "next/navigation";
-import React from "react";
+import * as React from "react";
 
-import { Icon, type IconName } from "../icon";
+import { Icon } from "../icon";
+import {
+  type CommandPaletteItem,
+  type CommandPaletteLabels,
+  LEGACY_COMMANDS,
+  LEGACY_LABELS,
+} from "./CommandPalette.defaults";
 
-/** Command entry definition */
-interface CommandEntry {
-  id: string;
-  label: string;
-  icon: IconName;
-  href?: string;
-  action?: () => void;
-  section: string;
+export type { CommandPaletteItem, CommandPaletteLabels } from "./CommandPalette.defaults";
+
+/** Props of {@link CommandPalette}. */
+export interface CommandPaletteProps {
+  /** The entries, grouped by `section` in their order. Without it: the 1.x English entries (deprecated). */
+  commands?: CommandPaletteItem[];
+  /** The words, translated. Without it: the 1.x English words (deprecated). */
+  labels?: CommandPaletteLabels;
+  /** Where an entry's `href` goes. Default: the Next.js router (`router.push`). */
+  onNavigate?: (href: string) => void;
+  /** The letter that opens it with ⌘ / Ctrl. Default `k`. */
+  shortcut?: string;
+}
+
+/** The entries grouped by section, in the order they first appear. */
+function bySection(commands: CommandPaletteItem[]) {
+  const groups = new Map<string, CommandPaletteItem[]>();
+  for (const command of commands) groups.set(command.section, [...(groups.get(command.section) ?? []), command]);
+  return [...groups];
 }
 
 /**
- * CommandPalette — Global ⌘K overlay for lightning-fast navigation.
- * Glassmorphic floating panel with search, keyboard navigation, and fuzzy matching.
+ * The Orazaka ⌘K palette: a product composite on `CommandDialog` from `@krizaka/ui/command` (cmdk + the platform's
+ * dialog: the combobox and listbox roles, the arrows, Enter, the filtering, the focus trap, Escape). It adds what is
+ * Orazaka's: the shortcut, the registry icons, the sections and the footer of hints. Words and entries arrive as
+ * props; the 1.x defaults (English, the 1.x routes) remain for the apps not yet migrated and go in 3.0.
+ *
+ * @param props - {@link CommandPaletteProps}
+ * @returns The palette, closed until ⌘K / Ctrl+K.
  */
-export function CommandPalette() {
+export function CommandPalette({
+  commands = LEGACY_COMMANDS,
+  labels = LEGACY_LABELS,
+  onNavigate,
+  shortcut = "k",
+}: Readonly<CommandPaletteProps>) {
   const router = useRouter();
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [query, setQuery] = React.useState("");
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const [open, setOpen] = React.useState(false);
 
-  const commands: CommandEntry[] = [
-    { id: "dashboard", label: "Go to Dashboard", icon: "dashboard", href: "/", section: "Navigation" },
-    { id: "chat", label: "Open Chat", icon: "chat", href: "/chat", section: "Navigation" },
-    { id: "playground", label: "Open Playground", icon: "playground", href: "/playground", section: "Navigation" },
-    { id: "settings", label: "Settings", icon: "settings", href: "/settings", section: "Navigation" },
-    { id: "profile", label: "View Profile", icon: "profile", href: "/profile", section: "Navigation" },
-    { id: "jobs", label: "Jobs History", icon: "history", href: "/dashboard/jobs", section: "Navigation" },
-    { id: "admin", label: "Admin Panel", icon: "admin", href: "/dashboard/admin", section: "Navigation" },
-    { id: "new-chat", label: "Start New Chat", icon: "newChat", href: "/chat", section: "Actions" },
-    { id: "video-gen", label: "Generate Video", icon: "video", href: "/playground/video/generate", section: "Playground" },
-    { id: "video-analyze", label: "Analyze Video", icon: "vision", href: "/playground/video/analyze", section: "Playground" },
-    { id: "audio-analyze", label: "Analyze Audio", icon: "audio", href: "/playground/audio/analyze", section: "Playground" },
-    { id: "text-chat", label: "Text Chat", icon: "text", href: "/playground/text/chat", section: "Playground" },
-    { id: "image-gen", label: "Generate Image", icon: "image", href: "/playground/image/generate", section: "Playground" },
-    { id: "code-scaffold", label: "Feature to Code", icon: "code", href: "/playground/code/scaffold", section: "Playground" },
-  ];
-
-  // Filter commands by query
-  const filtered = query.trim()
-    ? commands.filter((c) => c.label.toLowerCase().includes(query.toLowerCase()))
-    : commands;
-
-  // Group by section
-  const grouped = filtered.reduce<Record<string, CommandEntry[]>>((acc, cmd) => {
-    (acc[cmd.section] ??= []).push(cmd);
-    return acc;
-  }, {});
-
-  // Flatten for keyboard nav
-  const flatFiltered = Object.values(grouped).flat();
-
-  // ⌘K global listener
   React.useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        setIsOpen((prev) => !prev);
-        setQuery("");
-        setSelectedIndex(0);
-      }
-      if (e.key === "Escape") {
-        setIsOpen(false);
+    const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === shortcut) {
+        event.preventDefault();
+        setOpen((previous) => !previous);
       }
     };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, []);
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [shortcut]);
 
-  // Focus input on open
-  React.useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 50);
-    }
-  }, [isOpen]);
-
-  // Keyboard navigation
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setSelectedIndex((i) => Math.min(i + 1, flatFiltered.length - 1));
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setSelectedIndex((i) => Math.max(i - 1, 0));
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      const selected = flatFiltered[selectedIndex];
-      if (selected) {
-        executeCommand(selected);
-      }
-    }
+  const run = (command: CommandPaletteItem) => {
+    setOpen(false);
+    if (command.href) (onNavigate ?? router.push)(command.href);
+    command.onSelect?.();
   };
-
-  const executeCommand = (cmd: CommandEntry) => {
-    setIsOpen(false);
-    if (cmd.href) router.push(cmd.href);
-    if (cmd.action) cmd.action();
-  };
-
-  if (!isOpen) return null;
-
-  let runningIndex = 0;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh]">
-      {/* Backdrop */}
-      <button
-        type="button"
-        className="absolute inset-0 cursor-default border-none bg-overlay backdrop-blur-sm"
-        onClick={() => setIsOpen(false)}
-        aria-label="Close command palette"
-      />
-
-      {/* Panel */}
-      <div
-        className="relative w-full max-w-lg overflow-hidden rounded-xl border border-border-default bg-surface-1/90 shadow-lg backdrop-blur-xl backdrop-saturate-[180%] animate-in fade-in slide-in-from-top-3 duration-200"
-        role="dialog"
-        aria-label="Command palette"
-      >
-        {/* Search input */}
-        <header className="flex items-center gap-3 px-4 py-3 border-b border-border-subtle">
-          <Icon name="search" size={18} className="shrink-0 text-fg-muted" />
-          <input
-            ref={inputRef}
-            type="text"
-            value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setSelectedIndex(0);
-            }}
-            onKeyDown={handleKeyDown}
-            placeholder="Type a command or search..."
-            className="flex-1 border-none bg-transparent text-sm text-fg outline-none placeholder:text-fg-muted"
-            autoComplete="off"
-          />
-          <kbd className="flex items-center rounded-md border border-border-subtle bg-surface-3 px-1.5 py-0.5 font-mono text-[10px] text-fg-muted">
-            ESC
-          </kbd>
-        </header>
-
-        {/* Results */}
-        <nav className="max-h-[320px] overflow-auto p-2 space-y-3">
-          {flatFiltered.length === 0 && (
-            <p className="py-8 text-center text-sm text-fg-muted">
-              No commands found
-            </p>
-          )}
-
-          {Object.entries(grouped).map(([section, items]) => (
-            <div key={section}>
-              <span className="hud-label px-2 mb-1 block">{section}</span>
-              <div className="space-y-0.5">
-                {items.map((cmd) => {
-                  const idx = runningIndex++;
-                  const isSelected = idx === selectedIndex;
-                  return (
-                    <button
-                      key={cmd.id}
-                      onClick={() => executeCommand(cmd)}
-                      onMouseEnter={() => setSelectedIndex(idx)}
-                      className={cn(
-                        "flex w-full items-center gap-3 rounded-sm px-3 py-2 text-left text-sm transition-colors duration-100",
-                        isSelected ? "bg-accent-soft text-fg" : "text-fg-secondary hover:bg-surface-2",
-                      )}
-                    >
-                      <Icon
-                        name={cmd.icon}
-                        size={16}
-                        className={isSelected ? "text-accent" : "text-fg-muted"}
-                      />
-                      <span className="flex-1">{cmd.label}</span>
-                      {isSelected && (
-                        <kbd className="font-mono text-[9px] text-fg-muted">↵</kbd>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </nav>
-
-        {/* Footer */}
-        <footer className="flex items-center justify-between px-4 py-2 border-t border-border-subtle bg-surface-2">
-          <section className="flex items-center gap-3 text-[10px] text-fg-muted">
-            <span className="flex items-center gap-1">
-              <kbd className="rounded bg-surface-3 px-1 py-0.5 font-mono">↑↓</kbd>
-              Navigate
-            </span>
-            <span className="flex items-center gap-1">
-              <kbd className="rounded bg-surface-3 px-1 py-0.5 font-mono">↵</kbd>
-              Open
-            </span>
-            <span className="flex items-center gap-1">
-              <kbd className="rounded bg-surface-3 px-1 py-0.5 font-mono">esc</kbd>
-              Close
-            </span>
-          </section>
-          <span className="font-mono text-[10px] text-fg-muted">
-            {flatFiltered.length} commands
+    <CommandDialog
+      open={open}
+      onOpenChange={setOpen}
+      label={labels.label}
+      footer={
+        <footer className="flex items-center gap-3 border-t border-border-subtle bg-surface-2 px-4 py-2 text-xs text-fg-secondary">
+          <span className="flex items-center gap-1">
+            <Kbd>↑↓</Kbd>
+            {labels.navigate}
+          </span>
+          <span className="flex items-center gap-1">
+            <Kbd>↵</Kbd>
+            {labels.open}
+          </span>
+          <span className="flex items-center gap-1">
+            <Kbd>esc</Kbd>
+            {labels.close}
           </span>
         </footer>
-      </div>
-    </div>
+      }
+    >
+      <Command.Input placeholder={labels.placeholder} />
+      <Command.List label={labels.results} emptyLabel={labels.empty}>
+        {bySection(commands).map(([section, items]) => (
+          <Command.Group key={section} heading={section}>
+            {items.map((command) => (
+              <Command.Item
+                key={command.id}
+                value={`${command.label} ${command.id}`}
+                keywords={command.keywords}
+                onSelect={() => run(command)}
+              >
+                <Icon name={command.icon} size={16} className="text-fg-secondary" />
+                <span className="flex-1">{command.label}</span>
+              </Command.Item>
+            ))}
+          </Command.Group>
+        ))}
+      </Command.List>
+    </CommandDialog>
   );
 }

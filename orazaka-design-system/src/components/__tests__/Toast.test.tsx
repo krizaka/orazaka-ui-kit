@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { ToastContainer, type ToastItem } from "../Toast";
 
 const toasts: ToastItem[] = [
@@ -7,25 +7,28 @@ const toasts: ToastItem[] = [
   { id: "2", message: "Failed", variant: "error" },
 ];
 
-describe("ToastContainer", () => {
-  it("renders nothing without toasts", () => {
-    const { container } = render(<ToastContainer toasts={[]} onDismiss={jest.fn()} />);
-    expect(container).toBeEmptyDOMElement();
+describe("ToastContainer (1.x API on the @krizaka/ui Toaster)", () => {
+  it("renders the notifications region and no toast without toasts", () => {
+    render(<ToastContainer toasts={[]} onDismiss={jest.fn()} label="Notifications" />);
+    expect(screen.getByLabelText(/Notifications/)).toBeInTheDocument();
+    expect(screen.queryByText("Saved")).not.toBeInTheDocument();
   });
 
-  it("renders each toast with its status role colour", () => {
+  it("shows each toast, typed by its variant", async () => {
     render(<ToastContainer toasts={toasts} onDismiss={jest.fn()} />);
-    const alerts = screen.getAllByRole("alert");
-    expect(alerts).toHaveLength(2);
-    expect(alerts[0].className).toContain("border-success/20");
-    expect(alerts[1].className).toContain("border-danger/20");
-    expect(alerts[1].innerHTML).not.toMatch(/dark[:]|rose-|emerald-/);
+    expect(await screen.findByText("Saved")).toBeInTheDocument();
+    expect(await screen.findByText("Failed")).toBeInTheDocument();
+    expect(screen.getByText("Saved").closest("[data-type]")).toHaveAttribute("data-type", "success");
+    expect(screen.getByText("Failed").closest("[data-type]")).toHaveAttribute("data-type", "error");
   });
 
-  it("dismisses a toast", () => {
+  it("calls onDismiss with the id when a toast is closed", async () => {
     const onDismiss = jest.fn();
     render(<ToastContainer toasts={[toasts[0]]} onDismiss={onDismiss} />);
-    fireEvent.click(screen.getByLabelText("Dismiss notification"));
+    await screen.findByText("Saved");
+    await act(async () => {
+      fireEvent.click(within(screen.getByText("Saved").closest("li") as HTMLElement).getByLabelText("Dismiss notification"));
+    });
     expect(onDismiss).toHaveBeenCalledWith("1");
   });
 });

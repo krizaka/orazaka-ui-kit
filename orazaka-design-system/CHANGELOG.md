@@ -3,6 +3,32 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [2.3.0] — 2026-10-10
+
+No markup of a primitive is left in the kit: what it still drew itself is now drawn by `@krizaka/ui` 2.0.0 (stable).
+No export is removed (semver minor); the 1.x APIs below are deprecated and go in 3.0.
+
+### Changed
+
+- `CommandPalette` is a product composite on `CommandDialog` from `@krizaka/ui/command` (cmdk + the platform dialog:
+  combobox and listbox roles, arrows, Enter, filtering, focus trap, Escape, focus return). New props: `commands`
+  (entries with a `section`, an `icon` of the registry, an `href` and/or `onSelect`, `keywords`), `labels` (the words,
+  translated), `onNavigate` (default `router.push`), `shortcut` (default `k`).
+- `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter` are drawn by `@krizaka/ui/card`
+  (`Card.Root`, `Card.Body`, `Card.Title`…), with their 1.x look kept through `className`.
+- `Dialog` (1.x props: `open`, `onClose`, `title`, `description`, `closeLabel`) is drawn by `@krizaka/ui/dialog` (Radix:
+  focus trap and focus return, which 1.x lacked).
+- `ToastContainer` (1.x controlled list) is drawn by the `@krizaka/ui/toast` `Toaster` (sonner): each item becomes a
+  `toast[variant]` with its id; new optional `label` and `closeLabel`.
+- Dependencies: `@krizaka/ui`, `@krizaka/tokens`, `@krizaka/tailwind` `^2.0.0` (stable). `@krizaka/orazaka-shared`
+  1.1.1 takes `@krizaka/tokens` `^2.0.0` (nothing else changes).
+
+### Deprecated
+
+- `Card*` → `Card.*` from `@krizaka/ui/card`; `Dialog` → `Dialog.*` from `@krizaka/ui/dialog`; `ToastContainer`,
+  `ToastItem`, `ToastVariant` → `Toaster` + `toast` from `@krizaka/ui/toast`; the 1.x defaults of `CommandPalette`
+  (English words, 1.x routes) → pass `labels` and `commands`. All removed in 3.0.
+
 ## [2.2.1] — 2026-10-10
 
 ### Added
