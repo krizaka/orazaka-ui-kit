@@ -201,7 +201,7 @@ export function ChatShowcase({
             aria-hidden
             className="flex items-center justify-between gap-2.5 rounded-full border border-border-default bg-surface-1 py-2 pl-3.5 pr-2"
           >
-            <span className="text-[12.5px] text-fg-muted">{labels.placeholder}</span>
+            <span className="text-[12.5px] text-fg-secondary">{labels.placeholder}</span>
             <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent text-on-accent">
               <Icon name="send" size={13} />
             </span>
