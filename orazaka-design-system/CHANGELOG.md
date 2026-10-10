@@ -3,6 +3,24 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [2.2.1] — 2026-10-10
+
+### Added
+
+- `Icon` takes an optional `fallback`: the icon drawn when `name` comes from data and is not in the registry (a Studio
+  whose `iconKey` the kit does not know showed an empty square).
+
+### Fixed
+
+- `ChatShowcase`: the composer placeholder reads at AA (`text-fg-secondary`; `text-fg-muted` measured 3.9:1 on
+  `surface-1`, which Lighthouse counts against the page even though the composer is decorative).
+
+### Changed
+
+- `tokens`, `themes`, `status` (re-exported from `@krizaka/orazaka-shared` 1.1.0) are the Orazaka orange for React
+  Native and the CLI too: `dark` and `light` come from `@krizaka/tokens/native`, each theme gains `onAccent` and
+  `accentText`, and `electric` joins the named themes.
+
 ## [2.2.0] — 2026-10-09
 
 ### Changed

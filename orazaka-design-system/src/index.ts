@@ -6,7 +6,8 @@
  */
 
 // ── Design tokens (framework-agnostic, from orazaka-shared) ─────────────────
-// The 1.x token values, kept for React Native and the CLI. The web theme is theme.css (--kz-* roles).
+// The token values for React Native and the CLI (the Orazaka orange of @krizaka/tokens/native). The web theme is
+// theme.css (--kz-* roles).
 export type { ThemeColors, ThemeName, Tokens } from "@krizaka/orazaka-shared";
 export { radius, shadows, status, themes, tokens, typeScale } from "@krizaka/orazaka-shared";
 

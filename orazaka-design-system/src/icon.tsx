@@ -27,6 +27,8 @@ interface IconProps {
   className?: string;
   /** Accessible label — if omitted, icon is decorative (aria-hidden) */
   label?: string;
+  /** Drawn when `name` is not in the registry (a key that comes from data, e.g. a Studio's `iconKey`). */
+  fallback?: IconName;
 }
 
 /**
@@ -40,8 +42,8 @@ interface IconProps {
  * @param props — Icon configuration
  * @returns SVG element with the requested icon path
  */
-export function Icon({ name, size = 20, className = "", label }: Readonly<IconProps>) {
-  const paths = ICON_REGISTRY[name];
+export function Icon({ name, size = 20, className = "", label, fallback }: Readonly<IconProps>) {
+  const paths = ICON_REGISTRY[name] ?? (fallback ? ICON_REGISTRY[fallback] : undefined);
   if (!paths) return null;
 
   return (

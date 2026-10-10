@@ -62,7 +62,7 @@ surface, focus ring ≥ 3:1.
 | **Composites** | `ChatShowcase`, `SentinelMini`, `Icon` (the icon registry). |
 | **Re-exported from `@krizaka/ui`** | `Button` (default variant `primary`, as in 1.x), `IconButton`, `buttonVariants`, `Badge` (`variant` → deprecated alias of `tone`), `badgeVariants`, `Input`, `Field`, `Textarea`, `Select`, `Skeleton` (`variant`, `width`, `height` deprecated), `skeletonVariants`, `cn`. New code imports them from `@krizaka/ui`. |
 | **Kept here, tokenized** | `Card*`, `Dialog`, `ToastContainer`, `CommandPalette` — until their `@krizaka/ui` primitive ships (`card`, `dialog`, `toast`, `command`). |
-| **Tokens** | `tokens`, `themes`, `radius`… re-exported from `@krizaka/orazaka-shared` (the 1.x values, for React Native and the CLI). |
+| **Tokens** | `tokens`, `themes`, `radius`… re-exported from `@krizaka/orazaka-shared` (for React Native and the CLI: the same Orazaka orange as `theme.css`, from `@krizaka/tokens/native`). |
 | **2.x compatibility** | The 1.x variables (`--surface-1`, `--accent`, `--text-primary`…), their utilities (`text-text-primary`, `bg-card-bg`, `bg-status-success`…) and the 1.x theme classes (`html.dark`, `html.cyberpunk`…) are mapped onto the roles, for the apps not yet migrated. **Removed in 3.0.** |
 
 A product variant extends a primitive, it never copies it:
