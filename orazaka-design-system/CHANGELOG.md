@@ -3,6 +3,22 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [2.2.0] — 2026-10-09
+
+### Changed
+
+- **Orazaka is orange.** The default theme (dark and light) is the Orazaka brand of `@krizaka/tokens`
+  (`brands/orazaka.css`, imported by `theme.css`): the orange of the Orazaka mark — `hsl(26 92% 55%)` under near-black
+  text in dark (7.4:1), the mark's deep stop `#b45309` under white in light (5.1:1). `info` stays blue. Nothing to
+  change in an app: the roles (`bg-accent`, `text-on-accent`…) take the new values.
+
+### Added
+
+- The named theme `electric` (`html.theme-electric`, `.theme-electric`): Electric Blue, the 2.x identity, for the
+  users who chose it.
+- Every named theme sets its whole accent family (`accent-text`, `accent-2`, `ring`, `info`, section gradient), so an
+  island never keeps the brand's orange; `accent-text` is tested at AA on every surface.
+
 ## [2.1.0] — 2026-10-09
 
 ### Added

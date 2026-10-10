@@ -1,4 +1,4 @@
-/* @krizaka/orazaka-design-system/theme.css — Electric Blue, expressed as roles.
+/* @krizaka/orazaka-design-system/theme.css — Orazaka Orange, expressed as roles.
 
    The app's global stylesheet, two lines:
      @import "tailwindcss";
@@ -11,44 +11,35 @@
    Theme mechanism — the organisation's:
      dark       the default, on :root (and the `.theme-dark` island, which stays dark inside a light page);
      light      html.light;
-     a named theme   html.theme-<name> (custom, cyberpunk, solarized, krizaka) — orthogonal to the mode.
+     a named theme   html.theme-<name> (electric, custom, cyberpunk, solarized, krizaka) — orthogonal to the mode.
+
+   The identity is the Orazaka brand theme of @krizaka/tokens (packages/tokens/BRAND.md): orange, taken from the
+   Orazaka mark — never re-declared here. Electric Blue, the 2.x identity, stays as the named theme `electric`.
 
    Every text / on-accent pair is tested at WCAG AA (4.5:1), the muted text at 3:1 and the focus ring at 3:1, in every
    theme (src/__tests__/theme.test.ts). Product tokens are prefixed --orazaka-*. */
 
 @import "@krizaka/tailwind";
 @import "@krizaka/ui/tailwind.css";
+@import "@krizaka/tokens/brands/orazaka.css";
 
 /* The design system declares its own sources: @source resolves relative to this file, so every app that imports
    theme.css gets the utilities its components use — from the workspace or from node_modules alike. */
 @source "./";
 
 /* ═══════════════════════════════════════════════════
-   ELECTRIC BLUE — dark (the default)
+   ORAZAKA ORANGE — dark (the default) and light
    ═══════════════════════════════════════════════════ */
 
-/* The surfaces, borders and text are the platform's (the krizaka.com values): only the accent is Orazaka's.
-   White on hsl(217 92% 60%) reads 3.6:1, under AA: the accent keeps its value and carries near-black text (5.4:1);
-   the hover lightens (6.6:1) instead of darkening. */
+/* The accent family and the section gradient: @krizaka/tokens/brands/orazaka.css (imported above). Dark: orange
+   hsl(26 92% 55%) under near-black text (7.4:1), the hover lightens; light: the mark's deep stop #b45309 under white
+   (5.1:1). The surfaces, borders and text stay the platform's. Only the product tokens are declared here. */
 :root,
 .theme-dark {
-  --kz-accent: hsl(217 92% 60%);
-  --kz-accent-hover: hsl(217 92% 66%);
-  --kz-accent-soft: hsl(217 92% 60% / 0.12);
-  --kz-on-accent: hsl(240 6% 5%);
   --orazaka-grid-color: hsl(0 0% 100% / 0.02);
 }
 
-/* ═══════════════════════════════════════════════════
-   ELECTRIC BLUE — light
-   ═══════════════════════════════════════════════════ */
-
-/* White on hsl(217 92% 50%) reads 5.1:1, on the hover 6.6:1. */
 html.light {
-  --kz-accent: hsl(217 92% 50%);
-  --kz-accent-hover: hsl(217 88% 42%);
-  --kz-accent-soft: hsl(217 92% 50% / 0.08);
-  --kz-on-accent: hsl(0 0% 100%);
   --orazaka-grid-color: hsl(0 0% 0% / 0.03);
 }
 
@@ -59,6 +50,35 @@ html.light {
    `.theme-dark` does for dark. `html.theme-<name>` stays first: it must outweigh `html.light` on the root.
    The second selector of each block (html.<name>) is part of the 2.x compatibility, removed in 3.0.
    ═══════════════════════════════════════════════════ */
+
+/* Electric Blue — the 2.x identity, kept for the users who chose it. White on hsl(217 92% 60%) reads 3.6:1: the
+   accent carries near-black text (5.4:1), the hover lightens (6.6:1). */
+html.theme-electric,
+.theme-electric {
+  color-scheme: dark;
+  --kz-surface-0: hsl(240 6% 5%);
+  --kz-surface-1: hsl(240 5% 9%);
+  --kz-surface-2: hsl(240 5% 13%);
+  --kz-surface-3: hsl(240 4% 17%);
+  --kz-border-subtle: hsl(0 0% 100% / 0.06);
+  --kz-border-default: hsl(0 0% 100% / 0.10);
+  --kz-border-strong: hsl(0 0% 100% / 0.16);
+  --kz-text-primary: hsl(0 0% 96%);
+  --kz-text-secondary: hsl(240 4% 64%);
+  --kz-text-muted: hsl(240 4% 47%);
+  --kz-accent: hsl(217 92% 60%);
+  --kz-accent-hover: hsl(217 92% 66%);
+  --kz-accent-soft: hsl(217 92% 60% / 0.12);
+  --kz-accent-text: hsl(217 92% 68%);
+  --kz-accent-2: hsl(217 92% 60%);
+  --kz-on-accent: hsl(240 6% 5%);
+  --kz-ring: hsl(217 92% 60%);
+  --kz-info: hsl(217 92% 60%);
+  --kz-brand-gradient-from: hsl(222 45% 10%);
+  --kz-brand-gradient-via: hsl(232 24% 7%);
+  --kz-brand-gradient-to: hsl(240 6% 5%);
+  --orazaka-grid-color: hsl(0 0% 100% / 0.02);
+}
 
 /* Deep Violet. */
 html.theme-custom,
@@ -79,6 +99,13 @@ html.custom {
   --kz-accent-hover: hsl(271 91% 72%);
   --kz-accent-soft: hsl(271 91% 65% / 0.12);
   --kz-on-accent: hsl(240 6% 5%);
+  --kz-accent-text: hsl(271 91% 72%);
+  --kz-accent-2: var(--kz-accent);
+  --kz-ring: var(--kz-accent);
+  --kz-info: var(--kz-accent);
+  --kz-brand-gradient-from: var(--kz-surface-1);
+  --kz-brand-gradient-via: var(--kz-surface-0);
+  --kz-brand-gradient-to: var(--kz-surface-0);
   --orazaka-grid-color: hsl(0 0% 100% / 0.02);
 }
 
@@ -101,6 +128,13 @@ html.cyberpunk {
   --kz-accent-hover: hsl(296 100% 60%);
   --kz-accent-soft: hsl(296 100% 50% / 0.12);
   --kz-on-accent: hsl(240 6% 5%);
+  --kz-accent-text: hsl(296 100% 66%);
+  --kz-accent-2: var(--kz-accent);
+  --kz-ring: var(--kz-accent);
+  --kz-info: var(--kz-accent);
+  --kz-brand-gradient-from: var(--kz-surface-1);
+  --kz-brand-gradient-via: var(--kz-surface-0);
+  --kz-brand-gradient-to: var(--kz-surface-0);
   --orazaka-grid-color: hsl(163 100% 50% / 0.03);
 }
 
@@ -123,6 +157,13 @@ html.solarized {
   --kz-accent-hover: hsl(205 71% 55%);
   --kz-accent-soft: hsl(205 71% 49% / 0.12);
   --kz-on-accent: hsl(240 6% 5%);
+  --kz-accent-text: hsl(205 80% 32%);
+  --kz-accent-2: var(--kz-accent);
+  --kz-ring: var(--kz-accent);
+  --kz-info: var(--kz-accent);
+  --kz-brand-gradient-from: var(--kz-surface-1);
+  --kz-brand-gradient-via: var(--kz-surface-0);
+  --kz-brand-gradient-to: var(--kz-surface-0);
   --orazaka-grid-color: hsl(0 0% 0% / 0.03);
 }
 
@@ -152,6 +193,13 @@ html.krizaka {
   --kz-shadow-sm: 0 1px 3px hsl(210 40% 10% / 0.3), 0 1px 2px hsl(210 40% 10% / 0.15);
   --kz-shadow-md: 0 4px 12px hsl(210 40% 10% / 0.25), 0 2px 4px hsl(210 40% 10% / 0.1);
   --kz-shadow-lg: 0 8px 24px hsl(210 40% 10% / 0.3), 0 4px 8px hsl(210 40% 10% / 0.12);
+  --kz-accent-text: hsl(210 60% 66%);
+  --kz-accent-2: var(--kz-accent);
+  --kz-ring: var(--kz-accent);
+  --kz-info: var(--kz-accent);
+  --kz-brand-gradient-from: var(--kz-surface-1);
+  --kz-brand-gradient-via: var(--kz-surface-0);
+  --kz-brand-gradient-to: var(--kz-surface-0);
   --orazaka-grid-color: hsl(210 40% 80% / 0.02);
 }
 

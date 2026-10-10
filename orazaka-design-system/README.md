@@ -1,6 +1,7 @@
 # @krizaka/orazaka-design-system
 
-The Orazaka identity on the Krizaka platform: the **Electric Blue** theme and its named themes as `--kz-*` token
+The Orazaka identity on the Krizaka platform: the **Orazaka Orange** theme (the Orazaka brand of `@krizaka/tokens`)
+and its named themes as `--kz-*` token
 overrides, the product composites, and the [`@krizaka/ui`](https://github.com/krizaka/krizaka-ui) primitives
 re-exported. Part of [orazaka-ui-kit](https://github.com/krizaka/orazaka-ui-kit).
 
@@ -28,7 +29,7 @@ itself:
 ## Themes
 
 One mechanism, the organisation's: **dark** is the default (`:root`), **light** is `html.light`, a **named theme** is
-`html.theme-<name>` — `custom` (Deep Violet), `cyberpunk` (Neon Matrix), `solarized` (Warm Parchment, light),
+`html.theme-<name>` — `electric` (Electric Blue, the 2.x identity), `custom` (Deep Violet), `cyberpunk` (Neon Matrix), `solarized` (Warm Parchment, light),
 `krizaka` (Obsidian Razor, zero radius). A named theme also works as an island: `.theme-<name>` on
 any element gives it that theme inside any page (as `.theme-dark` does for dark) — a theme picker draws real previews.
 A theme is a set of token values, never a set of classes: components write
@@ -37,13 +38,21 @@ read right in every theme.
 
 | Role | Dark | Light |
 | :--- | :--- | :--- |
-| `--kz-accent` | `hsl(217 92% 60%)` | `hsl(217 92% 50%)` |
-| `--kz-accent-hover` | `hsl(217 92% 66%)` | `hsl(217 88% 42%)` |
-| `--kz-on-accent` | `hsl(240 6% 5%)` — 5.4:1 | white — 5.1:1 |
+| `--kz-accent` | `hsl(26 92% 55%)` #f67e23 | `hsl(26 90.5% 37.1%)` #b45309 (the mark's deep stop) |
+| `--kz-accent-hover` | `hsl(26 92% 62%)` | `hsl(26 90% 31%)` |
+| `--kz-on-accent` | `hsl(240 6% 5%)` — 7.4:1 | white — 5.1:1 |
+| `--kz-accent-text` (`text-fg-accent`) | `hsl(26 92% 60%)` | `hsl(26 90% 32%)` |
+| `--kz-accent-2` | `#f59e0b` (the mark's light stop) | `hsl(32 95% 33%)` |
+| `--kz-info` | blue `hsl(217 92% 60%)` — an orange "info" would read as a warning | `hsl(217 92% 50%)` |
 | surfaces, borders, text | the platform's (`@krizaka/tokens`, the krizaka.com values) | idem |
 
+These values are **not declared here**: `theme.css` imports `@krizaka/tokens/brands/orazaka.css`, the Orazaka brand of
+the Krizaka brand system (`@krizaka/tokens`, `BRAND.md`) — the orange of the Orazaka mark. A change of colour is made
+there, released, then adopted.
+
 Every theme is tested at WCAG AA (`src/__tests__/theme.test.ts`): primary and secondary text ≥ 4.5:1 on every
-surface, muted text ≥ 3:1, on-accent ≥ 4.5:1 on the accent and its hover, focus ring ≥ 3:1.
+surface, muted text ≥ 3:1, on-accent ≥ 4.5:1 on the accent and its hover, the accent as text ≥ 4.5:1 on every
+surface, focus ring ≥ 3:1.
 
 ## Contents
 

@@ -11,6 +11,7 @@ import { join } from "node:path";
 
 const theme = readFileSync(join(__dirname, "..", "theme.css"), "utf8");
 const platform = readFileSync(require.resolve("@krizaka/tokens/tokens.css"), "utf8");
+const brand = readFileSync(require.resolve("@krizaka/tokens/brands/orazaka.css"), "utf8");
 
 type Declarations = Record<string, string>;
 
@@ -29,6 +30,7 @@ function blocks(css: string): Map<string, Declarations> {
 }
 
 const kz = blocks(platform);
+const orazaka = blocks(brand);
 const own = blocks(theme);
 
 function pick(map: Map<string, Declarations>, selector: string): Declarations {
@@ -37,15 +39,18 @@ function pick(map: Map<string, Declarations>, selector: string): Declarations {
   return found;
 }
 
-const NAMED = ["custom", "cyberpunk", "solarized", "krizaka"] as const;
-const named = (name: string) => pick(own, `html.theme-${name}, .theme-${name}, html.${name}`);
+const NAMED = ["electric", "custom", "cyberpunk", "solarized", "krizaka"] as const;
+const named = (name: string) =>
+  name === "electric" ? pick(own, "html.theme-electric, .theme-electric") : pick(own, `html.theme-${name}, .theme-${name}, html.${name}`);
 
+// The cascade of an app: the platform, then the Orazaka brand theme, then this file.
 const dark: Declarations = {
   ...pick(kz, ":root, .theme-dark"),
   ...pick(kz, ":root"),
+  ...pick(orazaka, ":root, .theme-dark"),
   ...pick(own, ":root, .theme-dark"),
 };
-const light = { ...dark, ...pick(kz, "html.light"), ...pick(own, "html.light") } as Declarations;
+const light = { ...dark, ...pick(kz, "html.light"), ...pick(orazaka, "html.light"), ...pick(own, "html.light") } as Declarations;
 const themes: Record<string, Declarations> = {
   dark,
   light,
@@ -83,10 +88,22 @@ function contrast(a: string, b: string): number {
   return (hi + 0.05) / (lo + 0.05);
 }
 
-describe("theme.css — Electric Blue", () => {
-  it("is the accent of the brief: hsl(217 92% 60%) dark, hsl(217 92% 50%) light", () => {
-    expect(role(dark, "accent")).toBe("hsl(217 92% 60%)");
-    expect(role(light, "accent")).toBe("hsl(217 92% 50%)");
+describe("theme.css — Orazaka Orange", () => {
+  it("is the Orazaka brand of @krizaka/tokens: orange from the mark, hsl(26 92% 55%) dark, #b45309 light", () => {
+    expect(role(dark, "accent")).toBe("hsl(26 92% 55%)");
+    expect(role(light, "accent")).toBe("hsl(26 90.5% 37.1%)");
+    expect(role(dark, "on-accent")).toBe("hsl(240 6% 5%)");
+    expect(role(light, "on-accent")).toBe("hsl(0 0% 100%)");
+  });
+
+  it("does not re-declare the brand: the accent family comes from @krizaka/tokens/brands/orazaka.css", () => {
+    for (const selector of [":root, .theme-dark", "html.light"]) {
+      expect(Object.keys(pick(own, selector)).filter((name) => name.startsWith("--kz-"))).toEqual([]);
+    }
+  });
+
+  it("keeps Electric Blue (the 2.x identity) as the named theme `electric`", () => {
+    expect(role(themes.electric, "accent")).toBe("hsl(217 92% 60%)");
   });
 
   it("keeps the platform surfaces (the krizaka.com values) and overrides only what is Orazaka's", () => {
@@ -106,6 +123,10 @@ describe("theme.css — Electric Blue", () => {
     // The text and icons on the accent (primary button, sent bubble), at rest and on hover.
     expect(contrast(role(t, "on-accent"), role(t, "accent"))).toBeGreaterThanOrEqual(4.5);
     expect(contrast(role(t, "on-accent"), role(t, "accent-hover"))).toBeGreaterThanOrEqual(4.5);
+    // The accent as text (links, active labels) on every surface.
+    for (const surface of ["surface-0", "surface-1", "surface-2", "surface-3"].map((s) => role(t, s))) {
+      expect(contrast(role(t, "accent-text"), surface)).toBeGreaterThanOrEqual(4.5);
+    }
     // The focus ring stands out from the page (non-text contrast).
     expect(contrast(role(t, "ring"), role(t, "surface-0"))).toBeGreaterThanOrEqual(3);
   });
@@ -117,7 +138,7 @@ describe("theme.css — mechanism", () => {
   it("brings the platform layers first", () => {
     const code = theme.replace(/\/\*[\s\S]*?\*\//g, "");
     const imports = [...code.matchAll(/@import\s+"([^"]+)"/g)].map(([, path]) => path);
-    expect(imports).toEqual(["@krizaka/tailwind", "@krizaka/ui/tailwind.css"]);
+    expect(imports).toEqual(["@krizaka/tailwind", "@krizaka/ui/tailwind.css", "@krizaka/tokens/brands/orazaka.css"]);
   });
 
   it("declares no variant and no `.dark` theme: dark on :root, html.light, html.theme-<name>", () => {
@@ -127,8 +148,17 @@ describe("theme.css — mechanism", () => {
   });
 
   it("applies each named theme as an island too (`.theme-<name>` on any element), the html selector first", () => {
-    for (const name of NAMED) {
+    for (const name of NAMED.filter((n) => n !== "electric")) {
       expect(own.has(`html.theme-${name}, .theme-${name}, html.${name}`)).toBe(true);
+    }
+    expect(own.has("html.theme-electric, .theme-electric")).toBe(true);
+  });
+
+  it("gives each named theme its whole accent family, so an island never keeps the brand's orange", () => {
+    for (const name of NAMED) {
+      for (const r of ["accent", "accent-text", "accent-2", "ring", "info", "brand-gradient-from"]) {
+        expect([name, r, named(name)[`--kz-${r}`] !== undefined]).toEqual([name, r, true]);
+      }
     }
   });
 
