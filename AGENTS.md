@@ -4,7 +4,7 @@
 > [`AGENTS.md`](https://github.com/krizaka/orazaka/blob/main/AGENTS.md) at the root of the Orazaka workspace
 > ([`krizaka/orazaka`](https://github.com/krizaka/orazaka)), together with its `.agent/rules/*`. When this repository
 > is cloned inside the workspace (`orazaka-apps/ui/orazaka-ui-kit`), that contract is loaded first and applies
-> without exception. **No rule lives here** — this file only scopes it.
+> without exception. **No platform rule lives here** — this file scopes it and holds only the design system's own rules and its documentation contract.
 
 ## Scope of this repository
 
@@ -31,9 +31,34 @@
 - The 1.x variables in `theme.css` (the "2.x compatibility" block) are for the apps not yet migrated: never use them
   in this package; they are removed in 3.0.
 
+- **A persona, not an admin**: examples, showcases and recordings speak as a named person with a real need (Eric,
+  finance lead) in a believable fictional workspace — never an admin account or an internal label (the registry test
+  refuses "admin" in an example).
+
+## The documentation of a component is written here
+
+krizaka.com/docs/orazaka/ui (Overview, Foundations, one page per component) is **generated from this repository** at
+every build of the site — the site holds no page, demo or prop table of the kit. A new or changed component of
+`@krizaka/orazaka-design-system` comes with:
+
+- a `src/components/<name>.meta.ts` (typed by `src/meta.ts`): summary, **why it exists above Krizaka UI**, status
+  (`deprecated` with `since` / `use` / `removedIn` — a deprecated component keeps its page, marked "deprecated → use X"),
+  category, when to use / not, best practices, accessibility, the `@krizaka/ui` primitives it is built on
+  (`builtOn: ["ui/command"]`), related (`ui/<name>` or a kit component), its imports;
+- its named examples, `orazaka-design-system/registry/examples/<name>/<example>.tsx` (≤ 40 lines, a realistic product
+  scenario with a persona, importing `@krizaka/orazaka-design-system` as an app does);
+- a JSDoc on every prop.
+
+The foundations read `src/theme.css` and `@krizaka/tokens` (roles, both modes, named themes, contrasts, type scale) and
+`foundations.meta.ts` (names, uses, the product rules — each quoted from the contract that states it, never invented).
+`npm run registry` writes `registry/*.json` (git-ignored, published); `scripts/registry.test.mjs` fails when an exported
+component has no meta, an example is missing, a prop has no description, a reference does not resolve or a theme falls
+below AA.
+
 ## Definition of done
 
 1. `npm run validate` (or `lint` + `build`) is green inside the workspace (`orazaka-apps/ui`) — for the design system,
-   `npm run check` (lint + ratchet, type-check, Jest, publint) — and `orazaka-web-client` / `orazaka-web-admin` still
+   `npm run check` (lint + ratchet, type-check, Jest + the registry test, registry, publint) — and `orazaka-web-client` / `orazaka-web-admin` still
    build against it.
 2. No hard-coded colors, 250-line cap per component, types only from `@krizaka/orazaka-shared` (AGENTS.md §8).
+3. A new or changed component has its `meta.ts`, its examples and its props' JSDoc (above).

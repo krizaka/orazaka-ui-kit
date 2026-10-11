@@ -1,7 +1,7 @@
 {
   "name": "@krizaka/orazaka-design-system",
-  "version": "2.4.0",
-  "description": "The Orazaka identity on the Krizaka platform: the Orazaka Orange theme (the Orazaka brand of @krizaka/tokens) and its named themes as --kz-* token overrides, the product composites (ChatShowcase, SentinelMini, icon registry) and the @krizaka/ui primitives re-exported.",
+  "version": "2.5.0",
+  "description": "The Orazaka identity on the Krizaka platform: the Orazaka Orange theme (the Orazaka brand of @krizaka/tokens) and its named themes as --kz-* token overrides, the product composites (ChatShowcase, CommandPalette, SentinelMini, icon registry) with their documentation registry (krizaka.com/docs/orazaka/ui), and the @krizaka/ui primitives re-exported.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -14,6 +14,7 @@
   "files": [
     "src",
     "!src/**/__tests__",
+    "registry",
     "README.md",
     "CHANGELOG.md",
     "LICENSE"
@@ -24,16 +25,20 @@
   "exports": {
     ".": "./src/index.ts",
     "./theme.css": "./src/theme.css",
+    "./registry/examples/*": "./registry/examples/*.tsx",
+    "./registry/*": "./registry/*",
     "./package.json": "./package.json"
   },
   "scripts": {
-    "lint": "eslint src --max-warnings 0 && krizaka-ratchet",
+    "lint": "eslint src registry --max-warnings 0 && krizaka-ratchet",
     "typecheck": "tsc --noEmit",
-    "test": "jest",
+    "test": "jest && node --test scripts/registry.test.mjs",
     "test:coverage": "jest --coverage",
     "publint": "publint",
-    "check": "npm run lint && npm run typecheck && npm test && npm run publint",
-    "validate": "npm run check"
+    "check": "npm run lint && npm run typecheck && npm test && npm run registry && npm run publint",
+    "validate": "npm run check",
+    "registry": "node scripts/build-registry.mjs",
+    "prepack": "node scripts/build-registry.mjs"
   },
   "dependencies": {
     "@krizaka/orazaka-shared": "^1.1.0",
@@ -63,6 +68,7 @@
     "next": "^16.3.0",
     "publint": "^0.3.25",
     "react": "19.2.4",
+    "react-docgen-typescript": "^2.4.0",
     "react-dom": "19.2.4",
     "tailwindcss": "^4.1.0",
     "typescript": "^5"

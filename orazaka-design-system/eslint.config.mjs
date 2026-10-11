@@ -23,7 +23,7 @@ export default defineConfig([
   },
   // The four UI rules of the platform, strict: no raw palette colour, no `light:`, no arbitrary [var(--…)], no
   // template string in className. `lint-ratchet.json` holds the same counters at zero (krizaka-ratchet).
-  ...krizakaUi({ files: ["src/**/*.tsx"] }),
+  ...krizakaUi({ files: ["src/**/*.tsx", "registry/examples/**/*.tsx"] }),
   {
     // Data registries are exempt, and the exemption is narrow by construction: a `*.registry.tsx`
     // may hold as much data as it likes and nothing else. A registry that grows a component stops

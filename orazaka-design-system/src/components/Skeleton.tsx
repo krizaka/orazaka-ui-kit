@@ -25,13 +25,21 @@ export function Skeleton({ variant, shape, width, height, style, ...props }: Ske
   return <KzSkeleton shape={shape ?? variant ?? "rect"} style={sized} {...props} />;
 }
 
+/** Props of {@link SkeletonGroup}. */
+export interface SkeletonGroupProps {
+  /** The number of text lines; the last one is shorter. Default 3. */
+  lines?: number;
+  /** Extra classes on the group (its width), merged last. */
+  className?: string;
+}
+
 /**
  * A paragraph of text skeletons; the last line is shorter.
  *
  * @param props - `lines` (default 3) and `className`.
  * @returns A group of text skeletons.
  */
-export function SkeletonGroup({ lines = 3, className }: Readonly<{ lines?: number; className?: string }>) {
+export function SkeletonGroup({ lines = 3, className }: Readonly<SkeletonGroupProps>) {
   return (
     <div className={cn("space-y-2.5", className)} aria-hidden="true">
       {Array.from({ length: lines }, (_, i) => (

@@ -36,6 +36,7 @@ export interface ChatShowcaseLabels {
 
 /** Props for {@link ChatShowcase}. */
 export interface ChatShowcaseProps {
+  /** The chrome's words, translated: the agent's name, its status, the model, the "answered locally" tag, the privacy line, the composer's placeholder. */
   labels: ChatShowcaseLabels;
   /** The user's scripted question. */
   question: string;
@@ -43,6 +44,7 @@ export interface ChatShowcaseProps {
   answer: string;
   /** Interceptor pipeline steps rendered as chips once the answer lands. */
   pipeline: string[];
+  /** Extra classes on the wrapper (width, placement), merged last. */
   className?: string;
 }
 

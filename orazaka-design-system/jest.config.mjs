@@ -15,6 +15,8 @@ const kzUi = dirname(require.resolve("@krizaka/ui/package.json"));
  */
 const config = {
   testEnvironment: "jsdom",
+  // The registry test (scripts/registry.test.mjs) runs on Node's own runner: it reads the meta.ts files as ES modules.
+  roots: ["<rootDir>/src"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   moduleNameMapper: {
     "^@krizaka/ui$": join(kzUi, "dist/index.js"),
