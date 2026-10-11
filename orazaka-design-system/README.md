@@ -38,11 +38,11 @@ read right in every theme.
 
 | Role | Dark | Light |
 | :--- | :--- | :--- |
-| `--kz-accent` | `hsl(26 92% 55%)` #f67e23 | `hsl(26 90.5% 37.1%)` #b45309 (the mark's deep stop) |
+| `--kz-accent` | `hsl(26 92% 55%)` #f67e23 | `hsl(26 90.5% 37.1%)` #b45309 (deep orange, the first stop of the mark) |
 | `--kz-accent-hover` | `hsl(26 92% 62%)` | `hsl(26 90% 31%)` |
 | `--kz-on-accent` | `hsl(240 6% 5%)` — 7.4:1 | white — 5.1:1 |
 | `--kz-accent-text` (`text-fg-accent`) | `hsl(26 92% 60%)` | `hsl(26 90% 32%)` |
-| `--kz-accent-2` | `#f59e0b` (the mark's light stop) | `hsl(32 95% 33%)` |
+| `--kz-accent-2` | `#f59e0b` (closes the buttons' gradient) | `hsl(32 95% 33%)` |
 | `--kz-info` | blue `hsl(217 92% 60%)` — an orange "info" would read as a warning | `hsl(217 92% 50%)` |
 | surfaces, borders, text | the platform's (`@krizaka/tokens`, the krizaka.com values) | idem |
 

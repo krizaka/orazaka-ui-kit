@@ -3,6 +3,18 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [2.4.0] — 2026-10-11
+
+Built on `@krizaka/ui`, `@krizaka/tokens` and `@krizaka/tailwind` **2.1.0** (floor raised from 2.0.0).
+
+### Changed
+
+- **The Orazaka mark is the brand's orange.** `OrazakaLogo` / `ProductLogo id="orazaka"` (and `OrazakaMark` native) of
+  `@krizaka/ui` 2.1.0 leave amber (`#b45309 → #f59e0b`) for deep orange `#b45309` → orange `#dc6509` on the accent's
+  hue 26 — every stop ≥ 3:1 on dark and light pages — read from `marks.orazaka` of `@krizaka/tokens`.
+- `ThemeScript` takes `defaultMode` like `ThemeProvider` (`@krizaka/ui/theme`): an Orazaka app that wants to be dark
+  first passes `defaultMode="dark"` to both — no flash, the visitor's `kz-theme` still wins.
+
 ## [2.3.0] — 2026-10-10
 
 No markup of a primitive is left in the kit: what it still drew itself is now drawn by `@krizaka/ui` 2.0.0 (stable).
