@@ -6,7 +6,7 @@ versions: [Semantic Versioning](https://semver.org/).
 ## [3.0.0] — 2026-10-11
 
 The kit keeps only what is Orazaka's: the theme, the composites, and the few primitives it re-exports with an Orazaka
-default. Everything @krizaka/ui 2.3 now draws is imported from there — the apps (web client, console) moved first.
+default. Everything @krizaka/ui 2.4 now draws is imported from there — the apps (web client, console) moved first.
 
 ### Removed (breaking)
 
@@ -20,8 +20,8 @@ default. Everything @krizaka/ui 2.3 now draws is imported from there — the app
 
 ### Changed
 
-- On `@krizaka/ui` ^2.3.0, `@krizaka/tailwind` / `@krizaka/tokens` ^2.3.0 (Loader, Stepper, Progress with ETA, the
-  job toasts, Meter, NumberTicker, GlowCard, the gliding Tabs, NavBar).
+- On `@krizaka/ui` ^2.4.0, `@krizaka/tailwind` / `@krizaka/tokens` ^2.4.0 (Loader, Stepper, Progress with ETA, the
+  job toasts, Meter, NumberTicker, GlowCard, the gliding Tabs, NavBar; DS3: DataTable, Pagination, FilterBar…).
 
 ## [2.5.0] — 2026-10-11
 
