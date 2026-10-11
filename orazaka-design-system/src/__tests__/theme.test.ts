@@ -41,7 +41,7 @@ function pick(map: Map<string, Declarations>, selector: string): Declarations {
 
 const NAMED = ["electric", "custom", "cyberpunk", "solarized", "krizaka"] as const;
 const named = (name: string) =>
-  name === "electric" ? pick(own, "html.theme-electric, .theme-electric") : pick(own, `html.theme-${name}, .theme-${name}, html.${name}`);
+  pick(own, `html.theme-${name}, .theme-${name}`);
 
 // The cascade of an app: the platform, then the Orazaka brand theme, then this file.
 const dark: Declarations = {
@@ -133,7 +133,6 @@ describe("theme.css — Orazaka Orange", () => {
 });
 
 describe("theme.css — mechanism", () => {
-  const [roles, compat] = theme.split("2.x COMPATIBILITY");
 
   it("brings the platform layers first", () => {
     const code = theme.replace(/\/\*[\s\S]*?\*\//g, "");
@@ -148,10 +147,9 @@ describe("theme.css — mechanism", () => {
   });
 
   it("applies each named theme as an island too (`.theme-<name>` on any element), the html selector first", () => {
-    for (const name of NAMED.filter((n) => n !== "electric")) {
-      expect(own.has(`html.theme-${name}, .theme-${name}, html.${name}`)).toBe(true);
+    for (const name of NAMED) {
+      expect(own.has(`html.theme-${name}, .theme-${name}`)).toBe(true);
     }
-    expect(own.has("html.theme-electric, .theme-electric")).toBe(true);
   });
 
   it("gives each named theme its whole accent family, so an island never keeps the brand's orange", () => {
@@ -162,27 +160,12 @@ describe("theme.css — mechanism", () => {
     }
   });
 
-  it("writes roles only outside the compatibility block", () => {
-    const declared = [...roles.matchAll(/^\s*(--[\w-]+)\s*:/gm)].map(([, name]) => name);
+  it("writes roles only: no 1.x variable, no unprefixed token (the 2.x compatibility is gone since 3.0)", () => {
+    const declared = [...theme.matchAll(/^\s*(--[\w-]+)\s*:/gm)].map(([, name]) => name);
     const unprefixed = declared.filter(
       (name) => !/^--(kz|orazaka)-/.test(name) && !/^--text-(xs|sm|base|lg|xl|2xl|display)$/.test(name),
     );
     expect(unprefixed).toEqual([]);
   });
 
-  it("maps every 1.x variable onto a role until 3.0", () => {
-    const compatRoot = blocks(compat.slice(compat.indexOf("*/") + 2)).get(":root") ?? {};
-    const legacy = [
-      "surface-0", "surface-1", "surface-2", "surface-3",
-      "border-subtle", "border-default", "border-strong",
-      "text-primary", "text-secondary", "text-muted",
-      "accent", "accent-hover", "accent-soft", "accent-glow",
-      "status-success", "status-error", "status-warning",
-      "radius-sm", "radius-md", "radius-lg", "radius-xl", "radius-full",
-      "shadow-sm", "shadow-md", "shadow-lg",
-      "space-card", "grid-color", "background", "foreground",
-    ];
-    for (const name of legacy) expect(compatRoot[`--${name}`]).toMatch(/^var\(--(kz|orazaka)-/);
-    expect(compat).toMatch(/removed in 3\.0/);
-  });
 });

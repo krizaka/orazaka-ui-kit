@@ -8,14 +8,11 @@
 export type ComponentName =
   | "badge"
   | "button"
-  | "card"
   | "chat-showcase"
   | "command-palette"
-  | "dialog"
   | "icon"
   | "sentinel-mini"
-  | "skeleton"
-  | "toast-container";
+  | "skeleton";
 
 /** A component of @krizaka/ui, documented at krizaka.com/docs/ui/<name>: `ui/badge`, `ui/button`. */
 export type UiComponent = `ui/${string}`;

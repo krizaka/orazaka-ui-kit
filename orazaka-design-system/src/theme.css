@@ -48,7 +48,6 @@ html.light {
    A named theme sets every colour role, so it reads the same in either mode. The class also works as an island:
    an element carrying `.theme-<name>` takes that theme inside any page (a theme picker's previews), as
    `.theme-dark` does for dark. `html.theme-<name>` stays first: it must outweigh `html.light` on the root.
-   The second selector of each block (html.<name>) is part of the 2.x compatibility, removed in 3.0.
    ═══════════════════════════════════════════════════ */
 
 /* Electric Blue — the 2.x identity, kept for the users who chose it. White on hsl(217 92% 60%) reads 3.6:1: the
@@ -82,8 +81,7 @@ html.theme-electric,
 
 /* Deep Violet. */
 html.theme-custom,
-.theme-custom,
-html.custom {
+.theme-custom {
   color-scheme: dark;
   --kz-surface-0: hsl(270 100% 2%);
   --kz-surface-1: hsl(260 50% 6%);
@@ -111,8 +109,7 @@ html.custom {
 
 /* Neon Matrix. */
 html.theme-cyberpunk,
-.theme-cyberpunk,
-html.cyberpunk {
+.theme-cyberpunk {
   color-scheme: dark;
   --kz-surface-0: hsl(272 100% 2%);
   --kz-surface-1: hsl(275 63% 8%);
@@ -140,8 +137,7 @@ html.cyberpunk {
 
 /* Warm Parchment — a light theme. The text is darker than the 1.x values (3.7:1 → 6.8:1) to read at AA. */
 html.theme-solarized,
-.theme-solarized,
-html.solarized {
+.theme-solarized {
   color-scheme: light;
   --kz-surface-0: hsl(44 87% 94%);
   --kz-surface-1: hsl(44 52% 87%);
@@ -169,8 +165,7 @@ html.solarized {
 
 /* Deep Obsidian Razor: pitch-black surfaces, zero-radius edges, frosted ice-blue outlines, cold-steel accent. */
 html.theme-krizaka,
-.theme-krizaka,
-html.krizaka {
+.theme-krizaka {
   color-scheme: dark;
   --kz-surface-0: hsl(240 18% 4%);
   --kz-surface-1: hsl(240 14% 7%);
@@ -227,77 +222,6 @@ html.krizaka {
   --text-2xl: clamp(1.75rem, 1.5rem + 1vw, 2.5rem);
   --text-display: clamp(2rem, 1.6rem + 1.6vw, 3rem);
 }
-
-/* ═══════════════════════════════════════════════════
-   2.x COMPATIBILITY — TEMPORARY, removed in 3.0
-   ─────────────────────────────────────────────────
-   The 1.x unprefixed variables and their utilities, mapped onto the roles, so that the apps written against 1.x
-   (orazaka-web-client, orazaka-web-admin) keep working until they move to the roles (P3.4). Nothing in this package
-   reads them. Write bg-surface-1 / text-fg / border-border-subtle / text-accent / text-danger, never these.
-   ═══════════════════════════════════════════════════ */
-
-:root {
-  --surface-0: var(--kz-surface-0);
-  --surface-1: var(--kz-surface-1);
-  --surface-2: var(--kz-surface-2);
-  --surface-3: var(--kz-surface-3);
-  --border-subtle: var(--kz-border-subtle);
-  --border-default: var(--kz-border-default);
-  --border-strong: var(--kz-border-strong);
-  --text-primary: var(--kz-text-primary);
-  --text-secondary: var(--kz-text-secondary);
-  --text-muted: var(--kz-text-muted);
-  --accent: var(--kz-accent);
-  --accent-hover: var(--kz-accent-hover);
-  --accent-soft: var(--kz-accent-soft);
-  --accent-glow: var(--orazaka-accent-glow);
-  --status-success: var(--kz-success);
-  --status-error: var(--kz-danger);
-  --status-warning: var(--kz-warning);
-  --shadow-xs: 0 1px 2px hsl(0 0% 0% / 0.05);
-  --shadow-sm: var(--kz-shadow-sm);
-  --shadow-md: var(--kz-shadow-md);
-  --shadow-lg: var(--kz-shadow-lg);
-  --shadow-glow: 0 0 0 1px var(--kz-accent-soft), 0 8px 20px var(--kz-accent-soft);
-  --radius-sm: var(--kz-radius-sm);
-  --radius-md: var(--kz-radius-md);
-  --radius-lg: var(--kz-radius-lg);
-  --radius-xl: var(--kz-radius-xl);
-  --radius-full: var(--kz-radius-full);
-  --space-card: var(--orazaka-space-card);
-  --space-section: var(--orazaka-space-section);
-  --grid-color: var(--orazaka-grid-color);
-  --background: var(--kz-surface-0);
-  --foreground: var(--kz-text-primary);
-  --card-bg: var(--kz-surface-1);
-  --card-border: var(--kz-border-subtle);
-  --card-text: var(--kz-text-primary);
-  --input-bg: var(--kz-surface-2);
-  --input-border: var(--kz-border-default);
-  --input-text: var(--kz-text-primary);
-  --glow-color: var(--kz-accent);
-  --glow-accent: var(--kz-accent-soft);
-}
-
-/* The 1.x utilities the preset does not provide (bg-surface-*, text-accent, border-border-* come from the preset). */
-@theme inline {
-  --color-background: var(--kz-surface-0);
-  --color-foreground: var(--kz-text-primary);
-  --color-card-bg: var(--kz-surface-1);
-  --color-card-border: var(--kz-border-subtle);
-  --color-card-text: var(--kz-text-primary);
-  --color-input-bg: var(--kz-surface-2);
-  --color-input-border: var(--kz-border-default);
-  --color-input-text: var(--kz-text-primary);
-  --color-text-primary: var(--kz-text-primary);
-  --color-text-secondary: var(--kz-text-secondary);
-  --color-text-muted: var(--kz-text-muted);
-  --color-status-success: var(--kz-success);
-  --color-status-error: var(--kz-danger);
-  --color-status-warning: var(--kz-warning);
-}
-
-/* ── end of the 2.x compatibility ── */
 
 /* ═══════════════════════════════════════════════════
    BASE — Typography & Body

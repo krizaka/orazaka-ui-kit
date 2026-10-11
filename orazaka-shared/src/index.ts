@@ -34,6 +34,10 @@ export type {
   PolicyPredicate,
 } from "./schemas/intent-envelope";
 
+// ── Jobs ───────────────────────────────────────────────────────────────────
+export { JobStatusSchema, JobSchema, JobPageSchema } from "./schemas/job";
+export type { JobStatus, JobRecord, JobPage } from "./schemas/job";
+
 // ── Billing & credits (ADR-033) ────────────────────────────────────────────
 export {
   CreditBucketSchema,
