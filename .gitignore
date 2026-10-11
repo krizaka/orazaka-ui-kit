@@ -39,3 +39,6 @@ next-env.d.ts
 *.log
 var/
 scratch/
+
+# The registry of the design system: build output (npm run registry), published
+orazaka-design-system/registry/*.json

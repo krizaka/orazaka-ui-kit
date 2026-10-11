@@ -25,7 +25,7 @@ export type { ButtonProps, ButtonVariants, IconButtonProps } from "./components/
 export { Button, buttonVariants, IconButton } from "./components/Button";
 export type { InputProps } from "./components/Input";
 export { Field, Input, Select, Textarea } from "./components/Input";
-export type { SkeletonProps } from "./components/Skeleton";
+export type { SkeletonGroupProps, SkeletonProps } from "./components/Skeleton";
 export { Skeleton, SkeletonGroup, skeletonVariants } from "./components/Skeleton";
 
 // ── 1.x APIs drawn by their @krizaka/ui primitive (deprecated, removed in 3.0) ──

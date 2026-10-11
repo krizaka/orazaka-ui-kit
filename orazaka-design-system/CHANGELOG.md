@@ -3,6 +3,23 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [2.5.0] — 2026-10-11
+
+The kit documents itself: krizaka.com/docs/orazaka/ui is generated from its code, like /docs/ui from @krizaka/ui.
+
+### Added
+
+- **The registry** (`registry/`, published; `./registry/*` and `./registry/examples/*` exports), in the format of
+  @krizaka/ui's: one `registry/<name>.json` per component (its `src/components/<name>.meta.ts` — summary, why it exists
+  above Krizaka UI, when to use / not, the @krizaka/ui primitives it is built on, accessibility, related, deprecation;
+  its named examples, `registry/examples/<name>/*.tsx`; its props from their JSDoc), `registry/foundations.json` (the
+  Orazaka Orange theme resolved in both modes and the five named themes, with their WCAG contrasts; the product tokens,
+  the fluid type scale, the typography, the icons, the product rules quoted from the contracts) and `registry/index.json`.
+  Written by `npm run registry` (in `check`, and before `npm pack`).
+- `scripts/registry.test.mjs` (in `npm test`): fails when an exported component has no meta or example, a prop has no
+  description, a reference does not resolve, a theme falls below AA, or an example speaks as an admin.
+- `SkeletonGroupProps`; JSDoc on `ChatShowcase`'s `labels` and `className`.
+
 ## [2.4.0] — 2026-10-11
 
 Built on `@krizaka/ui`, `@krizaka/tokens` and `@krizaka/tailwind` **2.1.0** (floor raised from 2.0.0).
