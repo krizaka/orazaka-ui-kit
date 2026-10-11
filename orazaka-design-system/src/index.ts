@@ -2,7 +2,8 @@
  * @file index.ts
  * @description Public surface of `@krizaka/orazaka-design-system` — the Orazaka identity on the Krizaka platform:
  * the theme (`./theme.css`, --kz-* overrides; import it once at the app root, after `tailwindcss`), the product
- * composites, and the @krizaka/ui primitives re-exported so the apps importing them from here keep working.
+ * composites, and a few @krizaka/ui primitives re-exported with their Orazaka defaults (Button's `primary`). Every
+ * other primitive — Card, Dialog, Toaster, Loader, Stepper, Meter, NumberTicker… — is imported from @krizaka/ui.
  */
 
 // ── Design tokens (framework-agnostic, from orazaka-shared) ─────────────────
@@ -27,15 +28,6 @@ export type { InputProps } from "./components/Input";
 export { Field, Input, Select, Textarea } from "./components/Input";
 export type { SkeletonGroupProps, SkeletonProps } from "./components/Skeleton";
 export { Skeleton, SkeletonGroup, skeletonVariants } from "./components/Skeleton";
-
-// ── 1.x APIs drawn by their @krizaka/ui primitive (deprecated, removed in 3.0) ──
-// Card* → `Card.*` from @krizaka/ui/card · Dialog → `Dialog.*` from @krizaka/ui/dialog · ToastContainer → `Toaster` +
-// `toast` from @krizaka/ui/toast. They keep the 1.x props and look; no markup of their own any more.
-export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./components/Card";
-export type { DialogProps } from "./components/Dialog";
-export { Dialog } from "./components/Dialog";
-export type { ToastContainerProps, ToastItem, ToastVariant } from "./components/Toast";
-export { ToastContainer } from "./components/Toast";
 
 // ── Orazaka composites ──────────────────────────────────────────────────────
 export type { ChatShowcaseLabels, ChatShowcaseProps } from "./components/ChatShowcase";

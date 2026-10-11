@@ -3,6 +3,26 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [3.0.0] — 2026-10-11
+
+The kit keeps only what is Orazaka's: the theme, the composites, and the few primitives it re-exports with an Orazaka
+default. Everything @krizaka/ui 2.3 now draws is imported from there — the apps (web client, console) moved first.
+
+### Removed (breaking)
+
+- `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`, `Dialog`, `ToastContainer` (the
+  1.x adapters, deprecated since 2.3): compose `Card.*` (`@krizaka/ui/card`), `Dialog.*` (`@krizaka/ui/dialog`),
+  `Toaster` + `toast` (`@krizaka/ui/toast`). Their documentation pages go with them.
+- The 1.x defaults of `CommandPalette`: `commands` and `labels` are required.
+- The "2.x compatibility" block of `theme.css` — the 1.x variables (`--surface-1`, `--text-primary`, `--accent`…), their
+  utilities (`text-text-primary`, `bg-card-bg`, `text-status-success`…) — and the 1.x theme classes (`html.cyberpunk`…):
+  write the roles (`bg-surface-1`, `text-fg`, `text-accent`, `text-fg-danger`) and `html.theme-<name>`.
+
+### Changed
+
+- On `@krizaka/ui` ^2.3.0, `@krizaka/tailwind` / `@krizaka/tokens` ^2.3.0 (Loader, Stepper, Progress with ETA, the
+  job toasts, Meter, NumberTicker, GlowCard, the gliding Tabs, NavBar).
+
 ## [2.5.0] — 2026-10-11
 
 The kit documents itself: krizaka.com/docs/orazaka/ui is generated from its code, like /docs/ui from @krizaka/ui.

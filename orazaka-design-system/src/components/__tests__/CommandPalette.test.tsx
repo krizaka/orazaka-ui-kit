@@ -66,13 +66,4 @@ describe("CommandPalette (on @krizaka/ui/command)", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
-  it("keeps the 1.x English entries and the router without props (deprecated)", async () => {
-    render(<CommandPalette />);
-    await open();
-    expect(screen.getByRole("dialog", { name: "Command palette" })).toBeInTheDocument();
-    await act(async () => {
-      fireEvent.click(screen.getByRole("option", { name: /Open Chat/ }));
-    });
-    expect(push).toHaveBeenCalledWith("/chat");
-  });
 });

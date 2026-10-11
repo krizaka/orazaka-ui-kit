@@ -17,7 +17,7 @@ export const meta = {
     { when: "For a search over content (documents, conversations) with results to read.", use: "ui/command" },
   ],
   bestPractices: [
-    "Pass `commands` and `labels` translated: the 1.x English defaults are deprecated and go in 3.0.",
+    "Pass `commands` and `labels` translated (both required since 3.0).",
     "Give `onNavigate` outside Next.js (or in tests); inside, it uses the router.",
     "Short labels, verbs for actions (`New chat`), nouns for places (`Studios`).",
   ],

@@ -6,21 +6,16 @@ import { useRouter } from "next/navigation";
 import * as React from "react";
 
 import { Icon } from "../icon";
-import {
-  type CommandPaletteItem,
-  type CommandPaletteLabels,
-  LEGACY_COMMANDS,
-  LEGACY_LABELS,
-} from "./CommandPalette.defaults";
+import type { CommandPaletteItem, CommandPaletteLabels } from "./CommandPalette.types";
 
-export type { CommandPaletteItem, CommandPaletteLabels } from "./CommandPalette.defaults";
+export type { CommandPaletteItem, CommandPaletteLabels } from "./CommandPalette.types";
 
 /** Props of {@link CommandPalette}. */
 export interface CommandPaletteProps {
-  /** The entries, grouped by `section` in their order. Without it: the 1.x English entries (deprecated). */
-  commands?: CommandPaletteItem[];
-  /** The words, translated. Without it: the 1.x English words (deprecated). */
-  labels?: CommandPaletteLabels;
+  /** The entries, grouped by `section` in their order. */
+  commands: CommandPaletteItem[];
+  /** The words, translated. */
+  labels: CommandPaletteLabels;
   /** Where an entry's `href` goes. Default: the Next.js router (`router.push`). */
   onNavigate?: (href: string) => void;
   /** The letter that opens it with ⌘ / Ctrl. Default `k`. */
@@ -38,14 +33,14 @@ function bySection(commands: CommandPaletteItem[]) {
  * The Orazaka ⌘K palette: a product composite on `CommandDialog` from `@krizaka/ui/command` (cmdk + the platform's
  * dialog: the combobox and listbox roles, the arrows, Enter, the filtering, the focus trap, Escape). It adds what is
  * Orazaka's: the shortcut, the registry icons, the sections and the footer of hints. Words and entries arrive as
- * props; the 1.x defaults (English, the 1.x routes) remain for the apps not yet migrated and go in 3.0.
+ * props (since 3.0 they are required: the 1.x English defaults are gone).
  *
  * @param props - {@link CommandPaletteProps}
  * @returns The palette, closed until ⌘K / Ctrl+K.
  */
 export function CommandPalette({
-  commands = LEGACY_COMMANDS,
-  labels = LEGACY_LABELS,
+  commands,
+  labels,
   onNavigate,
   shortcut = "k",
 }: Readonly<CommandPaletteProps>) {

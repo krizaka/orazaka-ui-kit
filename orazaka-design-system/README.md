@@ -61,10 +61,9 @@ surface, focus ring ≥ 3:1.
 | **Theme** | `theme.css`: the `--kz-*` overrides above, the named themes, the product tokens (`--orazaka-*`), the fluid type scale, the Orazaka layout classes (`glass-card`, `login-*`, `sentinel-*`…). |
 | **Composites** | `ChatShowcase`, `SentinelMini`, `Icon` (the icon registry), `CommandPalette` (the ⌘K palette on `CommandDialog` from `@krizaka/ui/command`: entries and words as props, `onNavigate`). |
 | **Re-exported from `@krizaka/ui`** | `Button` (default variant `primary`, as in 1.x), `IconButton`, `buttonVariants`, `Badge` (`variant` → deprecated alias of `tone`), `badgeVariants`, `Input`, `Field`, `Textarea`, `Select`, `Skeleton` (`variant`, `width`, `height` deprecated), `skeletonVariants`, `cn`. New code imports them from `@krizaka/ui`. |
-| **Deprecated 1.x APIs** | `Card*`, `Dialog`, `ToastContainer` keep their 1.x props and look but are drawn by the `@krizaka/ui` primitive (`card`, `dialog`, `toast`) — no markup of their own. New code writes `Card.*`, `Dialog.*`, `Toaster` + `toast` from `@krizaka/ui`. **Removed in 3.0**, with the 1.x defaults of `CommandPalette` (English words, 1.x routes). |
 | **Documentation** | `registry/`: every component's documentation, examples and props, and the foundations (the themes resolved with their contrasts, the type scale, the rules) — rendered by [krizaka.com/docs/orazaka/ui](https://www.krizaka.com/en/docs/orazaka/ui). |
 | **Tokens** | `tokens`, `themes`, `radius`… re-exported from `@krizaka/orazaka-shared` (for React Native and the CLI: the same Orazaka orange as `theme.css`, from `@krizaka/tokens/native`). |
-| **2.x compatibility** | The 1.x variables (`--surface-1`, `--accent`, `--text-primary`…), their utilities (`text-text-primary`, `bg-card-bg`, `bg-status-success`…) and the 1.x theme classes (`html.dark`, `html.cyberpunk`…) are mapped onto the roles, for the apps not yet migrated. **Removed in 3.0.** |
+| **Everything else** | From `@krizaka/ui` directly: `Card`, `Dialog`, `Toaster` + `toast` / `progressToast` / `groupedToast`, `Loader` / `LoadingRegion`, `Stepper`, `Progress`, `Meter`, `NumberTicker`, `GlowCard`, `Tabs`, `NavBar`… and the charts from `@krizaka/charts`. 3.0 removed the 1.x adapters and variables (see the CHANGELOG). |
 
 A product variant extends a primitive, it never copies it:
 

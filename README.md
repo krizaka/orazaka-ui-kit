@@ -22,14 +22,14 @@
 </div>
 <!-- /krizaka-header -->
 
-**Layer:** Foundation — reusable by any Krizaka application · **Versions:** `@krizaka/orazaka-shared` 1.0.0, `@krizaka/orazaka-design-system` 2.0.0 · **License:** Apache-2.0 ·
+**Layer:** Foundation — reusable by any Krizaka application · **Versions:** `@krizaka/orazaka-shared` 1.2.0, `@krizaka/orazaka-design-system` 3.0.0 · **License:** Apache-2.0 ·
 part of the [Orazaka platform](https://github.com/krizaka/orazaka) by [Krizaka](https://krizaka.com)
 
 ## What it provides
 
 | Package | Role |
 |:---|:---|
-| `@krizaka/orazaka-shared` | Framework-agnostic TypeScript types, Zod schemas and **design tokens** — consumed by web, mobile and CLI. The `dark` and `light` themes are the Orazaka orange of `@krizaka/tokens/native` (held to it by `test/tokens.parity.test.mjs`); text on the accent is `onAccent`. |
+| `@krizaka/orazaka-shared` | Framework-agnostic TypeScript types, Zod schemas and **design tokens** — consumed by web, mobile and CLI — the job contract (`JobSchema`, `JobPageSchema`) included. The `dark` and `light` themes are the Orazaka orange of `@krizaka/tokens/native` (held to it by `test/tokens.parity.test.mjs`); text on the accent is `onAccent`. |
 | `@krizaka/orazaka-design-system` | The Orazaka identity on the Krizaka platform: the Orazaka Orange theme and its named themes (Electric Blue is the named theme `electric`) as `--kz-*` overrides (`theme.css`), the product composites (`ChatShowcase`, `SentinelMini`, icon registry), the [`@krizaka/ui`](https://github.com/krizaka/krizaka-ui) primitives re-exported. See [its README](orazaka-design-system/README.md) and [CHANGELOG](orazaka-design-system/CHANGELOG.md). |
 
 ## Use it
