@@ -89,7 +89,7 @@ function contrast(a: string, b: string): number {
 }
 
 describe("theme.css — Orazaka Orange", () => {
-  it("is the Orazaka brand of @krizaka/tokens: orange from the mark, hsl(26 92% 55%) dark, #b45309 light", () => {
+  it("is the Orazaka brand of @krizaka/tokens: orange, hsl(26 92% 55%) dark, #b45309 light", () => {
     expect(role(dark, "accent")).toBe("hsl(26 92% 55%)");
     expect(role(light, "accent")).toBe("hsl(26 90.5% 37.1%)");
     expect(role(dark, "on-accent")).toBe("hsl(240 6% 5%)");
