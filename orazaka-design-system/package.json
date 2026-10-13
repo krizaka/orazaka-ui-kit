@@ -71,7 +71,7 @@
     "react-docgen-typescript": "^2.4.0",
     "react-dom": "19.2.4",
     "tailwindcss": "^4.1.0",
-    "typescript": "^5"
+    "typescript": "^6"
   },
   "keywords": [
     "orazaka",
