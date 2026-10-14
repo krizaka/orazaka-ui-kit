@@ -3,6 +3,13 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [3.0.1] — 2026-10-14
+
+### Fixed
+- `ChatShowcase`: the card is sized by its final state (an invisible copy of the finished conversation shares its grid
+  cell), so it no longer grows while the answer types in — the page around it does not shift (CLS 0). Reduced motion
+  shows the final state directly. Tests guard it.
+
 ## [3.0.0] — 2026-10-11
 
 The kit keeps only what is Orazaka's: the theme, the composites, and the few primitives it re-exports with an Orazaka
