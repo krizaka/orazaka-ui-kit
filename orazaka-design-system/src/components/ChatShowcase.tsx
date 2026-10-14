@@ -12,11 +12,6 @@
  * so each app localizes through its own i18n).
  *
  * Shared by orazaka-web-client and orazaka-web-admin (AGENTS.md §8).
- *
- * Usage:
- *   <ChatShowcase
- *     labels={{ agent, status, model, routed, privacy, placeholder }}
- *     question={t("...")} answer={t("...")} pipeline={[...]} />
  */
 
 import { cn } from "@krizaka/ui/cn";
@@ -86,7 +81,6 @@ export function ChatShowcase({
     return () => timers.forEach(clearTimeout);
   }, [answer]);
 
-  // Character reveal of the assistant answer.
   React.useEffect(() => {
     if (phase !== 3) return;
     let i = 0;
@@ -101,9 +95,69 @@ export function ChatShowcase({
     return () => clearInterval(id);
   }, [phase, answer]);
 
+  const renderConversation = (ph: Phase, text: string) => {
+    const shownText = ph === 4 ? answer : text;
+    return (
+      <>
+          {/* User */}
+          <div
+            className="flex justify-end transition-all duration-300"
+            style={{ opacity: ph >= 1 ? 1 : 0, transform: ph >= 1 ? "none" : "translateY(8px)" }}
+          >
+            <div className="max-w-[84%] rounded-2xl rounded-br-[5px] bg-accent px-3 py-2.5 text-[13px] font-medium leading-[1.55] text-on-accent">
+              {question}
+            </div>
+          </div>
+
+          {/* Typing */}
+          {ph === 2 && (
+            <div className="flex justify-start">
+              <div className="inline-flex items-center gap-1 rounded-2xl rounded-bl-[5px] border border-border-subtle bg-surface-2 px-3 py-3">
+                <span className="kzc-typing h-1.5 w-1.5 rounded-full bg-fg-muted" />
+                <span className="kzc-typing h-1.5 w-1.5 rounded-full bg-fg-muted" />
+                <span className="kzc-typing h-1.5 w-1.5 rounded-full bg-fg-muted" />
+              </div>
+            </div>
+          )}
+
+          {/* Assistant */}
+          {ph >= 3 && (
+            <div className="flex justify-start">
+              <div className="max-w-[84%] rounded-2xl rounded-bl-[5px] border border-border-subtle bg-surface-2 px-3 py-2.5 text-[13px] leading-[1.55] text-fg">
+                <span className="mb-[7px] inline-flex items-center gap-1.5 font-mono text-[9.5px] font-bold uppercase tracking-[0.04em] text-success">
+                  <Icon name="checkCircle" size={11} />
+                  {labels.routed}
+                </span>
+                <p className="m-0">
+                  {shownText}
+                  {ph === 3 && (
+                    <span className="kzc-caret ml-px inline-block h-[1em] w-0.5 translate-y-[2px] bg-accent align-text-bottom" />
+                  )}
+                </p>
+                <div
+                  className="mt-[11px] flex flex-wrap gap-1.5 border-t border-border-subtle pt-[11px] transition-opacity duration-300"
+                  style={{ opacity: ph >= 4 ? 1 : 0 }}
+                >
+                  {pipeline.map((step, i) => (
+                    <span
+                      key={step}
+                      className="inline-flex items-center gap-1 rounded-full bg-accent-soft px-2 py-0.5 font-mono text-[10px] font-semibold text-accent"
+                    >
+                      <Icon name="check" size={10} />
+                      {step}
+                      {i < pipeline.length - 1 && <span className="ml-0.5 opacity-50">→</span>}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+      </>
+    );
+  };
+
   return (
     <div className={cn("relative w-full max-w-[440px]", className)}>
-      {/* Ambient accent glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute -inset-x-8 -top-10 -bottom-14 rounded-xl"
@@ -140,61 +194,15 @@ export function ChatShowcase({
           </span>
         </div>
 
-        {/* ── Conversation ── */}
-        <div className="flex min-h-[268px] flex-col gap-3 px-4 py-[18px]">
-          {/* User */}
-          <div
-            className="flex justify-end transition-all duration-300"
-            style={{ opacity: phase >= 1 ? 1 : 0, transform: phase >= 1 ? "none" : "translateY(8px)" }}
-          >
-            <div className="max-w-[84%] rounded-2xl rounded-br-[5px] bg-accent px-3 py-2.5 text-[13px] font-medium leading-[1.55] text-on-accent">
-              {question}
-            </div>
+        {/* ── Conversation ──
+            Sized by its FINAL state: an invisible copy shares the grid cell with the live one (no layout shift). */}
+        <div className="grid min-h-[268px]">
+          <div aria-hidden data-chat-ghost className="invisible col-start-1 row-start-1 flex flex-col gap-3 px-4 py-[18px]">
+            {renderConversation(4, answer)}
           </div>
-
-          {/* Typing */}
-          {phase === 2 && (
-            <div className="flex justify-start">
-              <div className="inline-flex items-center gap-1 rounded-2xl rounded-bl-[5px] border border-border-subtle bg-surface-2 px-3 py-3">
-                <span className="kzc-typing h-1.5 w-1.5 rounded-full bg-fg-muted" />
-                <span className="kzc-typing h-1.5 w-1.5 rounded-full bg-fg-muted" />
-                <span className="kzc-typing h-1.5 w-1.5 rounded-full bg-fg-muted" />
-              </div>
-            </div>
-          )}
-
-          {/* Assistant */}
-          {phase >= 3 && (
-            <div className="flex justify-start">
-              <div className="max-w-[84%] rounded-2xl rounded-bl-[5px] border border-border-subtle bg-surface-2 px-3 py-2.5 text-[13px] leading-[1.55] text-fg">
-                <span className="mb-[7px] inline-flex items-center gap-1.5 font-mono text-[9.5px] font-bold uppercase tracking-[0.04em] text-success">
-                  <Icon name="checkCircle" size={11} />
-                  {labels.routed}
-                </span>
-                <p className="m-0">
-                  {phase === 4 ? answer : typed}
-                  {phase === 3 && (
-                    <span className="kzc-caret ml-px inline-block h-[1em] w-0.5 translate-y-[2px] bg-accent align-text-bottom" />
-                  )}
-                </p>
-                <div
-                  className="mt-[11px] flex flex-wrap gap-1.5 border-t border-border-subtle pt-[11px] transition-opacity duration-300"
-                  style={{ opacity: phase >= 4 ? 1 : 0 }}
-                >
-                  {pipeline.map((step, i) => (
-                    <span
-                      key={step}
-                      className="inline-flex items-center gap-1 rounded-full bg-accent-soft px-2 py-0.5 font-mono text-[10px] font-semibold text-accent"
-                    >
-                      <Icon name="check" size={10} />
-                      {step}
-                      {i < pipeline.length - 1 && <span className="ml-0.5 opacity-50">→</span>}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
+          <div className="col-start-1 row-start-1 flex flex-col gap-3 px-4 py-[18px]">
+            {renderConversation(phase, typed)}
+          </div>
         </div>
 
         {/* ── Footer ── */}
@@ -219,9 +227,8 @@ export function ChatShowcase({
 
       <style>{`
         @keyframes kzc-pulse {
-          0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--kz-success) 55%, transparent); }
-          70%  { box-shadow: 0 0 0 6px color-mix(in srgb, var(--kz-success) 0%, transparent); }
-          100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--kz-success) 0%, transparent); }
+          0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--kz-success) 55%, transparent); }
+          70%, 100% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--kz-success) 0%, transparent); }
         }
         @keyframes kzc-typing {
           0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
@@ -230,8 +237,7 @@ export function ChatShowcase({
         @keyframes kzc-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
         .kzc-dot { animation: kzc-pulse 2s ease-out infinite; }
         .kzc-typing { animation: kzc-typing 1.1s ease-in-out infinite; }
-        .kzc-typing:nth-child(2) { animation-delay: 0.18s; }
-        .kzc-typing:nth-child(3) { animation-delay: 0.36s; }
+        .kzc-typing:nth-child(2) { animation-delay: 0.18s; } .kzc-typing:nth-child(3) { animation-delay: 0.36s; }
         .kzc-caret { animation: kzc-blink 1s steps(2) infinite; }
         @media (prefers-reduced-motion: reduce) {
           .kzc-dot, .kzc-typing, .kzc-caret { animation: none; }
