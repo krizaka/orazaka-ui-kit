@@ -3,6 +3,13 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [3.1.0] — 2026-10-14
+
+### Removed
+- The hand-made sign-in layout of the theme: `.login-split`, `.login-hero*`, `.login-form-panel`, `.auth-legal-*`,
+  `.auth-footer-separator`, `.auth-lang-*`, and the Sentinel HUD animations (`.sentinel-*`, `.hud-pulse`, `.rotator-*`).
+  The apps' entry screens are built on `@krizaka/ui/auth-layout`.
+
 ## [3.0.1] — 2026-10-14
 
 ### Fixed
