@@ -3,6 +3,14 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [3.2.0] — 2026-10-15
+
+### Added
+- `VideoResult`: what a video run of a Studio leaves — the clip in a player with its poster, the exact prompt, the facts
+  the run recorded (model, seed, frame, length, time, cost, run id), "Reproduce it" as a `@krizaka/ui` CodeBlock, and a
+  download. Every word is a prop; a portrait clip is drawn as tall as a phone allows. Documented with `video-result.meta.ts`
+  and two examples; render-tested. Web only: the mobile app draws the same facts natively (tracked in orazaka-mobile-client).
+
 ## [3.1.0] — 2026-10-14
 
 ### Removed

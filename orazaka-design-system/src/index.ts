@@ -35,3 +35,5 @@ export { ChatShowcase } from "./components/ChatShowcase";
 export type { CommandPaletteItem, CommandPaletteLabels, CommandPaletteProps } from "./components/CommandPalette";
 export { CommandPalette } from "./components/CommandPalette";
 export { SentinelMini } from "./components/SentinelMini";
+export type { VideoResultFact, VideoResultLabels, VideoResultProps } from "./components/VideoResult";
+export { VideoResult } from "./components/VideoResult";
