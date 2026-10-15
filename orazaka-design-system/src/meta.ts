@@ -12,7 +12,8 @@ export type ComponentName =
   | "command-palette"
   | "icon"
   | "sentinel-mini"
-  | "skeleton";
+  | "skeleton"
+  | "video-result";
 
 /** A component of @krizaka/ui, documented at krizaka.com/docs/ui/<name>: `ui/badge`, `ui/button`. */
 export type UiComponent = `ui/${string}`;
