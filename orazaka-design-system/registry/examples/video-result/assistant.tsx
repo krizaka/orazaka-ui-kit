@@ -12,7 +12,7 @@ export default function Assistant() {
         { label: "Seed", value: "20261011" },
         { label: "Frame", value: "832×480 · 16 fps · 5 s" },
       ]}
-      labels={{ prompt: "Prompt", facts: "The run", reproduce: "Reproduce it", copy: "Copy command", copied: "Command copied", download: "Download the clip" }}
+      labels={{ badge: "Video · 5 s", play: "Play", pause: "Pause", mute: "Mute", unmute: "Sound on", enlarge: "Open larger", close: "Close", prompt: "Prompt", facts: "The run", reproduce: "Reproduce it", copy: "Copy command", copied: "Command copied", download: "Download the clip" }}
     />
   );
 }

@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/orazaka-design-system",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "The Orazaka identity on the Krizaka platform: the Orazaka Orange theme (the Orazaka brand of @krizaka/tokens) and its named themes as --kz-* token overrides, the product composites (ChatShowcase, CommandPalette, SentinelMini, icon registry) with their documentation registry (krizaka.com/docs/orazaka/ui), and the @krizaka/ui primitives re-exported.",
   "license": "Apache-2.0",
   "repository": {
@@ -41,6 +41,7 @@
     "prepack": "node scripts/build-registry.mjs"
   },
   "dependencies": {
+    "@krizaka/icons": "^0.1.0",
     "@krizaka/orazaka-shared": "^1.1.0",
     "@krizaka/tailwind": "^2.4.0",
     "@krizaka/tokens": "^2.4.0",

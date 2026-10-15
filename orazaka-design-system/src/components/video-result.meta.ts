@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Video result",
-  summary: "What a video run of a Studio leaves: the clip in a player with its poster, the exact prompt, what the run recorded, the command that makes it again, and a download.",
+  summary: "What a video run of a Studio leaves: the clip in its player (a muted loop in view, badge, controls, opens larger), the exact prompt, what the run recorded, the command that makes it again, and a download.",
   why: "Orazaka's promise is that a result is proven, not claimed: a generated clip comes with its prompt, its model, its seed, its frame, its length, its time, its cost and the id of the run that made it, and says how to make it again. @krizaka/ui has the player and the code block; this composite is the product's way of showing a run's result once, the same on every screen.",
   status: "beta",
   category: "data-display",
@@ -23,16 +23,16 @@ export const meta = {
   ],
   accessibility: {
     keyboard: [
-      { keys: "Space / Enter", action: "Play or pause the video (native controls)." },
+      { keys: "Enter / Space", action: "Activates the focused button: open larger, play or pause, sound." },
       { keys: "Tab", action: "Moves through the player controls, the copy button and the download link." },
     ],
     notes: [
-      "The video is named (`title`) and has native controls; nothing plays by itself (`preload=\"none\"`, a poster).",
+      "The video is named (`title`); it is a muted loop that plays only in view, never under reduced motion (poster and a play button).",
       "The facts are a description list; the command is a code block with a polite copy confirmation.",
       "The prompt is marked `lang=\"en\"`: it is what the model received, whatever the page's language.",
     ],
   },
-  related: ["chat-showcase", "ui/video-player", "ui/code-block"],
+  related: ["clip-player", "run-facts", "ui/video-player", "ui/code-block"],
   web: {
     imports: ["VideoResult"],
     examples: [
