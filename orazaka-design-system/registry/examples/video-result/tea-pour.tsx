@@ -15,7 +15,7 @@ export default function TeaPour() {
       ]}
       reproduce={'orazaka video "Extreme close-up, slow motion: a stream of amber mint tea pours…" \\\n  --model wan2-2-t2v-a14b --aspect 16:9 --seed 20261011'}
       downloadHref="https://krizaka-assets.b-cdn.net/site/products/orazaka/gallery-video/tea-pour.c4138c8ce9.mp4"
-      labels={{ prompt: "Prompt", facts: "The run", reproduce: "Reproduce it", copy: "Copy command", copied: "Command copied", download: "Download the clip" }}
+      labels={{ badge: "Video · 5 s", play: "Play", pause: "Pause", mute: "Mute", unmute: "Sound on", enlarge: "Open larger", close: "Close", prompt: "Prompt", facts: "The run", reproduce: "Reproduce it", copy: "Copy command", copied: "Command copied", download: "Download the clip" }}
     />
   );
 }

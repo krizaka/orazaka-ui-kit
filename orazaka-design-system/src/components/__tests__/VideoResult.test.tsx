@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { VideoResult, type VideoResultProps } from "../VideoResult";
 
 const base: VideoResultProps = {
@@ -11,20 +11,30 @@ const base: VideoResultProps = {
     { label: "Run", value: "25948442-7c68-4e66-94d6-39cd8b96438d" },
   ],
   reproduce: "orazaka video \"x\" --seed 20261011",
+  reproduceLead: "The same prompt and seed make the same shot again.",
   downloadHref: "https://cdn.test/a.mp4",
-  labels: { prompt: "Prompt", facts: "The run", reproduce: "Reproduce it", copy: "Copy command", copied: "Copied", download: "Download" },
+  labels: { badge: "Video · 5 s", play: "Play", pause: "Pause", mute: "Mute", unmute: "Sound on", enlarge: "Open larger", close: "Close", prompt: "Prompt", facts: "The run", reproduce: "Reproduce it", copy: "Copy command", copied: "Copied", download: "Download" },
 };
 
 describe("VideoResult", () => {
-  it("is a named player with its poster, native controls and nothing that plays by itself", () => {
+  beforeEach(() => {
+    Object.defineProperty(window, "matchMedia", { writable: true, value: (query: string) => ({ matches: false, media: query, addEventListener: () => {}, removeEventListener: () => {} }) });
+    (globalThis as unknown as { IntersectionObserver: unknown }).IntersectionObserver = class { observe() {} disconnect() {} };
+    Object.defineProperty(HTMLMediaElement.prototype, "play", { configurable: true, value: jest.fn().mockResolvedValue(undefined) });
+    Object.defineProperty(HTMLMediaElement.prototype, "pause", { configurable: true, value: jest.fn() });
+  });
+
+  it("is a named, muted, looping, lazy player with its poster, webm first then mp4, and a badge that says it is a video", () => {
     const { container } = render(<VideoResult {...base} />);
     const video = container.querySelector("video")!;
     expect(video).toHaveAttribute("aria-label", "Tea pouring in a tent");
     expect(video).toHaveAttribute("poster", "https://cdn.test/a.webp");
-    expect(video).toHaveAttribute("controls");
+    expect(video.muted).toBe(true);
+    expect(video.loop).toBe(true);
+    expect(video).toHaveAttribute("playsinline");
     expect(video).toHaveAttribute("preload", "none");
-    expect(video).not.toHaveAttribute("autoplay");
     expect(Array.from(video.querySelectorAll("source")).map((s: Element) => s.getAttribute("type"))).toEqual(["video/webm", "video/mp4"]);
+    expect(container.querySelector("[data-clip-badge]")).toHaveTextContent("Video · 5 s");
   });
 
   it("says the prompt as the model received it and every fact of the run", () => {
@@ -36,16 +46,24 @@ describe("VideoResult", () => {
     }
   });
 
-  it("shows the command as a highlighted code block with its copy button, and a download link", () => {
+  it("lets the app draw the prompt itself, under the same heading", () => {
+    render(<VideoResult {...base} promptNode={<p>typed prompt</p>} />);
+    expect(screen.getByText("typed prompt")).toBeInTheDocument();
+    expect(screen.queryByText(base.prompt)).toBeNull();
+    expect(screen.getByRole("heading", { name: "Prompt" })).toBeInTheDocument();
+  });
+
+  it("shows the command as a highlighted code block with its lead and copy button, and a download link", () => {
     const { container } = render(<VideoResult {...base} />);
     expect(container.querySelector("pre code")!.textContent).toBe(base.reproduce);
+    expect(screen.getByText(base.reproduceLead!)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Copy command" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Download" })).toHaveAttribute("href", "https://cdn.test/a.mp4");
   });
 
   it("leaves out what it was not given: no webm, no command, no download", () => {
     const { container } = render(<VideoResult {...base} sources={{ mp4: "m.mp4", poster: "p.webp" }} reproduce={undefined} downloadHref={undefined} />);
-    expect(container.querySelectorAll("source")).toHaveLength(1);
+    expect(container.querySelectorAll("video source")).toHaveLength(1);
     expect(screen.queryByText("Reproduce it")).toBeNull();
     expect(screen.queryByRole("link")).toBeNull();
   });
@@ -54,7 +72,14 @@ describe("VideoResult", () => {
     const portrait = render(<VideoResult {...base} orientation="portrait" />);
     expect(portrait.container.querySelector("video")!.className).toContain("aspect-[9/16]");
     portrait.unmount();
-    const landscape = render(<VideoResult {...base} />);
-    expect(landscape.container.querySelector("video")!.className).toContain("aspect-video");
+    expect(render(<VideoResult {...base} />).container.querySelector("video")!.className).toContain("aspect-[26/15]");
+  });
+
+  it("opens the clip larger with the native controls, and closes", () => {
+    render(<VideoResult {...base} />);
+    fireEvent.click(screen.getByRole("button", { name: "Open larger" }));
+    expect(screen.getByRole("dialog").querySelector("video")).toHaveAttribute("controls");
+    fireEvent.click(screen.getByRole("button", { name: "Close" }));
+    expect(screen.queryByRole("dialog")).toBeNull();
   });
 });

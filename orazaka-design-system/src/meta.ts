@@ -9,8 +9,10 @@ export type ComponentName =
   | "badge"
   | "button"
   | "chat-showcase"
+  | "clip-player"
   | "command-palette"
   | "icon"
+  | "run-facts"
   | "sentinel-mini"
   | "skeleton"
   | "video-result";

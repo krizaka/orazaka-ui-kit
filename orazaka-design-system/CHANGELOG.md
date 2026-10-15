@@ -3,6 +3,18 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [3.3.0] — 2026-10-15
+
+### Added
+- `ClipPlayer`: a short clip that is plainly a clip — a muted loop that plays only in view (a pause by hand sticks), a
+  "Video · 5 s" badge, play/pause and sound buttons on hover and focus, a click that opens it larger in a dialog with the
+  native controls; poster and a play button under reduced motion.
+- `RunFacts`: what a run recorded, as a description list.
+
+### Changed
+- `VideoResult` is built on them (a loop in view instead of a still player), takes `promptNode` (the app may type the
+  prompt in) and `reproduceLead`; its labels gain the player's words. New dependency: `@krizaka/icons`.
+
 ## [3.2.0] — 2026-10-15
 
 ### Added
