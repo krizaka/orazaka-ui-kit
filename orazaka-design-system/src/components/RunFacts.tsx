@@ -28,7 +28,7 @@ export function RunFacts({ facts, className }: Readonly<RunFactsProps>) {
       {facts.map((fact) => (
         <div key={fact.label} className="contents">
           <dt className="text-fg-muted">{fact.label}</dt>
-          <dd className="break-all text-fg">{fact.value}</dd>
+          <dd className="text-fg [overflow-wrap:anywhere]">{fact.value}</dd>
         </div>
       ))}
     </dl>

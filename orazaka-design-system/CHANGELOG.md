@@ -3,6 +3,12 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [3.3.1] — 2026-10-15
+
+### Fixed
+- `RunFacts`: a value wraps at its spaces and breaks only a word that does not fit (`overflow-wrap: anywhere`); it used
+  `break-all`, which cut sentences mid-word in narrow columns.
+
 ## [3.3.0] — 2026-10-15
 
 ### Added
