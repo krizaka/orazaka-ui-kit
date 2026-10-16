@@ -3,6 +3,11 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [3.4.0] — 2026-10-16
+
+### Changed
+- `ChatShowcase`'s footer is now an instance of `@krizaka/ui`'s `MessageComposer` (`variant="pill"`, inert) instead of a drawing, so the home hero and the app's chat share one component; the privacy line is its status row. New optional label `send`. Depends on `@krizaka/ui` ^3.19.0.
+
 ## [3.3.1] — 2026-10-15
 
 ### Fixed

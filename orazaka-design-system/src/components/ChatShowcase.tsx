@@ -14,10 +14,12 @@
  * Shared by orazaka-web-client and orazaka-web-admin (AGENTS.md §8).
  */
 
+import { MessageComposer } from "@krizaka/ui/chat";
 import { cn } from "@krizaka/ui/cn";
 import * as React from "react";
 
 import { Icon } from "../icon";
+import { CHAT_SHOWCASE_CSS } from "./chat-showcase.css";
 
 /** Localizable, non-conversational chrome labels. */
 export interface ChatShowcaseLabels {
@@ -27,6 +29,8 @@ export interface ChatShowcaseLabels {
   routed: string;
   privacy: string;
   placeholder: string;
+  /** The send button's name inside the composer (inert here, so it is never read); defaults to "Send". */
+  send?: string;
 }
 
 /** Props for {@link ChatShowcase}. */
@@ -42,6 +46,8 @@ export interface ChatShowcaseProps {
   /** Extra classes on the wrapper (width, placement), merged last. */
   className?: string;
 }
+
+const noop = () => {};
 
 type Phase = 0 | 1 | 2 | 3 | 4; // idle · user · typing · answering · done
 
@@ -205,44 +211,29 @@ export function ChatShowcase({
           </div>
         </div>
 
-        {/* ── Footer ── */}
-        <div className="flex flex-col gap-2.5 border-t border-border-subtle bg-surface-2 px-4 pb-[15px] pt-[13px]">
-          <div
-            aria-hidden
-            className="flex items-center justify-between gap-2.5 rounded-full border border-border-default bg-surface-1 py-2 pl-3.5 pr-2"
-          >
-            <span className="text-[12.5px] text-fg-secondary">{labels.placeholder}</span>
-            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent text-on-accent">
-              <Icon name="send" size={13} />
-            </span>
-          </div>
-          <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-fg-secondary">
-            <span className="text-success">
-              <Icon name="shield" size={12} />
-            </span>
-            {labels.privacy}
-          </span>
+        {/* ── Footer ── the very composer of the app (MessageComposer, pill): the card is an instance of the real component, inert. */}
+        <div className="flex flex-col border-t border-border-subtle bg-surface-2 px-4 pb-3 pt-[13px]" aria-hidden inert>
+          <MessageComposer
+            variant="pill"
+            value=""
+            onValueChange={noop}
+            onSend={noop}
+            placeholder={labels.placeholder}
+            sendLabel={labels.send ?? "Send"}
+            inputProps={{ tabIndex: -1, readOnly: true }}
+            status={
+              <>
+                <span className="text-success">
+                  <Icon name="shield" size={12} />
+                </span>
+                {labels.privacy}
+              </>
+            }
+          />
         </div>
       </div>
 
-      <style>{`
-        @keyframes kzc-pulse {
-          0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--kz-success) 55%, transparent); }
-          70%, 100% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--kz-success) 0%, transparent); }
-        }
-        @keyframes kzc-typing {
-          0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-          30% { transform: translateY(-4px); opacity: 1; }
-        }
-        @keyframes kzc-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        .kzc-dot { animation: kzc-pulse 2s ease-out infinite; }
-        .kzc-typing { animation: kzc-typing 1.1s ease-in-out infinite; }
-        .kzc-typing:nth-child(2) { animation-delay: 0.18s; } .kzc-typing:nth-child(3) { animation-delay: 0.36s; }
-        .kzc-caret { animation: kzc-blink 1s steps(2) infinite; }
-        @media (prefers-reduced-motion: reduce) {
-          .kzc-dot, .kzc-typing, .kzc-caret { animation: none; }
-        }
-      `}</style>
+      <style>{CHAT_SHOWCASE_CSS}</style>
     </div>
   );
 }

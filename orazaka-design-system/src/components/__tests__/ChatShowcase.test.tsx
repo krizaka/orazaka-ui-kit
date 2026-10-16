@@ -41,3 +41,16 @@ describe("ChatShowcase layout stability", () => {
     expect(live.textContent).toContain("Validation");
   });
 });
+
+/** The footer is not a drawing: it is the kit's MessageComposer (pill), inert, so the card and the app's chat are the same component. */
+describe("ChatShowcase composer", () => {
+  it("renders the real pill composer, inert and hidden from assistive technology", () => {
+    const { container } = render(<ChatShowcase {...props} />);
+    const field = container.querySelector("textarea")!;
+    expect(field).toHaveAttribute("placeholder", "Ask");
+    const host = field.closest("[inert]")!;
+    expect(host).toHaveAttribute("aria-hidden", "true");
+    expect(host.querySelector("button[type=submit]")).toBeDisabled();
+    expect(host.querySelector("[role=status]")!.textContent).toContain("Nothing leaves");
+  });
+});

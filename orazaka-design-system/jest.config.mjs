@@ -36,7 +36,8 @@ const config = {
       },
     ],
   },
-  transformIgnorePatterns: ["/node_modules/(?!@krizaka/(ui|icons)/)"],
+  // @krizaka/ui 3.x's CodeBlock highlights with @tanstack/highlight, also ESM-only.
+  transformIgnorePatterns: ["/node_modules/(?!(@krizaka/(ui|icons)|@tanstack/[^/]+)/)"],
   collectCoverageFrom: ["src/**/*.{ts,tsx}", "!src/**/*.d.ts", "!src/index.ts"],
 };
 
