@@ -27,7 +27,7 @@ export const meta = {
     notes: [
       "`role=\"img\"` with the question and the answer as its name: a screen reader hears the exchange once, not the typing.",
       "Under `prefers-reduced-motion` the final state shows at once: no typing, no pulse, no caret.",
-      "The fake composer is `aria-hidden`: it is not a field.",
+      "The composer is the kit's `MessageComposer` (pill), `inert` and `aria-hidden`: it is the same component as the app's chat, not a field here.",
     ],
   },
   related: ["icon", "sentinel-mini", "ui/card"],
