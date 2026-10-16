@@ -3,6 +3,11 @@
 All notable changes to `@krizaka/orazaka-design-system`. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versions: [Semantic Versioning](https://semver.org/).
 
+## [3.4.1] — 2026-10-16
+
+### Fixed
+- `@krizaka/tailwind` and `@krizaka/tokens` are declared at `^3.19.0`, like `@krizaka/ui` (they were still `^2.4.0`): npm hoisted tailwind 2.10 to the workspace root, where `theme.css`'s `@import "@krizaka/tailwind"` could not find `@krizaka/ui/motion.css` and every app build failed. A test keeps the three on one major.
+
 ## [3.4.0] — 2026-10-16
 
 ### Changed
