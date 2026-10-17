@@ -162,6 +162,12 @@ export const RunStepSchema = z.object({
   status: RunStepStatusSchema,
   attempts: z.number(),
   error: z.string().nullable(),
+  /** When the step was dispatched (ISO-8601). */
+  startedAt: z.string().nullish(),
+  /** The measured median wall time of this step in this Studio, ms; absent until enough runs exist. */
+  estimateMs: z.number().nullish(),
+  /** How many past runs `estimateMs` is the median of. */
+  estimateSamples: z.number().nullish(),
 });
 export type RunStep = z.infer<typeof RunStepSchema>;
 

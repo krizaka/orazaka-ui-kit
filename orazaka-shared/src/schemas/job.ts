@@ -4,7 +4,7 @@ import { z } from "zod";
  * An async job as the job service returns it (`JobDto`): what ran, for whom, how it ended and when. One contract for
  * every client that lists jobs — the user's queue and the operators' supervision read the same shape.
  */
-export const JobStatusSchema = z.enum(["PENDING", "PROCESSING", "COMPLETED", "FAILED"]);
+export const JobStatusSchema = z.enum(["PENDING", "PROCESSING", "COMPLETED", "FAILED", "CANCELLED", "DELETED"]);
 export type JobStatus = z.infer<typeof JobStatusSchema>;
 
 export const JobSchema = z.object({
@@ -16,6 +16,11 @@ export const JobSchema = z.object({
   result: z.record(z.string(), z.unknown()).nullable().catch(null).transform((r) => r ?? {}),
   errorMessage: z.string().nullish(),
   progress: z.number().nullish(),
+  /** What the executor said it is doing now (loading, generating, encoding, uploading), from the live stream. */
+  phase: z.enum(["queued", "loading", "generating", "encoding", "uploading"]).nullish(),
+  /** Step n of N while generating, from the live stream. */
+  step: z.number().nullish(),
+  steps: z.number().nullish(),
   /** ISO-8601. */
   createdAt: z.string(),
   /** ISO-8601: for a finished job, when it finished. */
