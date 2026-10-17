@@ -12,8 +12,6 @@ on:
 
 permissions:
   contents: read
-  packages: write
-  id-token: write # npm trusted publishing and provenance
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -21,6 +19,10 @@ concurrency:
 
 jobs:
   component:
+    permissions:
+      contents: read
+      packages: write
+      id-token: write # npm trusted publishing and provenance
     uses: krizaka/orazaka/.github/workflows/component.yml@main
     with:
       component: orazaka-ui-kit
