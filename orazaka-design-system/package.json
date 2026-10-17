@@ -43,9 +43,9 @@
   "dependencies": {
     "@krizaka/icons": "^0.1.0",
     "@krizaka/orazaka-shared": "^1.1.0",
-    "@krizaka/tailwind": "^3.21.0",
-    "@krizaka/tokens": "^3.21.0",
-    "@krizaka/ui": "^3.21.0",
+    "@krizaka/tailwind": "^3.22.0",
+    "@krizaka/tokens": "^3.22.0",
+    "@krizaka/ui": "^3.22.0",
     "tailwind-variants": "^3.3.1"
   },
   "peerDependencies": {
