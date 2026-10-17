@@ -28,7 +28,7 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@krizaka/tokens": "^3.21.0",
+    "@krizaka/tokens": "^3.22.0",
     "typescript": "^6"
   },
   "keywords": [
