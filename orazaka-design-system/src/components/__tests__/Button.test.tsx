@@ -80,7 +80,9 @@ describe("Button", () => {
     const { container } = render(<Button className="extra">Extra</Button>);
     const btn = container.querySelector("button");
     expect(btn?.className).toContain("extra");
-    expect(btn?.className).toContain("rounded-lg"); // still has base
+    // The base shape survives a custom class. The radius itself is @krizaka/ui's token (it moved from lg to sm with
+    // the 3.32 steel-blue Button), so the test asks for a rounded-* utility, not for one value.
+    expect(btn?.className).toMatch(/\brounded-\w+/);
   });
 
   it("lets a className override win over the variant (tailwind-merge)", () => {
