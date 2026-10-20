@@ -38,6 +38,24 @@ export type {
 export { JobStatusSchema, JobSchema, JobPageSchema } from "./schemas/job";
 export type { JobStatus, JobRecord, JobPage } from "./schemas/job";
 
+// ── Cloud automations: triggers, webhooks, schedules and their runs (ADR-079, ADR-084) ──
+export {
+  AutomationSchema,
+  TriggerKindSchema,
+  ScheduleViewSchema,
+  TriggerSchema,
+  AutomationRunStatusSchema,
+  AutomationRunSchema,
+} from "./schemas/automation";
+export type {
+  Automation,
+  TriggerKind,
+  ScheduleView,
+  Trigger,
+  AutomationRunStatus,
+  AutomationRun,
+} from "./schemas/automation";
+
 // ── Billing & credits (ADR-033) ────────────────────────────────────────────
 export {
   CreditBucketSchema,

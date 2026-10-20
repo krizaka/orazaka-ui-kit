@@ -1,6 +1,6 @@
 {
   "name": "@krizaka/orazaka-shared",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "Orazaka shared contracts: TypeScript types, Zod schemas and design tokens (framework-agnostic).",
   "license": "Apache-2.0",
   "repository": {
