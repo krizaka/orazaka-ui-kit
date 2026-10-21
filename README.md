@@ -60,7 +60,7 @@ here.
 | | |
 |:---|:---|
 | Depends on | _none — this repository is a root of the dependency graph._ |
-| Used by | [`orazaka-web-client`](https://github.com/krizaka/orazaka-web-client) · [`orazaka-web-admin`](https://github.com/krizaka/orazaka-web-admin) · [`orazaka-mobile-client`](https://github.com/krizaka/orazaka-mobile-client) |
+| Used by | [`orazaka-web-client`](https://github.com/krizaka/orazaka-web-client) (with its operator console) · [`orazaka-mobile-client`](https://github.com/krizaka/orazaka-mobile-client) |
 | Workspace path | `orazaka-apps/ui/orazaka-ui-kit` |
 
 ## Build
