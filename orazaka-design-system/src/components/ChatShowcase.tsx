@@ -11,7 +11,7 @@
  * reduced-motion safe, and framework-agnostic on copy (all strings via props
  * so each app localizes through its own i18n).
  *
- * Shared by orazaka-web-client and orazaka-web-admin (AGENTS.md §8).
+ * Shared by orazaka-web-client (its operator console included) (AGENTS.md §8).
  */
 
 import { MessageComposer } from "@krizaka/ui/chat";

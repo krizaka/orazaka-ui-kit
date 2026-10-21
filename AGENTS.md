@@ -56,8 +56,8 @@ below AA.
 ## Definition of done
 
 1. `npm run validate` (or `lint` + `build`) is green inside the workspace (`orazaka-apps/ui`) — for the design system,
-   `npm run check` (lint + ratchet, type-check, Jest + the registry test, registry, publint) — and `orazaka-web-client` / `orazaka-web-admin` still
-   build against it.
+   `npm run check` (lint + ratchet, type-check, Jest + the registry test, registry, publint) — and `orazaka-web-client` (its operator console included) still
+   builds against it.
 2. No hard-coded colors, 250-line cap per component, types only from `@krizaka/orazaka-shared` (AGENTS.md §8).
 3. A new or changed component has its `meta.ts`, its examples and its props' JSDoc (above).
 4. The change ships with its tests — a unit test for logic, a render test for a component, an end-to-end test for a
