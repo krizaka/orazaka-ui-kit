@@ -80,6 +80,7 @@ export {
   suggestedUnitFor,
   isModelPriced,
   availableCredits,
+  spendableCredits,
   formatCredits,
   formatPrice,
 } from "./schemas/billing";
@@ -166,3 +167,16 @@ export type {
   RunOutputs,
   Run,
 } from "./schemas/studio";
+
+// ── Document pre-flight (web, phone and desktop share one) ─────────────────
+export {
+  DEFAULT_MAX_BYTES,
+  base64ToBytes,
+  bytesToLatin1,
+  createInspector,
+  documentRules,
+  maxPdfBytesFor,
+  reasonKey,
+  sniff,
+} from "./preflight";
+export type { DocumentPreflight, FileKind, Inspection, PreflightRules, RejectReason } from "./preflight";
