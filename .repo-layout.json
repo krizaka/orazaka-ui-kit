@@ -1,0 +1,6 @@
+{
+  "allow": [
+    { "path": "orazaka-design-system", "why": "npm workspace member: the published @orazaka design system package" },
+    { "path": "orazaka-shared", "why": "npm workspace member: the published shared package (named in package.json workspaces)" }
+  ]
+}
