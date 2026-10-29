@@ -13,7 +13,7 @@
 - **Depends on:** nothing — never on another repository's Tier-3 implementation (AGENTS.md §2, [SEAM-002]).
 - **Workspace path:** `orazaka-apps/ui/orazaka-ui-kit`
 
-## Design-system rules (`@krizaka/orazaka-design-system`, same as the Orochia kit)
+## Design-system rules (`@krizaka/orazaka-design-system`, same as the product kit)
 
 - **The theme is token values.** `theme.css` overrides the `--kz-*` roles of `@krizaka/tokens` (dark on `:root`,
   `html.light`, `html.theme-<name>`); product tokens are prefixed `--orazaka-*`. Every theme is tested at WCAG AA
