@@ -41,7 +41,7 @@
     "prepack": "node scripts/build-registry.mjs"
   },
   "dependencies": {
-    "@krizaka/icons": "^0.5.1",
+    "@krizaka/icons": "^0.7.0",
     "@krizaka/orazaka-shared": "^1.1.0",
     "@krizaka/tailwind": "^3.28.0",
     "@krizaka/tokens": "^3.28.0",
