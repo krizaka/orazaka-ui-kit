@@ -23,7 +23,7 @@ jobs:
       contents: read
       packages: write
       id-token: write # npm trusted publishing and provenance
-    uses: krizaka/orazaka/.github/workflows/component.yml@73c905465a0fad85976c84ccbf2f0e95f21a17b1 # main
+    uses: krizaka/orazaka/.github/workflows/component.yml@7811f56c86053a9dfd68cd871d8e7102c9b527bb # main
     with:
       component: orazaka-ui-kit
       duplication: true
