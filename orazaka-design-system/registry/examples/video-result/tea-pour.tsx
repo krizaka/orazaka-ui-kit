@@ -1,5 +1,4 @@
 import { VideoResult } from "@krizaka/orazaka-design-system";
-
 // Eric's tea-pour shot: the clip, its prompt, what the run recorded, how to make it again.
 export default function TeaPour() {
   return (
