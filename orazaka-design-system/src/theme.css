@@ -650,13 +650,10 @@ pre,
    COMPONENT — Theme Card (rotating gradient border)
    ═══════════════════════════════════════════════════ */
 
+/* prettier-ignore */
 @keyframes gradient-rotate {
-  from {
-    --gradient-angle: 0deg;
-  }
-  to {
-    --gradient-angle: 360deg;
-  }
+  from { --gradient-angle: 0deg; }
+  to   { --gradient-angle: 360deg; }
 }
 
 @keyframes select-pulse {
