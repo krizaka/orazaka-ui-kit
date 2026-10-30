@@ -3,7 +3,14 @@ import { act, render } from "@testing-library/react";
 import { ChatShowcase } from "../ChatShowcase";
 
 const props = {
-  labels: { agent: "Orazaka", status: "Online · local", model: "local", routed: "Routed locally", privacy: "Nothing leaves", placeholder: "Ask" },
+  labels: {
+    agent: "Orazaka",
+    status: "Online · local",
+    model: "local",
+    routed: "Routed locally",
+    privacy: "Nothing leaves",
+    placeholder: "Ask",
+  },
   question: "Summarise this contract",
   answer: "The contract renews yearly. ".repeat(6).trim(),
   pipeline: ["Context", "Security", "Credits", "Validation"],
@@ -34,7 +41,12 @@ describe("ChatShowcase layout stability", () => {
   });
 
   it("shows the final state directly under reduced motion", () => {
-    window.matchMedia = ((q: string) => ({ matches: q.includes("reduce"), media: q, addEventListener() {}, removeEventListener() {} })) as never;
+    window.matchMedia = ((q: string) => ({
+      matches: q.includes("reduce"),
+      media: q,
+      addEventListener() {},
+      removeEventListener() {},
+    })) as never;
     const { container } = render(<ChatShowcase {...props} />);
     const live = ghost(container).nextElementSibling as HTMLElement;
     expect(live.textContent).toContain(props.answer);

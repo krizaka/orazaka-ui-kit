@@ -1,11 +1,20 @@
 // The document pre-flight every Orazaka app shares: nothing reaches a Studio that cannot be a document.
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { base64ToBytes, bytesToLatin1, createInspector, documentRules, maxPdfBytesFor, reasonKey, spendableCredits } from "../dist/index.js";
+import {
+  base64ToBytes,
+  bytesToLatin1,
+  createInspector,
+  documentRules,
+  maxPdfBytesFor,
+  reasonKey,
+  spendableCredits,
+} from "../dist/index.js";
 
 const enc = (text) => Uint8Array.from(Array.from(text, (c) => c.charCodeAt(0) & 0xff));
 const pdf = (body = "1 0 obj << /Type /Catalog >> endobj") => enc(`%PDF-1.7\n${body}\nstartxref\n9\n%%EOF\n`);
-const inspect = (bytes, name = "lease.pdf", type = "application/pdf", maxBytes = 1000) => createInspector(documentRules({ maxBytes })).inspect(bytes, { name, type });
+const inspect = (bytes, name = "lease.pdf", type = "application/pdf", maxBytes = 1000) =>
+  createInspector(documentRules({ maxBytes })).inspect(bytes, { name, type });
 
 test("accepts a PDF that is what it says", async () => {
   assert.deepEqual(await inspect(pdf()), { kind: "accepted", fileKind: "pdf" });

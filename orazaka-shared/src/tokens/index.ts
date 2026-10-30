@@ -33,14 +33,7 @@ export interface ThemeColors {
 }
 
 /** All themes shipped by the design system: the two modes, then the named themes. */
-export type ThemeName =
-  | "light"
-  | "dark"
-  | "electric"
-  | "custom"
-  | "cyberpunk"
-  | "solarized"
-  | "krizaka";
+export type ThemeName = "light" | "dark" | "electric" | "custom" | "cyberpunk" | "solarized" | "krizaka";
 
 /**
  * Theme colour matrix. `dark` and `light` are the Krizaka platform surfaces with the **Orazaka brand** (the orange of

@@ -67,7 +67,13 @@ const control = "pointer-events-auto bg-surface-0/80 backdrop-blur";
  * @param props - {@link ClipPlayerProps}
  * @returns The player of a short clip.
  */
-export function ClipPlayer({ sources, title, labels, orientation = "landscape", className }: Readonly<ClipPlayerProps>) {
+export function ClipPlayer({
+  sources,
+  title,
+  labels,
+  orientation = "landscape",
+  className,
+}: Readonly<ClipPlayerProps>) {
   const ref = React.useRef<HTMLVideoElement>(null);
   const userPaused = React.useRef(false);
   const [playing, setPlaying] = React.useState(false);
@@ -145,7 +151,10 @@ export function ClipPlayer({ sources, title, labels, orientation = "landscape", 
           className="absolute inset-0 cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
         <span
-          className={cn(control, "pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-border-default px-2.5 py-1 font-mono text-xs text-fg")}
+          className={cn(
+            control,
+            "pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-border-default px-2.5 py-1 font-mono text-xs text-fg",
+          )}
           data-clip-badge
         >
           <VideoIcon size={14} />
@@ -153,16 +162,39 @@ export function ClipPlayer({ sources, title, labels, orientation = "landscape", 
         </span>
         {reduced && !playing && (
           <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <Button type="button" variant="primary" size="lg" shape="pill" className="pointer-events-auto" onClick={toggle} aria-label={labels.play}>
+            <Button
+              type="button"
+              variant="primary"
+              size="lg"
+              shape="pill"
+              className="pointer-events-auto"
+              onClick={toggle}
+              aria-label={labels.play}
+            >
               <PlayIcon size={20} />
             </Button>
           </span>
         )}
         <div className="pointer-events-none absolute bottom-3 right-3 flex gap-2 opacity-100 transition-opacity [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-focus-within:opacity-100 [@media(hover:hover)]:group-hover:opacity-100">
-          <Button type="button" variant="secondary" size="sm" className={control} onClick={toggle} aria-label={playing ? labels.pause : labels.play}>
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            className={control}
+            onClick={toggle}
+            aria-label={playing ? labels.pause : labels.play}
+          >
             {playing ? <PauseIcon size={16} /> : <PlayIcon size={16} />}
           </Button>
-          <Button type="button" variant="secondary" size="sm" className={control} onClick={toggleSound} aria-label={muted ? labels.unmute : labels.mute} aria-pressed={!muted}>
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            className={control}
+            onClick={toggleSound}
+            aria-label={muted ? labels.unmute : labels.mute}
+            aria-pressed={!muted}
+          >
             {muted ? <MuteIcon size={16} /> : <SoundIcon size={16} />}
           </Button>
         </div>
@@ -172,7 +204,15 @@ export function ClipPlayer({ sources, title, labels, orientation = "landscape", 
           <Dialog.Header>
             <Dialog.Title>{title}</Dialog.Title>
           </Dialog.Header>
-          <video aria-label={title} poster={sources.poster} controls autoPlay loop playsInline className="mx-auto block max-h-[75vh] w-full rounded-lg bg-surface-2">
+          <video
+            aria-label={title}
+            poster={sources.poster}
+            controls
+            autoPlay
+            loop
+            playsInline
+            className="mx-auto block max-h-[75vh] w-full rounded-lg bg-surface-2"
+          >
             {sources.webm && <source src={sources.webm} type="video/webm" />}
             <source src={sources.mp4} type="video/mp4" />
           </video>

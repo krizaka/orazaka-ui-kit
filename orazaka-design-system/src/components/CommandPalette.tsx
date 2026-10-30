@@ -38,12 +38,7 @@ function bySection(commands: CommandPaletteItem[]) {
  * @param props - {@link CommandPaletteProps}
  * @returns The palette, closed until ⌘K / Ctrl+K.
  */
-export function CommandPalette({
-  commands,
-  labels,
-  onNavigate,
-  shortcut = "k",
-}: Readonly<CommandPaletteProps>) {
+export function CommandPalette({ commands, labels, onNavigate, shortcut = "k" }: Readonly<CommandPaletteProps>) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
 

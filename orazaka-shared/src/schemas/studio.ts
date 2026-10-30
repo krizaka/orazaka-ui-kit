@@ -17,13 +17,7 @@ export const StudioPricingSchema = z.enum(["FREE", "INCLUDED", "PAID"]);
 export type StudioPricing = z.infer<typeof StudioPricingSchema>;
 
 /** Publication lifecycle of a marketplace item. Mirrors the Tier-1 StudioStatus. */
-export const StudioStatusSchema = z.enum([
-  "DRAFT",
-  "IN_REVIEW",
-  "PUBLISHED",
-  "DEPRECATED",
-  "WITHDRAWN",
-]);
+export const StudioStatusSchema = z.enum(["DRAFT", "IN_REVIEW", "PUBLISHED", "DEPRECATED", "WITHDRAWN"]);
 export type StudioStatus = z.infer<typeof StudioStatusSchema>;
 
 /** Publication lifecycle of one blueprint version. */
@@ -37,21 +31,11 @@ export type BlueprintStatus = z.infer<typeof BlueprintStatusSchema>;
  * says nothing about the actor, and rendering it as "you are not entitled" is the one
  * failure that costs trust rather than a click (ADR-034 §8.3).
  */
-export const LockReasonSchema = z.enum([
-  "NONE",
-  "REQUIRES_PURCHASE",
-  "REQUIRES_PLAN",
-  "UNKNOWN",
-]);
+export const LockReasonSchema = z.enum(["NONE", "REQUIRES_PURCHASE", "REQUIRES_PLAN", "UNKNOWN"]);
 export type LockReason = z.infer<typeof LockReasonSchema>;
 
 /** Lifecycle of one actor's copy of a Studio. */
-export const InstallationStatusSchema = z.enum([
-  "ACTIVE",
-  "PAUSED",
-  "UPGRADE_AVAILABLE",
-  "REVOKED",
-]);
+export const InstallationStatusSchema = z.enum(["ACTIVE", "PAUSED", "UPGRADE_AVAILABLE", "REVOKED"]);
 export type InstallationStatus = z.infer<typeof InstallationStatusSchema>;
 
 /** Lifecycle of one execution of an installation. */
@@ -67,14 +51,7 @@ export const RunStatusSchema = z.enum([
 export type RunStatus = z.infer<typeof RunStatusSchema>;
 
 /** Lifecycle of one node of a run's DAG — deliberately not the run's own vocabulary. */
-export const RunStepStatusSchema = z.enum([
-  "PENDING",
-  "RUNNING",
-  "SUCCEEDED",
-  "FAILED",
-  "SKIPPED",
-  "CANCELLED",
-]);
+export const RunStepStatusSchema = z.enum(["PENDING", "RUNNING", "SUCCEEDED", "FAILED", "SKIPPED", "CANCELLED"]);
 export type RunStepStatus = z.infer<typeof RunStepStatusSchema>;
 
 /**

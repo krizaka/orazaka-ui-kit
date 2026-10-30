@@ -27,7 +27,8 @@ export type Reference = ComponentName | UiComponent;
 export type Status = "stable" | "beta" | "deprecated";
 
 /** The group of the catalogue (the @krizaka/ui categories). */
-export type Category = "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "layout" | "foundations";
+export type Category =
+  "actions" | "forms" | "navigation" | "overlays" | "feedback" | "data-display" | "layout" | "foundations";
 
 /** A named example: `registry/examples/<component>/<name>.tsx` — at most 40 lines, a realistic product scenario. */
 export interface Example {

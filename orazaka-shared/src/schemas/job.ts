@@ -13,7 +13,11 @@ export const JobSchema = z.object({
   featureKey: z.string(),
   status: JobStatusSchema,
   payload: z.record(z.string(), z.unknown()).catch({}),
-  result: z.record(z.string(), z.unknown()).nullable().catch(null).transform((r) => r ?? {}),
+  result: z
+    .record(z.string(), z.unknown())
+    .nullable()
+    .catch(null)
+    .transform((r) => r ?? {}),
   errorMessage: z.string().nullish(),
   progress: z.number().nullish(),
   /** What the executor said it is doing now (loading, generating, encoding, uploading), from the live stream. */

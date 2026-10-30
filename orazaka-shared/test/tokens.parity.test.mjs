@@ -10,9 +10,16 @@ const { themes, status } = createRequire(import.meta.url)("../dist/index.js");
 
 /** The roles of the platform theme that the shared theme carries under the same name. */
 const PLATFORM_ROLES = [
-  "surface0", "surface1", "surface2", "surface3",
-  "borderSubtle", "borderDefault", "borderStrong",
-  "textPrimary", "textSecondary", "textMuted",
+  "surface0",
+  "surface1",
+  "surface2",
+  "surface3",
+  "borderSubtle",
+  "borderDefault",
+  "borderStrong",
+  "textPrimary",
+  "textSecondary",
+  "textMuted",
 ];
 /** The roles the Orazaka brand sets. */
 const BRAND_ROLES = ["accent", "accentHover", "onAccent", "accentText"];

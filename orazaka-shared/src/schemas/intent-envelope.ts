@@ -39,22 +39,24 @@ export const InterceptorPolicySchema = z.object({
   interceptorName: z.string().min(1),
   executionOrder: z.number().int().nonnegative(),
   enabled: z.boolean(),
-  predicates: z.array(
-    z.object({
-      field: z.string().min(1),
-      operator: z.enum([
-        "EQUALS",
-        "NOT_EQUALS",
-        "GREATER_THAN",
-        "LESS_THAN",
-        "GREATER_THAN_OR_EQUAL",
-        "LESS_THAN_OR_EQUAL",
-        "CONTAINS",
-        "IN",
-      ]),
-      value: z.string(),
-    }),
-  ).default([]),
+  predicates: z
+    .array(
+      z.object({
+        field: z.string().min(1),
+        operator: z.enum([
+          "EQUALS",
+          "NOT_EQUALS",
+          "GREATER_THAN",
+          "LESS_THAN",
+          "GREATER_THAN_OR_EQUAL",
+          "LESS_THAN_OR_EQUAL",
+          "CONTAINS",
+          "IN",
+        ]),
+        value: z.string(),
+      }),
+    )
+    .default([]),
 });
 
 export type InterceptorPolicy = z.infer<typeof InterceptorPolicySchema>;

@@ -40,8 +40,7 @@ function pick(map: Map<string, Declarations>, selector: string): Declarations {
 }
 
 const NAMED = ["electric", "custom", "cyberpunk", "solarized", "krizaka"] as const;
-const named = (name: string) =>
-  pick(own, `html.theme-${name}, .theme-${name}`);
+const named = (name: string) => pick(own, `html.theme-${name}, .theme-${name}`);
 
 // The cascade of an app: the platform, then the Orazaka brand theme, then this file.
 const dark: Declarations = {
@@ -50,7 +49,12 @@ const dark: Declarations = {
   ...pick(orazaka, ":root, .theme-dark"),
   ...pick(own, ":root, .theme-dark"),
 };
-const light = { ...dark, ...pick(kz, "html.light"), ...pick(orazaka, "html.light"), ...pick(own, "html.light") } as Declarations;
+const light = {
+  ...dark,
+  ...pick(kz, "html.light"),
+  ...pick(orazaka, "html.light"),
+  ...pick(own, "html.light"),
+} as Declarations;
 const themes: Record<string, Declarations> = {
   dark,
   light,
@@ -133,7 +137,6 @@ describe("theme.css — Orazaka Orange", () => {
 });
 
 describe("theme.css — mechanism", () => {
-
   it("brings the platform layers first", () => {
     const code = theme.replace(/\/\*[\s\S]*?\*\//g, "");
     const imports = [...code.matchAll(/@import\s+"([^"]+)"/g)].map(([, path]) => path);
@@ -167,5 +170,4 @@ describe("theme.css — mechanism", () => {
     );
     expect(unprefixed).toEqual([]);
   });
-
 });

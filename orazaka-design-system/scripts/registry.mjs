@@ -124,7 +124,12 @@ function examplesOf(name, list) {
   return (list ?? []).map((example) => {
     const file = exampleFileOf(name, example.name);
     const path = posix(relative(join(PKG, "registry"), file));
-    return { ...example, path, module: `${PACKAGE}/registry/${path.replace(/\.tsx$/, "")}`, code: existsSync(file) ? readFileSync(file, "utf8") : "" };
+    return {
+      ...example,
+      path,
+      module: `${PACKAGE}/registry/${path.replace(/\.tsx$/, "")}`,
+      code: existsSync(file) ? readFileSync(file, "utf8") : "",
+    };
   });
 }
 
@@ -155,7 +160,12 @@ export async function collectRegistry() {
       bestPractices: meta.bestPractices,
       accessibility: meta.accessibility,
       related: meta.related,
-      web: { entry, import: importLine(meta.web.imports, entry), props: webProps, examples: examplesOf(name, meta.web.examples) },
+      web: {
+        entry,
+        import: importLine(meta.web.imports, entry),
+        props: webProps,
+        examples: examplesOf(name, meta.web.examples),
+      },
       native: null,
       dependencies: [],
       registryDependencies: [],
@@ -167,20 +177,42 @@ export async function collectRegistry() {
 /** The roles theme.css sets, by mode (`--kz-` stripped), and the product tokens it declares. */
 export function themeOverrides() {
   const own = blocks(readFileSync(THEME, "utf8"));
-  const strip = (decls) => Object.fromEntries(Object.entries(decls).filter(([n]) => n.startsWith("--kz-")).map(([n, v]) => [n.slice(5), v]));
+  const strip = (decls) =>
+    Object.fromEntries(
+      Object.entries(decls)
+        .filter(([n]) => n.startsWith("--kz-"))
+        .map(([n, v]) => [n.slice(5), v]),
+    );
   return {
     dark: strip(own.get(":root, .theme-dark") ?? {}),
     light: strip(own.get("html.light") ?? {}),
-    product: Object.entries({ ...own.get(":root, .theme-dark"), ...own.get(":root") }).filter(([n]) => n.startsWith("--orazaka-")),
+    product: Object.entries({ ...own.get(":root, .theme-dark"), ...own.get(":root") }).filter(([n]) =>
+      n.startsWith("--orazaka-"),
+    ),
   };
 }
 
 /** The roles a page shows on the palette, in reading order. */
 export const PALETTE = [
-  "surface-0", "surface-1", "surface-2", "surface-3", "border-default",
-  "text-primary", "text-secondary", "text-muted",
-  "accent", "accent-hover", "accent-soft", "accent-text", "accent-2", "on-accent", "ring",
-  "success", "warning", "danger", "info",
+  "surface-0",
+  "surface-1",
+  "surface-2",
+  "surface-3",
+  "border-default",
+  "text-primary",
+  "text-secondary",
+  "text-muted",
+  "accent",
+  "accent-hover",
+  "accent-soft",
+  "accent-text",
+  "accent-2",
+  "on-accent",
+  "ring",
+  "success",
+  "warning",
+  "danger",
+  "info",
 ];
 
 /**
@@ -200,12 +232,23 @@ export async function collectFoundations() {
   ];
   const layers = {
     dark,
-    light: [...dark, ["platform", kz.get("html.light") ?? {}], ["brand", brand.get("html.light") ?? {}], ["kit", own.get("html.light") ?? {}]],
+    light: [
+      ...dark,
+      ["platform", kz.get("html.light") ?? {}],
+      ["brand", brand.get("html.light") ?? {}],
+      ["kit", own.get("html.light") ?? {}],
+    ],
   };
   const modes = {};
   const themes = {};
   // Every property the brand or the kit sets, in either mode: what a scoped preview must declare in both.
-  const scoped = [...new Set(Object.values(layers).flatMap((stack) => stack.filter(([id]) => id !== "platform").flatMap(([, decls]) => Object.keys(decls))))].sort();
+  const scoped = [
+    ...new Set(
+      Object.values(layers).flatMap((stack) =>
+        stack.filter(([id]) => id !== "platform").flatMap(([, decls]) => Object.keys(decls)),
+      ),
+    ),
+  ].sort();
   for (const [mode, stack] of Object.entries(layers)) {
     const theme = Object.assign({}, ...stack.map(([, decls]) => decls));
     themes[mode] = theme;
@@ -232,10 +275,16 @@ export async function collectFoundations() {
     modes,
     // The kit's own values, by mode: what krizaka.com applies to a preview (the brand layer is .brand-orazaka there).
     scope: Object.fromEntries(
-      Object.entries(themes).map(([mode, theme]) => [mode, { ...Object.fromEntries(scoped.map((n) => [n, theme[n]])), ...Object.fromEntries(overrides.product) }]),
+      Object.entries(themes).map(([mode, theme]) => [
+        mode,
+        { ...Object.fromEntries(scoped.map((n) => [n, theme[n]])), ...Object.fromEntries(overrides.product) },
+      ]),
     ),
     namedThemes: Object.entries(meta.namedThemes).map(([id, about]) => {
-      const block = own.get(id === "electric" ? "html.theme-electric, .theme-electric" : `html.theme-${id}, .theme-${id}, html.${id}`) ?? {};
+      const block =
+        own.get(
+          id === "electric" ? "html.theme-electric, .theme-electric" : `html.theme-${id}, .theme-${id}, html.${id}`,
+        ) ?? {};
       const base = block["color-scheme"] === "light" || id === "solarized" ? themes.light : themes.dark;
       const theme = { ...base, ...block };
       return {
@@ -254,7 +303,11 @@ export async function collectFoundations() {
     typeScale: Object.entries(own.get(":root") ?? {})
       .filter(([n]) => /^--text-/.test(n))
       .map(([name, value]) => ({ name, value })),
-    productTokens: overrides.product.map(([name, value]) => ({ name, value, description: meta.productTokens[name] ?? null })),
+    productTokens: overrides.product.map(([name, value]) => ({
+      name,
+      value,
+      description: meta.productTokens[name] ?? null,
+    })),
     typography: meta.typography,
     icons: meta.icons,
     rules: meta.rules,

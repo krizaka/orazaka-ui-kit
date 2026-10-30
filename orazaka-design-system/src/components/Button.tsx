@@ -6,7 +6,13 @@ import { Button as KzButton, type ButtonProps } from "@krizaka/ui/button";
  * always wins. React 19: `ref` is a prop. A product variant extends `buttonVariants` (`tv({ extend: buttonVariants })`),
  * it never copies it.
  */
-export { type ButtonProps, type ButtonVariants, buttonVariants, IconButton, type IconButtonProps } from "@krizaka/ui/button";
+export {
+  type ButtonProps,
+  type ButtonVariants,
+  buttonVariants,
+  IconButton,
+  type IconButtonProps,
+} from "@krizaka/ui/button";
 
 /**
  * The @krizaka/ui `Button`, with the Orazaka 1.x default kept: without a `variant`, it is the primary (accent) button

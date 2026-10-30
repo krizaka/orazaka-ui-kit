@@ -9,7 +9,15 @@ export default function Workspace() {
       <p>Press ⌘K (Ctrl+K) to open the palette.</p>
       <CommandPalette
         onNavigate={() => {}}
-        labels={{ label: "Command palette", placeholder: "Go to…", results: "Results", empty: "Nothing matches.", navigate: "move", open: "open", close: "close" }}
+        labels={{
+          label: "Command palette",
+          placeholder: "Go to…",
+          results: "Results",
+          empty: "Nothing matches.",
+          navigate: "move",
+          open: "open",
+          close: "close",
+        }}
         commands={[
           { id: "studios", label: "Studios", icon: "studio", href: "/studios", section: "Go to" },
           { id: "chat", label: "Contracts assistant", icon: "chat", href: "/chat/contracts", section: "Go to" },
