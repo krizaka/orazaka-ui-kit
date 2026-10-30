@@ -1,7 +1,7 @@
 /**
  * @file sovereign-workflow-context.ts
  * @description Zod validation schemas mirroring the backend Java SovereignWorkflowContext record.
- * Shared between orazaka-web-client, orazaka-web-admin, and orazaka-mobile-client.
+ * Shared between orazaka-web-client (its operator console included) and orazaka-mobile-client.
  */
 
 import { z } from "zod";

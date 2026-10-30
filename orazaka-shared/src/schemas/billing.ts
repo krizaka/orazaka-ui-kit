@@ -228,6 +228,17 @@ export function availableCredits(wallet: Wallet): number {
 }
 
 /**
+ * The balance to SHOW: spendable credits, never below zero.
+ *
+ * The ledger may legitimately go below zero (a bounded settlement overshoot, or shadow metering on dev); a negative balance
+ * is a ledger fact, not something to tell a customer ("-860 available" reads as a debt). Decisions (can this run
+ * start?) keep using {@link availableCredits}.
+ */
+export function spendableCredits(wallet: Wallet): number {
+  return Math.max(0, availableCredits(wallet));
+}
+
+/**
  * Formats credits for display.
  *
  * Grouped rather than abbreviated: "1.2k credits" reads as an approximation, and a

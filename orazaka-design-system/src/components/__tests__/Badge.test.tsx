@@ -11,7 +11,8 @@ describe("Badge", () => {
   it("applies default variant styling", () => {
     const { container } = render(<Badge>Default</Badge>);
     const span = container.querySelector("span");
-    expect(span?.className).toContain("rounded-full");
+    // The shape belongs to @krizaka/ui (Cahier: square corners since 3.37): pin the variant, not the radius.
+    expect(span?.className).toContain("bg-surface-3");
   });
 
   it("applies success variant", () => {

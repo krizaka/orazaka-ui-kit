@@ -23,7 +23,8 @@ jobs:
       contents: read
       packages: write
       id-token: write # npm trusted publishing and provenance
-    uses: krizaka/orazaka/.github/workflows/component.yml@7e70e89478ab174a2c3b9c793f1ff80754e93ce3 # main
+    uses: krizaka/orazaka/.github/workflows/component.yml@7811f56c86053a9dfd68cd871d8e7102c9b527bb # main
     with:
       component: orazaka-ui-kit
-    secrets: inherit
+      duplication: true
+    secrets: inherit # zizmor: ignore[secrets-inherit] the org's own pinned pipeline; it reads SONAR_TOKEN and nothing else of the repository's secrets

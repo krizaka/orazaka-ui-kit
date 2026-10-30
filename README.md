@@ -17,6 +17,7 @@
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Orazaka](https://img.shields.io/badge/part%20of-Orazaka-f67e23)](https://github.com/krizaka/orazaka#repositories)
 [![Docs](https://img.shields.io/badge/docs-krizaka.com-f67e23)](https://www.krizaka.com/en/products/orazaka)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=krizaka_orazaka-ui-kit&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=krizaka_orazaka-ui-kit) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=krizaka_orazaka-ui-kit&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=krizaka_orazaka-ui-kit) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=krizaka_orazaka-ui-kit&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=krizaka_orazaka-ui-kit) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=krizaka_orazaka-ui-kit&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=krizaka_orazaka-ui-kit) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=krizaka_orazaka-ui-kit&metric=coverage)](https://sonarcloud.io/summary/new_code?id=krizaka_orazaka-ui-kit)
 
 [Documentation](https://www.krizaka.com/en/products/orazaka) · [Website](https://www.krizaka.com) · [Krizaka on GitHub](https://github.com/krizaka)
 
@@ -60,7 +61,7 @@ here.
 | | |
 |:---|:---|
 | Depends on | _none — this repository is a root of the dependency graph._ |
-| Used by | [`orazaka-web-client`](https://github.com/krizaka/orazaka-web-client) · [`orazaka-web-admin`](https://github.com/krizaka/orazaka-web-admin) · [`orazaka-mobile-client`](https://github.com/krizaka/orazaka-mobile-client) |
+| Used by | [`orazaka-web-client`](https://github.com/krizaka/orazaka-web-client) (with its operator console) · [`orazaka-mobile-client`](https://github.com/krizaka/orazaka-mobile-client) |
 | Workspace path | `orazaka-apps/ui/orazaka-ui-kit` |
 
 ## Build
