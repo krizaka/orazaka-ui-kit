@@ -25,10 +25,7 @@ export type SovereignWorkflowContext = z.infer<typeof SovereignWorkflowContextSc
 /**
  * Convenience factory matching the Java record's `minimal()` static method.
  */
-export function minimalContext(
-  contextId: string,
-  systemInstructions: string,
-): SovereignWorkflowContext {
+export function minimalContext(contextId: string, systemInstructions: string): SovereignWorkflowContext {
   return SovereignWorkflowContextSchema.parse({
     contextId,
     systemInstructions,

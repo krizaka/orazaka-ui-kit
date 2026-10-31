@@ -1,4 +1,9 @@
-import { Badge as KzBadge, type BadgeProps as KzBadgeProps, badgeVariants, type BadgeVariants } from "@krizaka/ui/badge";
+import {
+  Badge as KzBadge,
+  type BadgeProps as KzBadgeProps,
+  badgeVariants,
+  type BadgeVariants,
+} from "@krizaka/ui/badge";
 
 export { badgeVariants, type BadgeVariants };
 

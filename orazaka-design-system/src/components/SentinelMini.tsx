@@ -48,23 +48,9 @@ export function SentinelMini({ size = 24, className = "" }: Readonly<SentinelMin
         fill="none"
       />
       {/* Core ring */}
-      <circle
-        cx="12"
-        cy="12"
-        r="4"
-        stroke="var(--kz-accent)"
-        strokeWidth="1"
-        opacity="0.6"
-        fill="none"
-      />
+      <circle cx="12" cy="12" r="4" stroke="var(--kz-accent)" strokeWidth="1" opacity="0.6" fill="none" />
       {/* Inner core */}
-      <circle
-        cx="12"
-        cy="12"
-        r="2"
-        fill="var(--kz-accent)"
-        opacity="0.8"
-      />
+      <circle cx="12" cy="12" r="2" fill="var(--kz-accent)" opacity="0.8" />
       {/* Core highlight */}
       <circle cx="12" cy="11" r="0.8" fill="white" opacity="0.3" />
       {/* Energy nodes */}

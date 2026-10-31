@@ -60,7 +60,7 @@ html.theme-electric,
   --kz-surface-2: hsl(240 5% 13%);
   --kz-surface-3: hsl(240 4% 17%);
   --kz-border-subtle: hsl(0 0% 100% / 0.06);
-  --kz-border-default: hsl(0 0% 100% / 0.10);
+  --kz-border-default: hsl(0 0% 100% / 0.1);
   --kz-border-strong: hsl(0 0% 100% / 0.16);
   --kz-text-primary: hsl(0 0% 96%);
   --kz-text-secondary: hsl(240 4% 64%);
@@ -206,7 +206,8 @@ html.theme-krizaka,
   /* Fonts: the faces the apps load with next/font (--font-krizaka-*, --font-inter…), with fallbacks. */
   --kz-font-sans: var(--font-inter, Inter), system-ui, -apple-system, "Segoe UI", sans-serif;
   --kz-font-display: var(--font-krizaka-display, var(--font-outfit, Outfit)), var(--font-inter, Inter), sans-serif;
-  --kz-font-mono: var(--font-krizaka-mono, var(--font-jetbrains-mono, "JetBrains Mono")), "SF Mono", ui-monospace, monospace;
+  --kz-font-mono:
+    var(--font-krizaka-mono, var(--font-jetbrains-mono, "JetBrains Mono")), "SF Mono", ui-monospace, monospace;
 
   /* Product tokens: prefixed, never generic. */
   --orazaka-accent-glow: 0 0 0 3px color-mix(in oklab, var(--kz-accent) 12%, transparent);
@@ -232,7 +233,7 @@ body {
   color: var(--kz-text-primary);
   font-family: var(--kz-font-sans);
   font-size: var(--text-base);
-  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   letter-spacing: -0.018em;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -240,14 +241,18 @@ body {
 }
 
 /* Display headings use Krizaka Display → Outfit fallback */
-h1, h2, .text-display {
+h1,
+h2,
+.text-display {
   font-family: var(--kz-font-display);
   font-weight: 700;
   letter-spacing: -0.03em;
 }
 
 /* Mono contexts: data tables, console nodes, prompt streams */
-code, pre, .font-mono {
+code,
+pre,
+.font-mono {
   font-family: var(--kz-font-mono) !important;
 }
 
@@ -278,68 +283,145 @@ code, pre, .font-mono {
    ═══════════════════════════════════════════════════ */
 
 @keyframes shimmer {
-  0%   { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%      { transform: translateX(-6px); }
-  40%      { transform: translateX(6px); }
-  60%      { transform: translateX(-4px); }
-  80%      { transform: translateX(4px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes toast-in {
-  from { opacity: 0; transform: translateY(12px) scale(0.95); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes toast-out {
-  from { opacity: 1; transform: translateY(0) scale(1); }
-  to   { opacity: 0; transform: translateY(-8px) scale(0.95); }
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
 }
 
 @keyframes gradient-mesh {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slide-up {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes counter-up {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes breathing-glow {
-  0%, 100% { box-shadow: 0 0 0 0 transparent, 0 0 8px transparent; }
-  50%      { box-shadow: 0 0 0 1px color-mix(in oklab, var(--kz-accent) 8%, transparent), 0 0 16px color-mix(in oklab, var(--kz-accent) 6%, transparent); }
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 transparent,
+      0 0 8px transparent;
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--kz-accent) 8%, transparent),
+      0 0 16px color-mix(in oklab, var(--kz-accent) 6%, transparent);
+  }
 }
 
 @keyframes pulse-ring {
-  0%   { transform: scale(0.95); opacity: 0.6; }
-  50%  { transform: scale(1.0);  opacity: 0.3; }
-  100% { transform: scale(0.95); opacity: 0.6; }
+  0% {
+    transform: scale(0.95);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.6;
+  }
 }
 
 @keyframes text-reveal {
@@ -369,13 +451,22 @@ code, pre, .font-mono {
 }
 
 @keyframes typewriter-blink {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 @keyframes typewriter-reveal {
-  from { max-width: 0; }
-  to   { max-width: 100%; }
+  from {
+    max-width: 0;
+  }
+  to {
+    max-width: 100%;
+  }
 }
 
 /* ═══════════════════════════════════════════════════
@@ -436,7 +527,9 @@ code, pre, .font-mono {
   box-shadow:
     0 1px 3px hsla(0, 0%, 0%, 0.12),
     inset 0 1px 0 hsla(0, 0%, 100%, 0.02);
-  transition: border-color 200ms ease, box-shadow 300ms ease;
+  transition:
+    border-color 200ms ease,
+    box-shadow 300ms ease;
 }
 
 .glass-card:hover {
@@ -461,7 +554,9 @@ code, pre, .font-mono {
     transparent 60%,
     hsla(0, 0%, 100%, 0.04) 100%
   );
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: xor;
   pointer-events: none;
@@ -482,11 +577,13 @@ code, pre, .font-mono {
 }
 
 .hover-lift {
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
 }
 .hover-lift:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px hsla(0, 0%, 0%, 0.10);
+  box-shadow: 0 6px 20px hsla(0, 0%, 0%, 0.1);
 }
 
 /* Ambient grid background */
@@ -524,44 +621,84 @@ code, pre, .font-mono {
 .stagger-children > * {
   animation: fade-up 300ms ease both;
 }
-.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
-.stagger-children > *:nth-child(2) { animation-delay: 50ms; }
-.stagger-children > *:nth-child(3) { animation-delay: 100ms; }
-.stagger-children > *:nth-child(4) { animation-delay: 150ms; }
-.stagger-children > *:nth-child(5) { animation-delay: 200ms; }
-.stagger-children > *:nth-child(6) { animation-delay: 250ms; }
-.stagger-children > *:nth-child(7) { animation-delay: 300ms; }
-.stagger-children > *:nth-child(8) { animation-delay: 350ms; }
+.stagger-children > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+.stagger-children > *:nth-child(2) {
+  animation-delay: 50ms;
+}
+.stagger-children > *:nth-child(3) {
+  animation-delay: 100ms;
+}
+.stagger-children > *:nth-child(4) {
+  animation-delay: 150ms;
+}
+.stagger-children > *:nth-child(5) {
+  animation-delay: 200ms;
+}
+.stagger-children > *:nth-child(6) {
+  animation-delay: 250ms;
+}
+.stagger-children > *:nth-child(7) {
+  animation-delay: 300ms;
+}
+.stagger-children > *:nth-child(8) {
+  animation-delay: 350ms;
+}
 
 /* ═══════════════════════════════════════════════════
    COMPONENT — Theme Card (rotating gradient border)
    ═══════════════════════════════════════════════════ */
 
+/* prettier-ignore */
 @keyframes gradient-rotate {
   from { --gradient-angle: 0deg; }
   to   { --gradient-angle: 360deg; }
 }
 
 @keyframes select-pulse {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(0.97); }
-  70%  { transform: scale(1.01); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(0.97);
+  }
+  70% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes check-pop {
-  0%   { transform: scale(0) rotate(-45deg); opacity: 0; }
-  60%  { transform: scale(1.2) rotate(0deg); opacity: 1; }
-  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  0% {
+    transform: scale(0) rotate(-45deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
 }
 
 @keyframes status-slide {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @property --gradient-angle {
-  syntax: '<angle>';
+  syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
@@ -579,7 +716,9 @@ code, pre, .font-mono {
     transparent 70%,
     var(--kz-accent)
   );
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: xor;
   pointer-events: none;
@@ -602,7 +741,8 @@ code, pre, .font-mono {
    COMPONENT — Input focus accent ring
    ═══════════════════════════════════════════════════ */
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   box-shadow: var(--orazaka-accent-glow) !important;
   border-color: var(--kz-accent) !important;
   outline: none;
@@ -635,12 +775,7 @@ input:focus, textarea:focus {
    ═══════════════════════════════════════════════════ */
 
 .skeleton {
-  background: linear-gradient(
-    90deg,
-    var(--kz-surface-2) 25%,
-    var(--kz-surface-3) 37%,
-    var(--kz-surface-2) 63%
-  );
+  background: linear-gradient(90deg, var(--kz-surface-2) 25%, var(--kz-surface-3) 37%, var(--kz-surface-2) 63%);
   background-size: 200% 100%;
   animation: shimmer 1.8s ease-in-out infinite;
   border-radius: var(--kz-radius-sm);
@@ -685,13 +820,27 @@ input:focus, textarea:focus {
 }
 
 /* Fluid text utility classes */
-.fluid-xs { font-size: var(--text-xs); }
-.fluid-sm { font-size: var(--text-sm); }
-.fluid-base { font-size: var(--text-base); }
-.fluid-lg { font-size: var(--text-lg); }
-.fluid-xl { font-size: var(--text-xl); }
-.fluid-2xl { font-size: var(--text-2xl); }
-.fluid-display { font-size: var(--text-display); }
+.fluid-xs {
+  font-size: var(--text-xs);
+}
+.fluid-sm {
+  font-size: var(--text-sm);
+}
+.fluid-base {
+  font-size: var(--text-base);
+}
+.fluid-lg {
+  font-size: var(--text-lg);
+}
+.fluid-xl {
+  font-size: var(--text-xl);
+}
+.fluid-2xl {
+  font-size: var(--text-2xl);
+}
+.fluid-display {
+  font-size: var(--text-display);
+}
 
 /* ═══════════════════════════════════════════════════
    REDUCED MOTION — the theme's own idle and entrance motion stops

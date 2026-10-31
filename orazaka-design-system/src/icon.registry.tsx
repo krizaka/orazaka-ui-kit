@@ -50,7 +50,10 @@ export const ICON_REGISTRY = {
   settings: (
     <>
       {/* Hexagonal gear with precision markers */}
-      <path d="M12 2L14.5 4L17.5 3.5L18.5 6.5L21.5 8L20 10.5L21 13.5L18 14.5L17 17.5L14 17L12 19.5L10 17L7 17.5L6 14.5L3 13.5L4 10.5L2.5 8L5.5 6.5L6.5 3.5L9.5 4L12 2Z" vectorEffect={VE} />
+      <path
+        d="M12 2L14.5 4L17.5 3.5L18.5 6.5L21.5 8L20 10.5L21 13.5L18 14.5L17 17.5L14 17L12 19.5L10 17L7 17.5L6 14.5L3 13.5L4 10.5L2.5 8L5.5 6.5L6.5 3.5L9.5 4L12 2Z"
+        vectorEffect={VE}
+      />
       <circle cx="12" cy="11" r="3" vectorEffect={VE} />
     </>
   ),
@@ -163,7 +166,12 @@ export const ICON_REGISTRY = {
       <circle cx="12" cy="12" r="2.5" vectorEffect={VE} />
       <circle cx="6" cy="18" r="2" vectorEffect={VE} />
       <circle cx="18" cy="18" r="2" vectorEffect={VE} />
-      <path d="M7.5 7.5L10 10M14 10L16.5 7.5M7.5 16.5L10 14M14 14L16.5 16.5" strokeWidth="1" opacity="0.4" vectorEffect={VE} />
+      <path
+        d="M7.5 7.5L10 10M14 10L16.5 7.5M7.5 16.5L10 14M14 14L16.5 16.5"
+        strokeWidth="1"
+        opacity="0.4"
+        vectorEffect={VE}
+      />
     </>
   ),
 
@@ -255,7 +263,10 @@ export const ICON_REGISTRY = {
   tool: (
     <>
       {/* Tool callback — wrench with circuit */}
-      <path d="M14.7 6.3C13.3 4.9 11.1 4.6 9.3 5.5L12.5 8.7L11.1 10.1L7.9 6.9C7 8.7 7.3 10.9 8.7 12.3C10.1 13.7 12.2 14 14 13.2L19 18.2C19.4 18.6 20 18.6 20.4 18.2C20.8 17.8 20.8 17.2 20.4 16.8L15.4 11.8C16.2 10 15.9 7.9 14.7 6.3Z" vectorEffect={VE} />
+      <path
+        d="M14.7 6.3C13.3 4.9 11.1 4.6 9.3 5.5L12.5 8.7L11.1 10.1L7.9 6.9C7 8.7 7.3 10.9 8.7 12.3C10.1 13.7 12.2 14 14 13.2L19 18.2C19.4 18.6 20 18.6 20.4 18.2C20.8 17.8 20.8 17.2 20.4 16.8L15.4 11.8C16.2 10 15.9 7.9 14.7 6.3Z"
+        vectorEffect={VE}
+      />
     </>
   ),
 
@@ -366,7 +377,10 @@ export const ICON_REGISTRY = {
 
   attach: (
     <>
-      <path d="M21.4 11.6L12.2 20.8C9.8 23.2 5.8 23.2 3.4 20.8C1 18.4 1 14.4 3.4 12L13.6 1.8C15.2 0.2 17.8 0.2 19.4 1.8C21 3.4 21 6 19.4 7.6L9.2 17.8C8.4 18.6 7.1 18.6 6.3 17.8C5.5 17 5.5 15.7 6.3 14.9L15.5 5.7" vectorEffect={VE} />
+      <path
+        d="M21.4 11.6L12.2 20.8C9.8 23.2 5.8 23.2 3.4 20.8C1 18.4 1 14.4 3.4 12L13.6 1.8C15.2 0.2 17.8 0.2 19.4 1.8C21 3.4 21 6 19.4 7.6L9.2 17.8C8.4 18.6 7.1 18.6 6.3 17.8C5.5 17 5.5 15.7 6.3 14.9L15.5 5.7"
+        vectorEffect={VE}
+      />
     </>
   ),
 
@@ -499,7 +513,10 @@ export const ICON_REGISTRY = {
   sun: (
     <>
       <circle cx="12" cy="12" r="4" vectorEffect={VE} />
-      <path d="M12 2V4M12 20V22M4.9 4.9L6.3 6.3M17.7 17.7L19.1 19.1M2 12H4M20 12H22M4.9 19.1L6.3 17.7M17.7 6.3L19.1 4.9" vectorEffect={VE} />
+      <path
+        d="M12 2V4M12 20V22M4.9 4.9L6.3 6.3M17.7 17.7L19.1 19.1M2 12H4M20 12H22M4.9 19.1L6.3 17.7M17.7 6.3L19.1 4.9"
+        vectorEffect={VE}
+      />
     </>
   ),
 
@@ -558,7 +575,11 @@ export const ICON_REGISTRY = {
     <>
       <path d="M4 3H16L20 7V21H4V3Z" vectorEffect={VE} />
       <path d="M16 3V7H20" vectorEffect={VE} />
-      <path d="M8 13C8 12 9 12 9 13V14C9 15 8 15 8 14M16 13C16 12 15 12 15 13V14C15 15 16 15 16 14" strokeWidth="1.2" vectorEffect={VE} />
+      <path
+        d="M8 13C8 12 9 12 9 13V14C9 15 8 15 8 14M16 13C16 12 15 12 15 13V14C15 15 16 15 16 14"
+        strokeWidth="1.2"
+        vectorEffect={VE}
+      />
       <path d="M11 12H13" strokeWidth="1" opacity="0.5" vectorEffect={VE} />
     </>
   ),
@@ -638,7 +659,10 @@ export const ICON_REGISTRY = {
   palette: (
     <>
       {/* Artist palette — theming */}
-      <path d="M12 3C6.5 3 3 7 3 12C3 16 6 19 10 19C11.1 19 12 18.1 12 17C12 16.5 11.8 16 11.5 15.6C11.2 15.2 11 14.7 11 14.2C11 13 12 12 13.2 12H16C18.2 12 20 10.2 20 8C20 5 16.5 3 12 3Z" vectorEffect={VE} />
+      <path
+        d="M12 3C6.5 3 3 7 3 12C3 16 6 19 10 19C11.1 19 12 18.1 12 17C12 16.5 11.8 16 11.5 15.6C11.2 15.2 11 14.7 11 14.2C11 13 12 12 13.2 12H16C18.2 12 20 10.2 20 8C20 5 16.5 3 12 3Z"
+        vectorEffect={VE}
+      />
       <circle cx="7.5" cy="11.5" r="1.1" fill="currentColor" stroke="none" vectorEffect={VE} />
       <circle cx="8" cy="7.5" r="1.1" fill="currentColor" stroke="none" vectorEffect={VE} />
       <circle cx="12" cy="6.5" r="1.1" fill="currentColor" stroke="none" vectorEffect={VE} />

@@ -20,7 +20,7 @@ export const foundations = {
     "accent-2": "The second stop of the buttons' gradient.",
     "on-accent": "Text on the accent: near-black in dark, white in light.",
     ring: "The focus ring, in the accent.",
-    info: "Blue, not orange: an orange \"info\" would read as a warning.",
+    info: 'Blue, not orange: an orange "info" would read as a warning.',
   },
   namedThemes: {
     electric: { name: "Electric Blue", use: "The 2.x identity, kept for the users who chose it." },
@@ -36,14 +36,36 @@ export const foundations = {
     "--orazaka-space-section": "The fluid gap between sections.",
   },
   typography: [
-    { role: "Display", family: "Outfit", token: "--kz-font-display", use: "Headings and figures (`h1`, `h2`, `.text-display`) — Krizaka Display when the app loads it." },
+    {
+      role: "Display",
+      family: "Outfit",
+      token: "--kz-font-display",
+      use: "Headings and figures (`h1`, `h2`, `.text-display`) — Krizaka Display when the app loads it.",
+    },
     { role: "Body", family: "Inter", token: "--kz-font-sans", use: "Interface and reading text." },
-    { role: "Mono", family: "JetBrains Mono", token: "--kz-font-mono", use: "Data tables, console nodes, prompt streams, model names." },
+    {
+      role: "Mono",
+      family: "JetBrains Mono",
+      token: "--kz-font-mono",
+      use: "Data tables, console nodes, prompt streams, model names.",
+    },
   ],
   icons: [
-    { name: "OrazakaLogo", from: "@krizaka/ui", use: "The brand mark, in the brand's orange — never a placeholder icon." },
-    { name: "Icon", from: "@krizaka/orazaka-design-system", use: "The icon registry: every icon of an Orazaka screen, one typed name per concept; no app imports an icon library." },
-    { name: "SentinelMini", from: "@krizaka/orazaka-design-system", use: "The Sentinel, the guardian of the pipeline, at 24 px." },
+    {
+      name: "OrazakaLogo",
+      from: "@krizaka/ui",
+      use: "The brand mark, in the brand's orange — never a placeholder icon.",
+    },
+    {
+      name: "Icon",
+      from: "@krizaka/orazaka-design-system",
+      use: "The icon registry: every icon of an Orazaka screen, one typed name per concept; no app imports an icon library.",
+    },
+    {
+      name: "SentinelMini",
+      from: "@krizaka/orazaka-design-system",
+      use: "The Sentinel, the guardian of the pipeline, at 24 px.",
+    },
   ],
   rules: [
     {
@@ -78,7 +100,8 @@ export const foundations = {
     },
   ],
   native: {
-    summary: "The mobile app has its own React Native components and takes the same tokens from `@krizaka/orazaka-shared` — the Orazaka orange of @krizaka/tokens/native.",
+    summary:
+      "The mobile app has its own React Native components and takes the same tokens from `@krizaka/orazaka-shared` — the Orazaka orange of @krizaka/tokens/native.",
     code: `import { themes, tokens } from "@krizaka/orazaka-shared";
 
 const t = themes[colorScheme === "light" ? "light" : "dark"];

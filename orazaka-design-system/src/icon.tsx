@@ -17,7 +17,6 @@ import type { IconName } from "./icon.registry";
 
 export type { IconName };
 
-
 interface IconProps {
   /** Icon identifier from the registry */
   name: IconName;
@@ -72,5 +71,3 @@ export function Icon({ name, size = 20, className = "", label, fallback }: Reado
    Every path entry features vector-effect="non-scaling-stroke"
    for visual thickness consistency during layout motion sweeps.
    ═══════════════════════════════════════════════════════════ */
-
-

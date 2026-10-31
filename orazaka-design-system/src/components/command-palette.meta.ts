@@ -2,7 +2,8 @@ import type { ComponentMeta } from "../meta";
 
 export const meta = {
   title: "Command palette",
-  summary: "The Orazaka ⌘K palette: jump to a studio, a chat, a setting — sections, registry icons and a footer of hints, on the platform's command dialog.",
+  summary:
+    "The Orazaka ⌘K palette: jump to a studio, a chat, a setting — sections, registry icons and a footer of hints, on the platform's command dialog.",
   why: "`CommandDialog` from @krizaka/ui gives the combobox, the filtering, the focus trap and Escape. Orazaka adds what is its own: the ⌘K / Ctrl+K shortcut, entries grouped by section with the Orazaka icon registry, and the footer of keyboard hints its consoles share.",
   status: "stable",
   category: "navigation",
@@ -28,11 +29,19 @@ export const meta = {
       { keys: "Enter", action: "Runs the highlighted entry." },
       { keys: "Esc", action: "Closes it and returns the focus." },
     ],
-    notes: ["A dialog with a combobox and a listbox (cmdk on Radix): named by `labels.label`, results by `labels.results`."],
+    notes: [
+      "A dialog with a combobox and a listbox (cmdk on Radix): named by `labels.label`, results by `labels.results`.",
+    ],
   },
   related: ["icon", "ui/command", "ui/kbd"],
   web: {
     imports: ["CommandPalette"],
-    examples: [{ name: "workspace", title: "Eric's workspace", description: "Studios, chats and settings, opened with ⌘K or the button." }],
+    examples: [
+      {
+        name: "workspace",
+        title: "Eric's workspace",
+        description: "Studios, chats and settings, opened with ⌘K or the button.",
+      },
+    ],
   },
 } satisfies ComponentMeta;

@@ -65,5 +65,4 @@ describe("CommandPalette (on @krizaka/ui/command)", () => {
     expect(push).not.toHaveBeenCalled();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
-
 });

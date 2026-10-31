@@ -3,14 +3,32 @@ import { act, fireEvent, render, screen } from "@testing-library/react";
 import { ClipPlayer } from "../ClipPlayer";
 
 const sources = { mp4: "https://cdn.test/a.mp4", webm: "https://cdn.test/a.webm", poster: "https://cdn.test/a.webp" };
-const labels = { badge: "Video · 5 s", play: "Play", pause: "Pause", mute: "Mute", unmute: "Sound on", enlarge: "Open larger", close: "Close" };
+const labels = {
+  badge: "Video · 5 s",
+  play: "Play",
+  pause: "Pause",
+  mute: "Mute",
+  unmute: "Sound on",
+  enlarge: "Open larger",
+  close: "Close",
+};
 let observed: ((entries: { isIntersecting: boolean }[]) => void) | null = null;
 
 function setup(reduce: boolean) {
   observed = null;
-  Object.defineProperty(window, "matchMedia", { writable: true, value: (query: string) => ({ matches: reduce && query.includes("reduce"), media: query, addEventListener: () => {}, removeEventListener: () => {} }) });
+  Object.defineProperty(window, "matchMedia", {
+    writable: true,
+    value: (query: string) => ({
+      matches: reduce && query.includes("reduce"),
+      media: query,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+    }),
+  });
   (globalThis as unknown as { IntersectionObserver: unknown }).IntersectionObserver = class {
-    constructor(cb: (entries: { isIntersecting: boolean }[]) => void) { observed = cb; }
+    constructor(cb: (entries: { isIntersecting: boolean }[]) => void) {
+      observed = cb;
+    }
     observe() {}
     disconnect() {}
   };

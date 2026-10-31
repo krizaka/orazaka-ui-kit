@@ -67,7 +67,19 @@ const heading = "font-mono text-xs font-semibold uppercase tracking-[0.14em] tex
  * @param props - {@link VideoResultProps}
  * @returns The result card of a video run.
  */
-export function VideoResult({ title, sources, orientation = "landscape", prompt, promptNode, facts, reproduce, reproduceLead, downloadHref, labels, className }: Readonly<VideoResultProps>) {
+export function VideoResult({
+  title,
+  sources,
+  orientation = "landscape",
+  prompt,
+  promptNode,
+  facts,
+  reproduce,
+  reproduceLead,
+  downloadHref,
+  labels,
+  className,
+}: Readonly<VideoResultProps>) {
   return (
     <article className={cn("space-y-5", className)} data-orientation={orientation}>
       <figure className="overflow-hidden rounded-2xl border border-border-default bg-surface-2">
@@ -75,7 +87,11 @@ export function VideoResult({ title, sources, orientation = "landscape", prompt,
       </figure>
       <section aria-label={labels.prompt} className="space-y-2">
         <h3 className={heading}>{labels.prompt}</h3>
-        {promptNode ?? <blockquote lang="en" className="text-sm leading-relaxed text-fg-secondary">{prompt}</blockquote>}
+        {promptNode ?? (
+          <blockquote lang="en" className="text-sm leading-relaxed text-fg-secondary">
+            {prompt}
+          </blockquote>
+        )}
       </section>
       <section aria-label={labels.facts} className="space-y-2">
         <h3 className={heading}>{labels.facts}</h3>
@@ -85,7 +101,13 @@ export function VideoResult({ title, sources, orientation = "landscape", prompt,
         <section aria-label={labels.reproduce} className="space-y-2">
           <h3 className={heading}>{labels.reproduce}</h3>
           {reproduceLead && <p className="text-xs leading-relaxed text-fg-secondary">{reproduceLead}</p>}
-          <CodeBlock code={reproduce} language="bash" file="Terminal" copyLabel={labels.copy} copiedLabel={labels.copied} />
+          <CodeBlock
+            code={reproduce}
+            language="bash"
+            file="Terminal"
+            copyLabel={labels.copy}
+            copiedLabel={labels.copied}
+          />
         </section>
       )}
       {downloadHref && (

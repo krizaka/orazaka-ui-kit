@@ -8,10 +8,21 @@ import { createRequire } from "node:module";
 import { join } from "node:path";
 import { describe, it } from "node:test";
 
-import { collectFoundations, collectRegistry, componentNames, EXAMPLES, PACKAGE, PKG, readMeta, reexportsFromUi } from "./registry.mjs";
+import {
+  collectFoundations,
+  collectRegistry,
+  componentNames,
+  EXAMPLES,
+  PACKAGE,
+  PKG,
+  readMeta,
+  reexportsFromUi,
+} from "./registry.mjs";
 
 const require = createRequire(import.meta.url);
-const uiIndex = JSON.parse(readFileSync(join(require.resolve("@krizaka/ui/package.json"), "..", "registry", "index.json"), "utf8"));
+const uiIndex = JSON.parse(
+  readFileSync(join(require.resolve("@krizaka/ui/package.json"), "..", "registry", "index.json"), "utf8"),
+);
 const uiNames = new Set(uiIndex.items.map((i) => i.name));
 const registry = await collectRegistry();
 const names = componentNames();
@@ -22,8 +33,14 @@ const sentence = (value) => typeof value === "string" && value.trim().length >= 
 const resolves = (ref) => (ref.startsWith("ui/") ? uiNames.has(ref.slice(3)) : names.includes(ref));
 
 /** The value exports of src/index.ts (`export { A, B } from …`, types left out). */
-const exported = [...readFileSync(join(PKG, "src", "index.ts"), "utf8").matchAll(/^export\s*\{([^}]+)\}\s*from/gm)].flatMap(([, list]) =>
-  list.split(",").map((s) => s.trim()).filter((s) => s && !s.startsWith("type ")).map((s) => s.split(/\s+as\s+/).pop()),
+const exported = [
+  ...readFileSync(join(PKG, "src", "index.ts"), "utf8").matchAll(/^export\s*\{([^}]+)\}\s*from/gm),
+].flatMap(([, list]) =>
+  list
+    .split(",")
+    .map((s) => s.trim())
+    .filter((s) => s && !s.startsWith("type "))
+    .map((s) => s.split(/\s+as\s+/).pop()),
 );
 /** Design tokens re-exported from @krizaka/orazaka-shared: the foundations, not components. */
 const TOKENS = new Set(["radius", "shadows", "status", "themes", "tokens", "typeScale"]);
@@ -34,7 +51,9 @@ describe("registry", () => {
   it("documents every component the kit exports (re-exports of @krizaka/ui, tokens and class helpers aside)", () => {
     const reexported = new Set(reexportsFromUi().map((r) => r.name));
     const documented = new Set(Object.values(metas).flatMap((m) => m.web.imports));
-    const missing = exported.filter((n) => !reexported.has(n) && !TOKENS.has(n) && !HELPERS.has(n) && !documented.has(n));
+    const missing = exported.filter(
+      (n) => !reexported.has(n) && !TOKENS.has(n) && !HELPERS.has(n) && !documented.has(n),
+    );
     assert.deepEqual(missing, [], "add a <name>.meta.ts for these exports");
     for (const name of documented) assert.ok(exported.includes(name), `${name} is exported`);
   });
@@ -49,7 +68,10 @@ describe("registry", () => {
       for (const list of ["whenToUse", "whenNotToUse", "bestPractices"]) assert.ok(meta[list].length > 0, list);
       assert.ok(meta.accessibility.notes.length > 0);
       if (meta.status === "deprecated") {
-        assert.ok(meta.deprecated?.since && meta.deprecated?.removedIn, "a deprecated component says since when and until when");
+        assert.ok(
+          meta.deprecated?.since && meta.deprecated?.removedIn,
+          "a deprecated component says since when and until when",
+        );
         assert.ok(resolves(meta.deprecated.use), meta.deprecated.use);
       } else {
         assert.equal(meta.deprecated, undefined);
@@ -69,15 +91,23 @@ describe("registry", () => {
         assert.doesNotMatch(example.code, /from "\.\.?\//);
         assert.doesNotMatch(example.code, /\badmin\b/i, `${example.path}: a persona, never an admin`);
       }
-      const undocumented = item.web.props.flatMap((c) => c.props.filter((p) => !p.description.trim()).map((p) => `${c.component}.${p.name}`));
+      const undocumented = item.web.props.flatMap((c) =>
+        c.props.filter((p) => !p.description.trim()).map((p) => `${c.component}.${p.name}`),
+      );
       assert.deepEqual(undocumented, [], "add a JSDoc comment on these props");
     });
   }
 
   it("has no example that no component lists", () => {
     const listed = new Set(registry.flatMap((i) => i.web.examples.map((e) => e.path)));
-    const files = readdirSync(EXAMPLES, { recursive: true }).map(String).filter((f) => f.endsWith(".tsx")).map((f) => `examples/${f.split("\\").join("/")}`);
-    assert.deepEqual(files.filter((f) => !listed.has(f)), []);
+    const files = readdirSync(EXAMPLES, { recursive: true })
+      .map(String)
+      .filter((f) => f.endsWith(".tsx"))
+      .map((f) => `examples/${f.split("\\").join("/")}`);
+    assert.deepEqual(
+      files.filter((f) => !listed.has(f)),
+      [],
+    );
     for (const path of listed) assert.ok(existsSync(join(EXAMPLES, "..", path)), path);
   });
 });
@@ -93,7 +123,11 @@ describe("foundations", () => {
     assert.equal(foundations.namedThemes.length, 5);
     for (const [id, theme] of themes) {
       assert.ok(theme.contrasts.length > 10, id);
-      assert.deepEqual(theme.contrasts.filter((c) => c.ratio < c.min), [], id);
+      assert.deepEqual(
+        theme.contrasts.filter((c) => c.ratio < c.min),
+        [],
+        id,
+      );
     }
   });
 

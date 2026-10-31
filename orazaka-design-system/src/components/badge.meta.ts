@@ -8,13 +8,27 @@ export const meta = {
   category: "data-display",
   platforms: "web",
   builtOn: ["ui/badge"],
-  whenToUse: ["In code already importing `Badge` from `@krizaka/orazaka-design-system`: a model's state, a job's status."],
+  whenToUse: [
+    "In code already importing `Badge` from `@krizaka/orazaka-design-system`: a model's state, a job's status.",
+  ],
   whenNotToUse: [{ when: "In new code: import `Badge` from `@krizaka/ui/badge` and write `tone`.", use: "ui/badge" }],
-  bestPractices: ["Write `tone`, not `variant` (deprecated since 2.0; `default` → `neutral`).", "One or two words: `Local`, `Running`, `Failed`."],
-  accessibility: { keyboard: [], notes: ["The primitive's: a `<span>` read with its content; the colour is never the only signal."] },
+  bestPractices: [
+    "Write `tone`, not `variant` (deprecated since 2.0; `default` → `neutral`).",
+    "One or two words: `Local`, `Running`, `Failed`.",
+  ],
+  accessibility: {
+    keyboard: [],
+    notes: ["The primitive's: a `<span>` read with its content; the colour is never the only signal."],
+  },
   related: ["ui/badge"],
   web: {
     imports: ["Badge"],
-    examples: [{ name: "model-state", title: "A model's state", description: "Local, loading, failed — the tones of the primitive." }],
+    examples: [
+      {
+        name: "model-state",
+        title: "A model's state",
+        description: "Local, loading, failed — the tones of the primitive.",
+      },
+    ],
   },
 } satisfies ComponentMeta;

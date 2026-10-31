@@ -8,13 +8,25 @@ export const meta = {
   category: "data-display",
   platforms: "web",
   builtOn: [],
-  whenToUse: ["Under a generated result (a clip, an image) to say how it was made.", "In a run's detail, beside its steps."],
+  whenToUse: [
+    "Under a generated result (a clip, an image) to say how it was made.",
+    "In a run's detail, beside its steps.",
+  ],
   whenNotToUse: [{ when: "Many rows to compare side by side." }],
-  bestPractices: ["Say the real source (`Made by`, `Run by`), never a flattering one.", "Values are as the run recorded them: never rounded to look better."],
+  bestPractices: [
+    "Say the real source (`Made by`, `Run by`), never a flattering one.",
+    "Values are as the run recorded them: never rounded to look better.",
+  ],
   accessibility: { keyboard: [], notes: ["A `dl`: a screen reader reads each label with its value."] },
   related: ["video-result", "clip-player"],
   web: {
     imports: ["RunFacts"],
-    examples: [{ name: "clip-run", title: "The run of a clip", description: "Model, seed, frame, length and the run id of Eric's tea-pour shot." }],
+    examples: [
+      {
+        name: "clip-run",
+        title: "The run of a clip",
+        description: "Model, seed, frame, length and the run id of Eric's tea-pour shot.",
+      },
+    ],
   },
 } satisfies ComponentMeta;

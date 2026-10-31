@@ -15,13 +15,7 @@ export const CreditBucketSchema = z.enum(["GRANTED", "PURCHASED"]);
 export type CreditBucket = z.infer<typeof CreditBucketSchema>;
 
 /** The capabilities that can be metered. Mirrors the Tier-1 BillableCapability. */
-export const BillableCapabilitySchema = z.enum([
-  "CHAT",
-  "IMAGE",
-  "AUDIO",
-  "VIDEO",
-  "AGENT",
-]);
+export const BillableCapabilitySchema = z.enum(["CHAT", "IMAGE", "AUDIO", "VIDEO", "AGENT"]);
 export type BillableCapability = z.infer<typeof BillableCapabilitySchema>;
 
 /** How a capability's consumption is counted. */
@@ -153,13 +147,7 @@ export const ActorConsumptionSchema = z.object({
 export type ActorConsumption = z.infer<typeof ActorConsumptionSchema>;
 
 /** Lifecycle of a subscription. The first three grant the plan's entitlements. */
-export const SubscriptionStatusSchema = z.enum([
-  "TRIALING",
-  "ACTIVE",
-  "PAST_DUE",
-  "CANCELED",
-  "EXPIRED",
-]);
+export const SubscriptionStatusSchema = z.enum(["TRIALING", "ACTIVE", "PAST_DUE", "CANCELED", "EXPIRED"]);
 export type SubscriptionStatus = z.infer<typeof SubscriptionStatusSchema>;
 
 /** An actor's commercial standing. */
@@ -312,15 +300,9 @@ export function suggestedUnitFor(category: string): BillableUnit {
  * An uncovered model is not cosmetic: the hold refuses it outright rather than
  * guessing a price, so the capability simply stops working for that model.
  */
-export function isModelPriced(
-  model: CatalogModel,
-  rates: Pick<PricebookRate, "capability" | "modelName">[],
-): boolean {
+export function isModelPriced(model: CatalogModel, rates: Pick<PricebookRate, "capability" | "modelName">[]): boolean {
   const capability = capabilityForModelCategory(model.category);
   return rates.some(
-    (rate) =>
-      rate.capability === capability &&
-      (rate.modelName === model.modelName || rate.modelName === null),
+    (rate) => rate.capability === capability && (rate.modelName === model.modelName || rate.modelName === null),
   );
 }
-

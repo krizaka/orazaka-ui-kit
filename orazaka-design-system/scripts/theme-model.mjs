@@ -12,7 +12,9 @@ export function blocks(css) {
   const out = new Map();
   for (const [, selector, body] of flat.matchAll(/([^{}@;]+)\{([^{}]*)\}/g)) {
     const key = selector.trim().replace(/\s+/g, " ");
-    const declarations = Object.fromEntries([...body.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)].map(([, name, value]) => [name, value.trim()]));
+    const declarations = Object.fromEntries(
+      [...body.matchAll(/(--[\w-]+)\s*:([^;]+);/g)].map(([, name, value]) => [name, value.trim()]),
+    );
     out.set(key, { ...out.get(key), ...declarations });
   }
   return out;
@@ -38,7 +40,10 @@ export function rgba(value) {
   }
   const rgb = v.match(/^rgba?\(([^)]+)\)$/);
   if (rgb) {
-    const parts = rgb[1].split(/[\s,/]+/).filter(Boolean).map(Number);
+    const parts = rgb[1]
+      .split(/[\s,/]+/)
+      .filter(Boolean)
+      .map(Number);
     return parts.length === 3 ? [...parts, 1] : parts;
   }
   const hsl = v.match(/^hsla?\(\s*([\d.]+)[\s,]+([\d.]+)%[\s,]+([\d.]+)%(?:[\s,/]+([\d.]+))?\s*\)$/);
@@ -56,11 +61,17 @@ export function rgba(value) {
 export function hex(value) {
   const c = value && rgba(value);
   if (!c || c[3] !== 1) return null;
-  return `#${c.slice(0, 3).map((x) => Math.round(x).toString(16).padStart(2, "0")).join("")}`;
+  return `#${c
+    .slice(0, 3)
+    .map((x) => Math.round(x).toString(16).padStart(2, "0"))
+    .join("")}`;
 }
 
 function luminance(value) {
-  const [r, g, b] = rgba(value).slice(0, 3).map((v) => v / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+  const [r, g, b] = rgba(value)
+    .slice(0, 3)
+    .map((v) => v / 255)
+    .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
