@@ -13,7 +13,7 @@ export function blocks(css) {
   for (const [, selector, body] of flat.matchAll(/([^{}@;]+)\{([^{}]*)\}/g)) {
     const key = selector.trim().replace(/\s+/g, " ");
     const declarations = Object.fromEntries(
-      [...body.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)].map(([, name, value]) => [name, value.trim()]),
+      [...body.matchAll(/(--[\w-]+)\s*:([^;]+);/g)].map(([, name, value]) => [name, value.trim()]),
     );
     out.set(key, { ...out.get(key), ...declarations });
   }

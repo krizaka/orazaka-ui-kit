@@ -248,7 +248,7 @@ export async function collectFoundations() {
         stack.filter(([id]) => id !== "platform").flatMap(([, decls]) => Object.keys(decls)),
       ),
     ),
-  ].sort();
+  ].sort((a, b) => Number(a > b) - Number(a < b));
   for (const [mode, stack] of Object.entries(layers)) {
     const theme = Object.assign({}, ...stack.map(([, decls]) => decls));
     themes[mode] = theme;

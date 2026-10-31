@@ -42,6 +42,6 @@ jobs:
         with:
           package-manager-cache: false
           node-version: 22
-      # The workspaces carry no root lockfile and the design system pins an older @krizaka/config: install the formatter alone.
-      - run: npm install --ignore-scripts --no-audit --no-fund --legacy-peer-deps --no-package-lock
+      # The root lockfile pins the formatter and its config (the design system pins an older @krizaka/config: peers stay legacy).
+      - run: npm ci --ignore-scripts --no-audit --no-fund --legacy-peer-deps
       - run: npm run format:check
