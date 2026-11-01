@@ -1,0 +1,13 @@
+{
+  "project": "krizaka_orazaka-ui-kit",
+  "counts": {
+    "bugs": 1,
+    "vulnerabilities": 0,
+    "hotspots": 0,
+    "smells_blocker": 0,
+    "smells_critical": 1,
+    "smells_major": 6,
+    "smells_minor": 35,
+    "smells_info": 0
+  }
+}
