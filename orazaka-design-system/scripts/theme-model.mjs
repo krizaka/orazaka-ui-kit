@@ -12,8 +12,14 @@ export function blocks(css) {
   const out = new Map();
   for (const [, selector, body] of flat.matchAll(/([^{}@;]+)\{([^{}]*)\}/g)) {
     const key = selector.trim().replace(/\s+/g, " ");
+    // Only declarations closed by a semicolon count: the text after the last one is dropped.
     const declarations = Object.fromEntries(
-      [...body.matchAll(/(--[\w-]+)\s*:([^;]+);/g)].map(([, name, value]) => [name, value.trim()]),
+      body
+        .split(";")
+        .slice(0, -1)
+        .map((declaration) => declaration.match(/^\s*(--[\w-]+)\s*:(.+)$/s))
+        .filter(Boolean)
+        .map(([, name, value]) => [name, value.trim()]),
     );
     out.set(key, { ...out.get(key), ...declarations });
   }
