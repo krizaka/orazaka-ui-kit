@@ -29,9 +29,9 @@ part of the [Orazaka platform](https://github.com/krizaka/orazaka) by [Krizaka](
 
 ## What it provides
 
-| Package | Role |
-|:---|:---|
-| `@krizaka/orazaka-shared` | Framework-agnostic TypeScript types, Zod schemas and **design tokens** — consumed by web, mobile and CLI — the job contract (`JobSchema`, `JobPageSchema`) included. The `dark` and `light` themes are the Orazaka orange of `@krizaka/tokens/native` (held to it by `test/tokens.parity.test.mjs`); text on the accent is `onAccent`. |
+| Package                          | Role                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| :------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@krizaka/orazaka-shared`        | Framework-agnostic TypeScript types, Zod schemas and **design tokens** — consumed by web, mobile and CLI — the job contract (`JobSchema`, `JobPageSchema`) included. The `dark` and `light` themes are the Orazaka orange of `@krizaka/tokens/native` (held to it by `test/tokens.parity.test.mjs`); text on the accent is `onAccent`.                                                                                                           |
 | `@krizaka/orazaka-design-system` | The Orazaka identity on the Krizaka platform: the Orazaka Orange theme and its named themes (Electric Blue is the named theme `electric`) as `--kz-*` overrides (`theme.css`), the product composites (`ChatShowcase`, `SentinelMini`, icon registry), the [`@krizaka/ui`](https://github.com/krizaka/krizaka-ui) primitives re-exported. See [its README](orazaka-design-system/README.md) and [CHANGELOG](orazaka-design-system/CHANGELOG.md). |
 
 ## Use it
@@ -58,11 +58,11 @@ here.
 
 ## Position in the platform
 
-| | |
-|:---|:---|
-| Depends on | _none — this repository is a root of the dependency graph._ |
-| Used by | [`orazaka-web-client`](https://github.com/krizaka/orazaka-web-client) (with its operator console) · [`orazaka-mobile-client`](https://github.com/krizaka/orazaka-mobile-client) |
-| Workspace path | `orazaka-apps/ui/orazaka-ui-kit` |
+|                |                                                                                                                                                                                 |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Depends on     | _none — this repository is a root of the dependency graph._                                                                                                                     |
+| Used by        | [`orazaka-web-client`](https://github.com/krizaka/orazaka-web-client) (with its operator console) · [`orazaka-mobile-client`](https://github.com/krizaka/orazaka-mobile-client) |
+| Workspace path | `orazaka-apps/ui/orazaka-ui-kit`                                                                                                                                                |
 
 ## Build
 
@@ -104,6 +104,20 @@ npx npm@11 publish --workspace=@krizaka/orazaka-design-system --access public
 
 This repository follows the Orazaka governance contract — [AGENTS.md](https://github.com/krizaka/orazaka/blob/main/AGENTS.md)
 in the workspace is normative; the local [AGENTS.md](AGENTS.md) only scopes it to this repository.
+
+<!-- krizaka:workflows:start -->
+
+## Workflows
+
+What runs in the Actions tab of this repository.
+
+- **CI** (`ci.yml`): Lint, tests and build of the repository. Runs on push, on every pull request, on demand.
+- **Dependabot auto-merge** (`dependabot-automerge.yml`): Auto-merges safe Dependabot updates. Runs on every pull request.
+- **Merge resolution** (`merge-resolution.yml`): Fails a PR that drops what main added without a deletion-explained line. Runs on every pull request.
+- **Scorecard** (`scorecard.yml`): OpenSSF Scorecard of the repository. Runs when branch rules change, on a schedule, on demand.
+- **Security scan** (`security.yml`): Secret scan (gitleaks) and workflow scan (zizmor); both are required checks. Runs on every pull request, in the merge queue, on push.
+
+<!-- krizaka:workflows:end -->
 
 ## License
 
